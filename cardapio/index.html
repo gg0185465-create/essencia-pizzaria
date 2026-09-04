@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#174f37" />
+    <meta
+      name="description"
+      content="Cardápio acessível e personalizável da Essência Pizzaria. Escolha ingredientes, ponto da pizza e recursos de leitura."
+    />
+    <title>Essência Pizzaria | Cardápio acessível</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌻</text></svg>" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#cardapio">Ir direto para o cardápio</a>
+
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="Essência Pizzaria — início">
+        <span class="brand-mark" aria-hidden="true">E</span>
+        <span><strong>Essência</strong><small>Pizzaria</small></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a href="../">Nossa história</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#receitas">Receitas</a>
+        <button class="nav-cart" id="open-cart" type="button" aria-label="Abrir meu pedido, nenhum item">
+          Meu pedido <span id="cart-count" aria-hidden="true">0</span>
+        </button>
+      </nav>
+
+      <button class="access-trigger" id="open-access" type="button" aria-haspopup="dialog">
+        <span aria-hidden="true">◉</span>
+        <span>Como prefere ler?</span>
+      </button>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true">🌻</span> Cardápio acolhedor e acessível</p>
+          <h1 id="hero-title">Escolha sua pizza com tranquilidade.</h1>
+          <p class="hero-lead">Veja cada ingrediente, mude o que precisar e confirme no seu ritmo.</p>
+
+          <ol class="order-steps" aria-label="Etapas do pedido">
+            <li><span>1</span> Escolha</li>
+            <li><span>2</span> Personalize</li>
+            <li><span>3</span> Confirme</li>
+          </ol>
+
+          <div class="hero-actions">
+            <a class="button primary" href="#cardapio">Ver as 7 pizzas</a>
+            <button class="button secondary speak-button" type="button" data-speak="intro">Ouvir esta página</button>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="sunflower-ribbon"><span>🌻</span><span>🌻</span><span>🌻</span><span>🌻</span></div>
+          <img src="assets/hero-pizza.png" alt="" width="900" height="900" />
+          <p>Feito com cuidado,<br />servido com propósito.</p>
+        </div>
+      </section>
+
+      <section class="menu-section" id="cardapio" aria-labelledby="menu-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Pizza grande · 8 fatias</p>
+            <h2 id="menu-title">Escolha um sabor</h2>
+            <p>Os ingredientes aparecem antes de você adicionar ao pedido.</p>
+          </div>
+          <button class="quiet-button speak-button" type="button" data-speak="menu">Ouvir sabores e preços</button>
+        </div>
+
+        <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="recipe-section" id="receitas" aria-labelledby="recipe-title">
+        <div class="recipe-intro">
+          <p class="eyebrow">Transparência em cada escolha</p>
+          <h2 id="recipe-title">Nossa base, sem surpresas</h2>
+          <p>As quantidades abaixo são para uma pizza grande. Em cada sabor, você também pode abrir a ficha completa.</p>
+        </div>
+
+        <div class="base-recipes">
+          <article class="recipe-card">
+            <div class="recipe-icon wheat" aria-hidden="true">🌾</div>
+            <h3>Massa Essência</h3>
+            <ul>
+              <li><span>Farinha de trigo</span><strong>250 g</strong></li>
+              <li><span>Água</span><strong>155 ml</strong></li>
+              <li><span>Fermento biológico</span><strong>4 g</strong></li>
+              <li><span>Azeite</span><strong>10 ml</strong></li>
+              <li><span>Açúcar</span><strong>5 g</strong></li>
+              <li><span>Sal</span><strong>5 g</strong></li>
+            </ul>
+          </article>
+
+          <article class="recipe-card">
+            <div class="recipe-icon tomato" aria-hidden="true">🍅</div>
+            <h3>Molho da casa</h3>
+            <ul>
+              <li><span>Tomate italiano</span><strong>90 g</strong></li>
+              <li><span>Azeite</span><strong>5 ml</strong></li>
+              <li><span>Alho</span><strong>1 g</strong></li>
+              <li><span>Orégano</span><strong>1 g</strong></li>
+              <li><span>Sal</span><strong>1 g</strong></li>
+            </ul>
+          </article>
+
+          <article class="recipe-card sensory-card">
+            <div class="recipe-icon heart" aria-hidden="true">♡</div>
+            <h3>Do seu jeito</h3>
+            <p>Você escolhe espessura da massa, borda, ponto de assamento e cada ingrediente.</p>
+            <ul class="simple-list">
+              <li>Texturas previsíveis</li>
+              <li>Observações livres</li>
+              <li>Resumo claro antes de confirmar</li>
+            </ul>
+          </article>
+        </div>
+
+        <aside class="allergy-note" aria-label="Aviso importante sobre alergias">
+          <span aria-hidden="true">!</span>
+          <p><strong>Tem alergia ou intolerância?</strong> Retirar um ingrediente não elimina o risco de contato cruzado. Escreva na observação e confirme com a equipe.</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Essência Pizzaria</strong>
+        <p>Feito com cuidado, servido com propósito.</p>
+      </div>
+      <div class="footer-values" aria-label="Valores da Essência">
+        <span>Clareza</span><span>Autonomia</span><span>Acolhimento</span>
+      </div>
+      <a href="../">Conheça nossa história</a>
+    </footer>
+
+    <dialog class="modal customizer-modal" id="customizer-dialog" aria-labelledby="customizer-title">
+      <form method="dialog" class="modal-shell" id="customizer-form">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow" id="customizer-kicker">Personalize no seu ritmo</p>
+            <h2 id="customizer-title">Personalizar pizza</h2>
+          </div>
+          <button class="icon-button" type="button" data-close="customizer-dialog" aria-label="Fechar personalização">×</button>
+        </header>
+
+        <div class="customizer-layout">
+          <div class="customizer-main">
+            <section class="choice-section" aria-labelledby="ingredients-title">
+              <div class="choice-heading">
+                <div>
+                  <p class="step-label">1 de 4</p>
+                  <h3 id="ingredients-title">Ingredientes da receita</h3>
+                  <p>Desmarque somente o que você não quer.</p>
+                </div>
+                <button class="quiet-button" id="reset-ingredients" type="button">Restaurar receita</button>
+              </div>
+              <div class="ingredient-list" id="ingredient-list"></div>
+              <p class="removed-summary" id="removed-summary" aria-live="polite">Nenhum ingrediente retirado.</p>
+            </section>
+
+            <section class="choice-section" aria-labelledby="extras-title">
+              <div class="choice-heading">
+                <div>
+                  <p class="step-label">2 de 4</p>
+                  <h3 id="extras-title">Quer acrescentar algo?</h3>
+                  <p>Os adicionais aparecem separados no resumo.</p>
+                </div>
+              </div>
+              <div class="extras-grid" id="extras-list"></div>
+            </section>
+
+            <section class="choice-section" aria-labelledby="preparation-title">
+              <div class="choice-heading">
+                <div>
+                  <p class="step-label">3 de 4</p>
+                  <h3 id="preparation-title">Como você prefere?</h3>
+                  <p>Escolha uma opção em cada grupo.</p>
+                </div>
+              </div>
+
+              <div class="option-groups">
+                <fieldset>
+                  <legend>Espessura da massa</legend>
+                  <label><input type="radio" name="dough" value="Fina" /> <span>Fina<small>Mais crocante</small></span></label>
+                  <label><input type="radio" name="dough" value="Tradicional" checked /> <span>Tradicional<small>Equilíbrio de maciez</small></span></label>
+                  <label><input type="radio" name="dough" value="Alta" /> <span>Alta<small>Mais macia</small></span></label>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Ponto de assamento</legend>
+                  <label><input type="radio" name="bake" value="Clara" /> <span>Clara<small>Menos tostada</small></span></label>
+                  <label><input type="radio" name="bake" value="No ponto" checked /> <span>No ponto<small>Assamento padrão</small></span></label>
+                  <label><input type="radio" name="bake" value="Bem assada" /> <span>Bem assada<small>Mais dourada e crocante</small></span></label>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Borda</legend>
+                  <label><input type="radio" name="crust" value="Tradicional" data-price="0" checked /> <span>Tradicional<small>Sem acréscimo</small></span></label>
+                  <label><input type="radio" name="crust" value="Catupiry" data-price="10" /> <span>Catupiry<small>+ R$ 10,00</small></span></label>
+                  <label><input type="radio" name="crust" value="Cheddar" data-price="12" /> <span>Cheddar<small>+ R$ 12,00</small></span></label>
+                </fieldset>
+              </div>
+            </section>
+
+            <section class="choice-section" aria-labelledby="notes-title">
+              <div class="choice-heading">
+                <div>
+                  <p class="step-label">4 de 4</p>
+                  <h3 id="notes-title">Observações</h3>
+                  <p>Conte o que ajuda a preparar seu pedido com segurança.</p>
+                </div>
+              </div>
+              <label class="textarea-label" for="order-notes">Observação para a cozinha <span>opcional</span></label>
+              <textarea id="order-notes" maxlength="240" rows="4" placeholder="Ex.: cortar em pedaços menores; servir o molho separado; atenção à alergia..."></textarea>
+              <div class="textarea-meta"><span>Evite colocar dados pessoais.</span><span id="notes-count">0/240</span></div>
+            </section>
+
+            <details class="full-recipe" id="full-recipe">
+              <summary>Ver a receita completa e as quantidades</summary>
+              <div id="full-recipe-content"></div>
+            </details>
+          </div>
+
+          <aside class="order-summary" aria-labelledby="summary-title">
+            <p class="eyebrow">Revise enquanto escolhe</p>
+            <h3 id="summary-title">Resumo da pizza</h3>
+            <div id="live-summary"></div>
+            <div class="summary-total"><span>Total desta pizza</span><strong id="custom-total">R$ 0,00</strong></div>
+            <button class="button primary full" id="add-customized" type="button">Adicionar ao pedido</button>
+            <button class="button text-button full speak-button" type="button" data-speak="customizer">Ouvir meu resumo</button>
+          </aside>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="modal access-modal" id="access-dialog" aria-labelledby="access-title">
+      <form method="dialog" class="modal-shell compact-shell">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Você pode mudar quando quiser</p>
+            <h2 id="access-title">Como você prefere ler?</h2>
+          </div>
+          <button class="icon-button" type="button" data-close="access-dialog" aria-label="Fechar opções de acessibilidade">×</button>
+        </header>
+
+        <div class="access-options">
+          <button type="button" class="access-option" id="read-page">
+            <span class="access-option-icon blue" aria-hidden="true">▶</span>
+            <span><strong>Áudio + texto</strong><small>Ouvir o conteúdo visível e acompanhar por escrito.</small></span>
+          </button>
+          <button type="button" class="access-option" id="open-libras">
+            <span class="access-option-icon green" aria-hidden="true">L</span>
+            <span><strong>Libras + texto</strong><small>Abrir o personagem do tradutor oficial VLibras.</small></span>
+          </button>
+          <button type="button" class="access-option toggle-option" id="toggle-font" aria-pressed="false">
+            <span class="access-option-icon yellow" aria-hidden="true">A+</span>
+            <span><strong>Texto maior</strong><small>Aumentar letras, botões e espaçamento.</small></span>
+            <span class="switch" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="access-option toggle-option" id="toggle-contrast" aria-pressed="false">
+            <span class="access-option-icon red" aria-hidden="true">◐</span>
+            <span><strong>Alto contraste</strong><small>Destacar textos e contornos.</small></span>
+            <span class="switch" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="access-option toggle-option" id="toggle-focus" aria-pressed="false">
+            <span class="access-option-icon purple" aria-hidden="true">◎</span>
+            <span><strong>Modo foco</strong><small>Reduzir movimentos, sombras e elementos decorativos.</small></span>
+            <span class="switch" aria-hidden="true"></span>
+          </button>
+        </div>
+        <button class="button primary full" type="button" data-close="access-dialog">Concluir ajustes</button>
+      </form>
+    </dialog>
+
+    <dialog class="modal cart-modal" id="cart-dialog" aria-labelledby="cart-title">
+      <form method="dialog" class="modal-shell compact-shell">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Tudo em um só lugar</p>
+            <h2 id="cart-title">Meu pedido</h2>
+          </div>
+          <button class="icon-button" type="button" data-close="cart-dialog" aria-label="Fechar meu pedido">×</button>
+        </header>
+        <div id="cart-items" class="cart-items"></div>
+        <div id="cart-checkout" class="checkout-area" hidden>
+          <fieldset class="checkout-choice">
+            <legend>Como vai receber?</legend>
+            <label><input type="radio" name="service" value="Comer no local" checked /> Comer no local</label>
+            <label><input type="radio" name="service" value="Retirar no balcão" /> Retirar no balcão</label>
+          </fieldset>
+          <fieldset class="checkout-choice">
+            <legend>Forma de pagamento</legend>
+            <label><input type="radio" name="payment" value="Pix" checked /> Pix</label>
+            <label><input type="radio" name="payment" value="Cartão" /> Cartão</label>
+            <label><input type="radio" name="payment" value="Dinheiro" /> Dinheiro</label>
+          </fieldset>
+          <label class="textarea-label" for="customer-name">Nome para o pedido</label>
+          <input class="text-input" id="customer-name" autocomplete="name" placeholder="Digite seu nome" />
+        </div>
+        <div class="cart-total" id="cart-total" hidden><span>Total do pedido</span><strong>R$ 0,00</strong></div>
+        <button class="button primary full" id="confirm-order" type="button" hidden>Confirmar pedido</button>
+        <button class="button secondary full speak-button" id="speak-cart" type="button" data-speak="cart" hidden>Ouvir meu pedido</button>
+      </form>
+    </dialog>
+
+    <dialog class="modal success-modal" id="success-dialog" aria-labelledby="success-title">
+      <div class="modal-shell compact-shell success-shell">
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <p class="eyebrow">Pedido organizado</p>
+        <h2 id="success-title">Tudo certo!</h2>
+        <p id="success-message">Seu resumo está pronto.</p>
+        <div class="success-code"><span>Código demonstrativo</span><strong id="order-code">ESS-0000</strong></div>
+        <button class="button primary full" id="copy-order" type="button">Copiar resumo do pedido</button>
+        <button class="button secondary full" id="new-order" type="button">Começar novo pedido</button>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div vw class="enabled" aria-label="Tradutor de Libras">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

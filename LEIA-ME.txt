@@ -1,0 +1,32 @@
+ESSÊNCIA PIZZARIA — PROJETO COMPLETO
+
+COMO ABRIR NO VISUAL STUDIO CODE
+
+1. Extraia o arquivo ZIP.
+2. Abra o Visual Studio Code.
+3. Clique em Arquivo > Abrir Pasta.
+4. Selecione a pasta Essencia-Pizzaria-Completo-VSCode.
+5. Se aparecer uma mensagem de confiança, confirme que você confia na pasta.
+6. Na lateral esquerda, clique com o botão direito em index.html.
+7. Escolha Open with Live Server.
+
+Se a opção Open with Live Server não aparecer:
+
+1. Clique no ícone de Extensões na lateral do VS Code.
+2. Pesquise por Live Server.
+3. Instale a extensão criada por Ritwick Dey.
+4. Volte ao arquivo index.html e repita o passo 7.
+
+ARQUIVOS PRINCIPAIS
+
+index.html        Página institucional e história da empresa.
+styles.css        Aparência e responsividade da página institucional.
+app.js            Áudio, acessibilidade, Libras e interações.
+assets/           Imagem do ambiente da pizzaria.
+cardapio/         Demonstração completa do cardápio interativo.
+
+O botão no final da página institucional abre cardapio/index.html.
+
+IMPORTANTE
+
+Este é um protótipo acadêmico. Ele não processa pagamentos reais nem envia pedidos para uma cozinha. A integração com o VLibras precisa de conexão com a internet para carregar.
