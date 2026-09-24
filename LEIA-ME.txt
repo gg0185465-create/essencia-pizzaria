@@ -1,32 +1,313 @@
-ESSÊNCIA PIZZARIA — PROJETO COMPLETO
+ESSENCIA PIZZARIA — PROJETO COMPLETO
+====================================================================
+
+
+O QUE MUDOU NESTA VERSAO
+--------------------------------------------------------------------
+
+1. CRIE SUA PIZZA
+   No cardapio, o primeiro card agora e "Crie sua pizza" (borda
+   tracejada, com um + amarelo). O cliente comeca com a massa e o
+   molho por um preco base e vai somando queijos, carnes, legumes e
+   finalizacoes com botoes + e -, igual ao Burger King. Da para
+   repetir o mesmo ingrediente ate 3 vezes. O preco atualiza a cada
+   toque e o resumo fica sempre a vista.
+
+2. PAINEL DO CARDAPIO PELO CELULAR
+   Arquivo: cardapio/admin.html
+   Voce edita pizzas, precos, ingredientes, adicionais, bordas e o
+   montador direto do celular, sem mexer em codigo. Veja abaixo
+   como publicar.
+
+3. CARDAPIO COMPLETO
+   21 sabores, com ingredientes, quantidades e aviso de alergenos
+   (leite, gluten, ovo, peixe, crustaceo, soja) em cada pizza.
+
+4. LOGO PROPRIO
+   assets/logo-essencia.svg         (logo completo, com o nome)
+   assets/logo-essencia-marca.svg   (so o simbolo, usado como icone)
+   Uma pizza repartida em 4 fatias nas cores da acessibilidade, com
+   um coracao no centro. E SVG: nao perde qualidade em nenhum
+   tamanho e pode ser impresso em banner.
+
+5. PALETA DE ACESSIBILIDADE
+   Verde (acolhimento / Girassol), Amarelo (visibilidade), Azul
+   (Simbolo Internacional de Acesso), Vermelho (atencao) e Roxo
+   (neurodiversidade). Todas as combinacoes de texto e fundo foram
+   conferidas e passam no nivel AA da WCAG. O vermelho e o azul
+   antigos reprovavam e foram corrigidos.
+
+6. MARCAR O QUE ACABOU ("nao tem hoje")
+   Aba "O que acabou" no painel. Uma tela so, com tudo listado:
+   pizzas, adicionais, bordas e cada ingrediente do Crie sua pizza.
+   Cada linha tem um botao TEM / ACABOU.
+
+   O que o cliente ve quando algo esta marcado:
+     - Pizza: card cinza, etiqueta "Acabou hoje" e o botao de pedir
+       desativado. O contador vira "20 sabores hoje, 1 esgotado".
+     - Adicional, borda ou ingrediente: fica riscado, escrito
+       "Acabou hoje", e nao da para selecionar.
+     - Se alguem ja tinha colocado essa pizza no pedido, o carrinho
+       avisa e nao deixa confirmar ate remover.
+   O botao "Marcar tudo como disponivel" limpa tudo de uma vez,
+   util no comeco do dia.
+
+7. TOPO DO CARDAPIO REFEITO
+   A pizza da capa estava esticada em formato de ovo (faltava
+   height: auto no CSS; o atributo height="900" do HTML vencia).
+   Corrigido. A fita verde torta com os girassois foi removida.
+   No lugar entrou um prato redondo com o aro nas quatro cores do
+   logo, repetindo a marca.
+
+8. LINKS CORRIGIDOS
+   Cinco links apontavam para a pasta (cardapio/) em vez do arquivo.
+   Em servidor funcionava; abrindo o arquivo direto no computador,
+   mostrava a lista de arquivos da pasta. Agora apontam para
+   cardapio/index.html e funcionam dos dois jeitos.
+
 
 COMO ABRIR NO VISUAL STUDIO CODE
+--------------------------------------------------------------------
 
 1. Extraia o arquivo ZIP.
 2. Abra o Visual Studio Code.
 3. Clique em Arquivo > Abrir Pasta.
 4. Selecione a pasta Essencia-Pizzaria-Completo-VSCode.
-5. Se aparecer uma mensagem de confiança, confirme que você confia na pasta.
-6. Na lateral esquerda, clique com o botão direito em index.html.
+5. Se aparecer uma mensagem de confianca, confirme.
+6. Clique com o botao direito em index.html.
 7. Escolha Open with Live Server.
 
-Se a opção Open with Live Server não aparecer:
+Se "Open with Live Server" nao aparecer, instale a extensao
+Live Server (de Ritwick Dey) e repita o passo 7.
 
-1. Clique no ícone de Extensões na lateral do VS Code.
-2. Pesquise por Live Server.
-3. Instale a extensão criada por Ritwick Dey.
-4. Volte ao arquivo index.html e repita o passo 7.
 
-ARQUIVOS PRINCIPAIS
+ARQUIVOS
+--------------------------------------------------------------------
 
-index.html        Página institucional e história da empresa.
-styles.css        Aparência e responsividade da página institucional.
-app.js            Áudio, acessibilidade, Libras e interações.
-assets/           Imagem do ambiente da pizzaria.
-cardapio/         Demonstração completa do cardápio interativo.
+index.html              Pagina institucional e historia da empresa.
+styles.css              Aparencia da pagina institucional.
+app.js                  Audio, acessibilidade, Libras.
+assets/                 Logo e imagens.
 
-O botão no final da página institucional abre cardapio/index.html.
+cardapio/index.html     Cardapio interativo.
+cardapio/styles.css     Aparencia do cardapio.
+cardapio/app.js         Motor do cardapio, pedido e montador.
+cardapio/menu-dados.js  >>> TODO O CARDAPIO ESTA AQUI <<<
+cardapio/admin.html     Painel para editar o cardapio pelo celular.
+
+
+COMO MUDAR O CARDAPIO (PELO CELULAR)
+--------------------------------------------------------------------
+
+Abra no celular:   <seu-site>/cardapio/admin.html
+Guarde nos favoritos. Pede login (veja mais abaixo).
+
+Dentro do painel existem 6 abas: Pizzas, Adicionais, Bordas,
+Crie sua pizza, O que acabou e Publicar.
+
+Sao DUAS coisas diferentes, nao confunda:
+
+  SALVAR  -> guarda so no seu celular. Serve para voce conferir
+             como ficou antes de mostrar para os clientes.
+
+  PUBLICAR-> troca o arquivo no GitHub. Ai sim todo mundo ve.
+
+Para publicar de verdade:
+
+  1. Aba "Publicar" > botao "Copiar o arquivo novo".
+  2. Abra seu repositorio no GitHub pelo celular.
+  3. Entre na pasta  cardapio  e toque em  menu-dados.js
+  4. Toque no lapis (Edit). Se nao aparecer, toque nos tres
+     pontinhos e escolha "Edit in place".
+  5. Apague TUDO que esta no arquivo.
+  6. Cole o que voce copiou.
+  7. Desca e toque em "Commit changes".
+  8. Espere 1 ou 2 minutos e abra o site.
+
+Se preferir pelo computador: use "Baixar menu-dados.js" e substitua
+o arquivo da pasta cardapio.
+
+Observacao: o painel roda inteiro no navegador. Ele nao tem senha
+porque nao tem servidor e nao consegue alterar o site sozinho: ele
+so gera o arquivo que VOCE decide publicar no GitHub. Quem abrir o
+endereco so mexe na copia do proprio aparelho.
+
+
+IMPORTANTE SOBRE O "ACABOU": NAO E AUTOMATICO
+--------------------------------------------------------------------
+
+O site e estatico, hospedado no GitHub Pages. Nao existe servidor
+por tras dele. Entao marcar "acabou" no seu celular NAO muda
+sozinho o que os clientes veem.
+
+Sao sempre dois passos:
+
+  1. SALVAR   -> vale no seu aparelho (para voce conferir).
+  2. PUBLICAR -> aba Publicar > "Copiar o arquivo novo" > colar no
+                 GitHub. Ai sim todo mundo ve.
+
+Publicar leva menos de um minuto pelo celular, mas precisa ser
+feito. Se quiser que o "acabou" apareca na hora para o cliente, sem
+publicar, o site precisaria de um servidor ou de um banco de dados
+online - a i ja e outro projeto, com custo mensal. Me avise se um
+dia quiser esse caminho.
+
+
+OS DOIS SITES E COMO ELES SE CONVERSAM
+--------------------------------------------------------------------
+
+Sao duas paginas dentro do MESMO repositorio do GitHub. Nao e outro
+repositorio, nao e outro link, nao e outra hospedagem.
+
+  SITE DO CLIENTE     ->  <seusite>/cardapio/
+                          Arquivo: cardapio/index.html
+                          So LE o cardapio. Ninguem altera nada por aqui.
+
+  SITE DA EQUIPE      ->  <seusite>/cardapio/admin.html
+                          Arquivo: cardapio/admin.html
+                          Pede login e MONTA o cardapio novo.
+
+O QUE LIGA OS DOIS e um unico arquivo:
+
+                    cardapio/menu-dados.js
+
+  O painel da equipe ESCREVE esse arquivo.
+  O site do cliente LE esse arquivo.
+
+E so isso. Nao tem banco de dados, nao tem servidor, nao tem conta
+em lugar nenhum. E um arquivo de texto que os dois compartilham.
+
+               PAINEL              menu-dados.js            CARDAPIO
+            (admin.html)  --->    (o arquivo)      --->    (index.html)
+              escreve             fica no GitHub              le
+
+
+COMO FAZER UM SITE MEXER NO OUTRO, NA PRATICA
+--------------------------------------------------------------------
+
+Depois que tudo estiver publicado no GitHub, o dia a dia e assim:
+
+  1. No celular, abra   <seusite>/cardapio/admin.html
+  2. Faca login.
+  3. Mude o que precisar: preco, ingrediente, ou marque o que acabou.
+  4. Toque em SALVAR. (Ate aqui so mudou no seu celular.)
+  5. Va na aba PUBLICAR e toque em "Copiar o arquivo novo".
+  6. Abra o GitHub no navegador, entre na pasta cardapio e toque no
+     arquivo menu-dados.js
+  7. Toque no lapis (Edit), apague tudo, cole, e "Commit changes".
+  8. Espere 1 ou 2 minutos.
+
+Pronto: o cardapio que os clientes veem mudou. O link e o QR Code
+continuam exatamente os mesmos, porque voce nao criou arquivo novo
+nem pasta nova - voce so trocou o conteudo de um arquivo que ja
+existia.
+
+Por que o passo 5 ao 7 e necessario: o GitHub Pages so entrega
+arquivos, ele nao aceita gravacao vinda do navegador. Entao o painel
+nao consegue salvar sozinho no site. Ele prepara o arquivo e voce da
+o commit. E o unico jeito sem contratar um servidor.
+
+
+LOGIN DO PAINEL DA EQUIPE
+--------------------------------------------------------------------
+
+  Usuario: Victor Brunno
+  Senha:   1234
+
+Nao diferencia maiuscula de minuscula nem espaco a mais no nome.
+A sessao dura ate fechar a aba. Tem botao "Sair" no cabecalho.
+
+LEIA ISTO COM ATENCAO - a senha NAO protege de verdade:
+
+Como o site e estatico, o usuario e a senha ficam escritos dentro do
+arquivo admin.html, que qualquer pessoa pode ler clicando com o botao
+direito em "Exibir codigo fonte". Quem souber fazer isso entra.
+
+Isso serve para:
+  - evitar que alguem da equipe mexa por engano;
+  - mostrar na apresentacao do trabalho como seria o acesso restrito.
+
+Isso NAO serve para:
+  - proteger dados de verdade;
+  - impedir alguem determinado a entrar.
+
+Na pratica isso nao e perigoso, porque o painel NAO altera o site
+publicado. O maximo que um estranho conseguiria e bagunçar o cardapio
+do proprio aparelho dele. Para mudar o que os clientes veem, e preciso
+ter acesso a sua conta do GitHub.
+
+Se um dia o projeto virar um negocio de verdade e precisar de login
+com senha protegida, ai sim o site precisa de servidor (e de uma
+mensalidade). Me chame quando chegar essa hora.
+
+Para trocar usuario ou senha: abra cardapio/admin.html, procure a
+linha que comeca com  var ACESSO =  e mude ali. O usuario precisa
+estar escrito em letra minuscula nessa linha.
+
+
+PUBLICAR NO GITHUB SEM MUDAR A URL (O QR CODE CONTINUA VALENDO)
+--------------------------------------------------------------------
+
+O endereco do site depende do NOME DO REPOSITORIO e do NOME DAS
+PASTAS. Enquanto esses nomes nao mudarem, a URL e o QR Code
+continuam funcionando igual.
+
+REGRA DE OURO:
+  Nao crie repositorio novo. Nao renomeie pasta. Nao renomeie
+  arquivo. Voce so SUBSTITUI o conteudo dos arquivos que ja existem.
+
+Passo a passo pelo site do GitHub:
+
+  1. Abra o seu repositorio (o mesmo de sempre).
+  2. Clique em "Add file" > "Upload files".
+  3. Arraste TODOS os arquivos e pastas de dentro de
+     Essencia-Pizzaria-Completo-VSCode
+     (index.html, styles.css, app.js, a pasta assets e a pasta
+     cardapio).
+  4. Confirme substituir os que ja existem.
+  5. Escreva algo em "Commit changes" e confirme.
+  6. Espere 1 ou 2 minutos (o GitHub Pages leva um tempinho).
+  7. Abra o site e atualize a pagina segurando o botao de recarregar
+     para limpar o cache.
+
+Se voce usa Git no computador:
+
+     git add .
+     git commit -m "Cardapio novo: Crie sua pizza, painel e logo"
+     git push
+
+Arquivos NOVOS que precisam subir junto (senao falta coisa):
+     assets/logo-essencia.svg
+     assets/logo-essencia-marca.svg
+     cardapio/menu-dados.js
+     cardapio/admin.html
+
+CUIDADO: nao suba este projeto para dentro de uma subpasta nova
+(tipo /v2/ ou /novo/). Isso muda a URL e quebra o QR Code.
+
+
+ACESSIBILIDADE
+--------------------------------------------------------------------
+
+Em qualquer pagina, no botao "Como prefere ler?" / "Acessibilidade":
+  - Audio + texto (leitura em voz alta, com botao de parar)
+  - Libras (VLibras, precisa de internet)
+  - Texto maior
+  - Alto contraste
+  - Modo foco (reduz movimento e enfeites)
+
+As escolhas ficam salvas e valem tambem no cardapio.
+
+Tudo funciona so com o teclado, os alvos de toque tem no minimo
+44 pixels e cada pizza mostra os alergenos que contem.
+
 
 IMPORTANTE
+--------------------------------------------------------------------
 
-Este é um protótipo acadêmico. Ele não processa pagamentos reais nem envia pedidos para uma cozinha. A integração com o VLibras precisa de conexão com a internet para carregar.
+Este e um prototipo academico. Ele nao processa pagamentos reais
+nem envia pedidos para uma cozinha. O VLibras precisa de internet.
+
+Retirar um ingrediente na tela nao elimina risco de contato
+cruzado na cozinha — o aviso de alergia esta no cardapio de
+proposito e deve continuar la.

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-labelledby="marcaTitulo marcaDesc">
+  <title id="marcaTitulo">Marca da Essência Pizzaria</title>
+  <desc id="marcaDesc">Pizza vista de cima, dividida em quatro fatias nas cores da acessibilidade — verde, amarelo, azul e vermelho — com um coração no centro.</desc>
+
+  <circle cx="60" cy="60" r="58" fill="#fffaf0"/>
+  <circle cx="60" cy="60" r="52" fill="#e8d5ae"/>
+
+  <!-- Fatia 1: verde — acolhimento -->
+  <path d="M60 60 L62.30 16.06 A44 44 0 0 1 103.94 57.70 Z" fill="#1d7247"/>
+  <!-- Fatia 2: amarelo girassol — deficiências não aparentes -->
+  <path d="M60 60 L103.94 62.30 A44 44 0 0 1 62.30 103.94 Z" fill="#f2b632"/>
+  <!-- Fatia 3: azul — símbolo internacional de acesso -->
+  <path d="M60 60 L57.70 103.94 A44 44 0 0 1 16.06 62.30 Z" fill="#0b5fb0"/>
+  <!-- Fatia 4: vermelho — energia e alerta -->
+  <path d="M60 60 L16.06 57.70 A44 44 0 0 1 57.70 16.06 Z" fill="#c8402f"/>
+
+  <circle cx="60" cy="60" r="15" fill="#fffaf0"/>
+  <path d="M60 68.4c-6.4-4.3-9.4-7.4-9.4-11.1a4.9 4.9 0 0 1 9.4-2 4.9 4.9 0 0 1 9.4 2c0 3.7-3 6.8-9.4 11.1z" fill="#c8402f"/>
+</svg>

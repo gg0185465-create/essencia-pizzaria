@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 120" width="460" height="120" role="img" aria-labelledby="logoTitulo logoDesc">
+  <title id="logoTitulo">Essência Pizzaria Inclusiva</title>
+  <desc id="logoDesc">Marca da Essência Pizzaria: uma pizza dividida em quatro fatias nas cores da acessibilidade, ao lado do nome Essência e da assinatura Pizzaria Inclusiva.</desc>
+
+  <circle cx="60" cy="60" r="58" fill="#fffaf0"/>
+  <circle cx="60" cy="60" r="52" fill="#e8d5ae"/>
+  <path d="M60 60 L62.30 16.06 A44 44 0 0 1 103.94 57.70 Z" fill="#1d7247"/>
+  <path d="M60 60 L103.94 62.30 A44 44 0 0 1 62.30 103.94 Z" fill="#f2b632"/>
+  <path d="M60 60 L57.70 103.94 A44 44 0 0 1 16.06 62.30 Z" fill="#0b5fb0"/>
+  <path d="M60 60 L16.06 57.70 A44 44 0 0 1 57.70 16.06 Z" fill="#c8402f"/>
+  <circle cx="60" cy="60" r="15" fill="#fffaf0"/>
+  <path d="M60 68.4c-6.4-4.3-9.4-7.4-9.4-11.1a4.9 4.9 0 0 1 9.4-2 4.9 4.9 0 0 1 9.4 2c0 3.7-3 6.8-9.4 11.1z" fill="#c8402f"/>
+
+  <text x="140" y="62" font-family="Georgia, 'Times New Roman', serif" font-size="46" font-weight="700" fill="#10372a">Essência</text>
+  <text x="142" y="88" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" letter-spacing="4.2" fill="#1d7247">PIZZARIA INCLUSIVA</text>
+</svg>

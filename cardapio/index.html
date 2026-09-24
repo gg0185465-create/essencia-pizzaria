@@ -2,27 +2,28 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#174f37" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#10372a" />
     <meta
       name="description"
-      content="Cardápio acessível e personalizável da Essência Pizzaria. Escolha ingredientes, ponto da pizza e recursos de leitura."
+      content="Cardápio acessível e personalizável da Essência Pizzaria. Escolha ingredientes, monte sua própria pizza e use os recursos de leitura."
     />
     <title>Essência Pizzaria | Cardápio acessível</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌻</text></svg>" />
+    <link rel="icon" href="../assets/logo-essencia-marca.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="../assets/logo-essencia-marca.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#cardapio">Ir direto para o cardápio</a>
 
     <header class="site-header">
-      <a class="brand" href="#inicio" aria-label="Essência Pizzaria — início">
-        <span class="brand-mark" aria-hidden="true">E</span>
-        <span><strong>Essência</strong><small>Pizzaria</small></span>
+      <a class="brand" href="../index.html" aria-label="Essência Pizzaria — nossa história">
+        <img class="brand-logo" src="../assets/logo-essencia-marca.svg" alt="" width="52" height="52" />
+        <span><strong>Essência</strong><small>Pizzaria inclusiva</small></span>
       </a>
 
       <nav class="main-nav" aria-label="Navegação principal">
-        <a href="../">Nossa história</a>
+        <a href="../index.html">Nossa história</a>
         <a href="#cardapio">Cardápio</a>
         <a href="#receitas">Receitas</a>
         <button class="nav-cart" id="open-cart" type="button" aria-label="Abrir meu pedido, nenhum item">
@@ -41,7 +42,7 @@
         <div class="hero-copy">
           <p class="eyebrow"><span aria-hidden="true">🌻</span> Cardápio acolhedor e acessível</p>
           <h1 id="hero-title">Escolha sua pizza com tranquilidade.</h1>
-          <p class="hero-lead">Veja cada ingrediente, mude o que precisar e confirme no seu ritmo.</p>
+          <p class="hero-lead">Veja cada ingrediente, mude o que precisar, monte a sua do zero e confirme no seu ritmo.</p>
 
           <ol class="order-steps" aria-label="Etapas do pedido">
             <li><span>1</span> Escolha</li>
@@ -50,23 +51,24 @@
           </ol>
 
           <div class="hero-actions">
-            <a class="button primary" href="#cardapio">Ver as 7 pizzas</a>
+            <a class="button primary" href="#cardapio" id="hero-menu-link">Ver os sabores</a>
             <button class="button secondary speak-button" type="button" data-speak="intro">Ouvir esta página</button>
           </div>
         </div>
 
         <div class="hero-visual" aria-hidden="true">
-          <div class="sunflower-ribbon"><span>🌻</span><span>🌻</span><span>🌻</span><span>🌻</span></div>
-          <img src="assets/hero-pizza.png" alt="" width="900" height="900" />
-          <p>Feito com cuidado,<br />servido com propósito.</p>
+          <div class="hero-plate">
+            <img src="assets/hero-pizza.png" alt="" width="900" height="900" />
+          </div>
+          <p class="hero-badge">Feito com cuidado,<br />servido com propósito.</p>
         </div>
       </section>
 
       <section class="menu-section" id="cardapio" aria-labelledby="menu-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Pizza grande · 8 fatias</p>
-            <h2 id="menu-title">Escolha um sabor</h2>
+            <p class="eyebrow" id="menu-count">Pizza grande · 8 fatias</p>
+            <h2 id="menu-title">Escolha um sabor ou monte o seu</h2>
             <p>Os ingredientes aparecem antes de você adicionar ao pedido.</p>
           </div>
           <button class="quiet-button speak-button" type="button" data-speak="menu">Ouvir sabores e preços</button>
@@ -128,16 +130,17 @@
     </main>
 
     <footer class="site-footer">
-      <div>
-        <strong>Essência Pizzaria</strong>
+      <div class="footer-brand-block">
+        <img src="../assets/logo-essencia.svg" alt="Essência Pizzaria Inclusiva" width="230" height="60" />
         <p>Feito com cuidado, servido com propósito.</p>
       </div>
       <div class="footer-values" aria-label="Valores da Essência">
         <span>Clareza</span><span>Autonomia</span><span>Acolhimento</span>
       </div>
-      <a href="../">Conheça nossa história</a>
+      <a href="../index.html">Conheça nossa história</a>
     </footer>
 
+    <!-- ================= PERSONALIZAR UMA PIZZA DO CARDAPIO ================= -->
     <dialog class="modal customizer-modal" id="customizer-dialog" aria-labelledby="customizer-title">
       <form method="dialog" class="modal-shell" id="customizer-form">
         <header class="modal-header">
@@ -182,29 +185,7 @@
                   <p>Escolha uma opção em cada grupo.</p>
                 </div>
               </div>
-
-              <div class="option-groups">
-                <fieldset>
-                  <legend>Espessura da massa</legend>
-                  <label><input type="radio" name="dough" value="Fina" /> <span>Fina<small>Mais crocante</small></span></label>
-                  <label><input type="radio" name="dough" value="Tradicional" checked /> <span>Tradicional<small>Equilíbrio de maciez</small></span></label>
-                  <label><input type="radio" name="dough" value="Alta" /> <span>Alta<small>Mais macia</small></span></label>
-                </fieldset>
-
-                <fieldset>
-                  <legend>Ponto de assamento</legend>
-                  <label><input type="radio" name="bake" value="Clara" /> <span>Clara<small>Menos tostada</small></span></label>
-                  <label><input type="radio" name="bake" value="No ponto" checked /> <span>No ponto<small>Assamento padrão</small></span></label>
-                  <label><input type="radio" name="bake" value="Bem assada" /> <span>Bem assada<small>Mais dourada e crocante</small></span></label>
-                </fieldset>
-
-                <fieldset>
-                  <legend>Borda</legend>
-                  <label><input type="radio" name="crust" value="Tradicional" data-price="0" checked /> <span>Tradicional<small>Sem acréscimo</small></span></label>
-                  <label><input type="radio" name="crust" value="Catupiry" data-price="10" /> <span>Catupiry<small>+ R$ 10,00</small></span></label>
-                  <label><input type="radio" name="crust" value="Cheddar" data-price="12" /> <span>Cheddar<small>+ R$ 12,00</small></span></label>
-                </fieldset>
-              </div>
+              <div class="option-groups" id="option-groups-customizer"></div>
             </section>
 
             <section class="choice-section" aria-labelledby="notes-title">
@@ -238,6 +219,71 @@
       </form>
     </dialog>
 
+    <!-- ========================= CRIE SUA PIZZA ========================= -->
+    <dialog class="modal customizer-modal builder-modal" id="builder-dialog" aria-labelledby="builder-title">
+      <form method="dialog" class="modal-shell" id="builder-form">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Monte do seu jeito, no seu ritmo</p>
+            <h2 id="builder-title">Crie sua pizza</h2>
+          </div>
+          <button class="icon-button" type="button" data-close="builder-dialog" aria-label="Fechar montador de pizza">×</button>
+        </header>
+
+        <div class="customizer-layout">
+          <div class="customizer-main">
+            <div class="builder-intro">
+              <div>
+                <p class="eyebrow">Você começa com</p>
+                <h3>Massa Essência + molho</h3>
+                <p id="builder-base-note">Massa Essência, molho da casa e 8 fatias.</p>
+              </div>
+              <strong class="builder-base-price" id="builder-base-price">R$ 0,00</strong>
+            </div>
+
+            <div class="choice-heading builder-reset-row">
+              <p class="builder-count" id="builder-count" aria-live="polite">Nenhuma escolha ainda</p>
+              <button class="quiet-button" id="builder-reset" type="button">Começar do zero</button>
+            </div>
+
+            <div id="builder-groups"></div>
+
+            <section class="choice-section" aria-labelledby="builder-prep-title">
+              <div class="choice-heading">
+                <div>
+                  <h3 id="builder-prep-title">Como você prefere a massa?</h3>
+                  <p>Escolha uma opção em cada grupo.</p>
+                </div>
+              </div>
+              <div class="option-groups" id="option-groups-builder"></div>
+            </section>
+
+            <section class="choice-section" aria-labelledby="builder-notes-title">
+              <div class="choice-heading">
+                <div>
+                  <h3 id="builder-notes-title">Observações</h3>
+                  <p>Conte o que ajuda a preparar seu pedido com segurança.</p>
+                </div>
+              </div>
+              <label class="textarea-label" for="builder-notes">Observação para a cozinha <span>opcional</span></label>
+              <textarea id="builder-notes" maxlength="240" rows="4" placeholder="Ex.: pouco molho; ingredientes separados; atenção à alergia..."></textarea>
+              <div class="textarea-meta"><span>Evite colocar dados pessoais.</span><span id="builder-notes-count">0/240</span></div>
+            </section>
+          </div>
+
+          <aside class="order-summary" aria-labelledby="builder-summary-title">
+            <p class="eyebrow">O preço sobe a cada escolha</p>
+            <h3 id="builder-summary-title">Resumo da sua pizza</h3>
+            <div id="builder-summary"></div>
+            <div class="summary-total"><span>Total desta pizza</span><strong id="builder-total">R$ 0,00</strong></div>
+            <button class="button primary full" id="add-builder" type="button">Adicionar ao pedido</button>
+            <button class="button text-button full speak-button" type="button" data-speak="builder">Ouvir minha montagem</button>
+          </aside>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- ========================= ACESSIBILIDADE ========================= -->
     <dialog class="modal access-modal" id="access-dialog" aria-labelledby="access-title">
       <form method="dialog" class="modal-shell compact-shell">
         <header class="modal-header">
@@ -273,10 +319,12 @@
             <span class="switch" aria-hidden="true"></span>
           </button>
         </div>
+        <button class="button secondary full" id="stop-audio" type="button" hidden>Parar áudio</button>
         <button class="button primary full" type="button" data-close="access-dialog">Concluir ajustes</button>
       </form>
     </dialog>
 
+    <!-- ============================ PEDIDO ============================ -->
     <dialog class="modal cart-modal" id="cart-dialog" aria-labelledby="cart-title">
       <form method="dialog" class="modal-shell compact-shell">
         <header class="modal-header">
@@ -327,6 +375,7 @@
       <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="menu-dados.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

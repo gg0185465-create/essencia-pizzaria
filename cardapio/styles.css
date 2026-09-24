@@ -38,7 +38,9 @@ button, input, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { color: inherit; }
 a { color: inherit; }
-img { display: block; max-width: 100%; }
+/* height: auto é obrigatório — sem ele o atributo height="900" do HTML
+   vence e a imagem fica esticada em formato de ovo. */
+img { display: block; max-width: 100%; height: auto; }
 
 :focus-visible {
   outline: 4px solid var(--blue);
@@ -203,20 +205,59 @@ h3 { margin-bottom: 8px; font-size: 1.25rem; }
 .button.secondary:hover { border-color: var(--green-800); }
 .button.full { width: 100%; }
 .text-button { color: var(--green-800); background: transparent; }
-.hero-visual { position: relative; min-height: 490px; display: grid; place-items: center; }
-.hero-visual::before {
+.hero-visual { position: relative; display: grid; min-height: 490px; place-items: center; }
+
+/* Prato: anel com as quatro cores do logo, no mesmo giro da marca. */
+.hero-plate {
+  position: relative;
+  display: grid;
+  width: min(500px, 96%);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(
+    from -93deg,
+    var(--green-700) 0 25%,
+    var(--yellow)    25% 50%,
+    var(--blue)      50% 75%,
+    var(--red)       75% 100%
+  );
+  box-shadow: 0 22px 46px rgba(20, 61, 42, .16);
+}
+/* Miolo creme: deixa as cores aparecendo só como aro. */
+.hero-plate::after {
   content: "";
   position: absolute;
-  width: 78%;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, #fff6c7 0 47%, var(--yellow) 48% 49%, transparent 50%);
+  width: calc(100% - 26px);
+  height: calc(100% - 26px);
+  background: var(--cream);
   border-radius: 50%;
-  opacity: .85;
 }
-.hero-visual img { position: relative; z-index: 2; width: min(510px, 95%); filter: drop-shadow(0 26px 28px rgba(55, 46, 24, .18)); transform: rotate(4deg); }
-.hero-visual p { position: absolute; z-index: 3; right: 0; bottom: 10px; margin: 0; padding: 15px 18px; color: var(--green-950); background: var(--white); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-small); font-family: Georgia, serif; font-size: 1.1rem; font-style: italic; font-weight: 700; line-height: 1.25; }
-.sunflower-ribbon { position: absolute; z-index: 1; top: 14px; right: 1%; left: 1%; display: flex; justify-content: space-around; padding: 8px; background: var(--green-800); border-radius: 999px; transform: rotate(-6deg); box-shadow: var(--shadow-small); }
-.sunflower-ribbon span { font-size: 1.4rem; }
+.hero-visual img {
+  position: relative;
+  z-index: 2;
+  width: 86%;
+  filter: drop-shadow(0 20px 26px rgba(55, 46, 24, .2));
+}
+.hero-badge {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: 6px;
+  margin: 0;
+  padding: 15px 18px;
+  color: var(--green-950);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--yellow);
+  border-radius: 16px;
+  box-shadow: var(--shadow-small);
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.25;
+}
 
 .menu-section { padding: 80px max(24px, calc((100vw - 1240px) / 2)) 100px; background: var(--white); border-top: 1px solid var(--line); }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
@@ -275,7 +316,7 @@ h3 { margin-bottom: 8px; font-size: 1.25rem; }
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 42px max(24px, calc((100vw - 1240px) / 2)); color: var(--white); background: var(--green-950); }
 .site-footer strong { font-family: Georgia, serif; font-size: 1.4rem; }
 .site-footer p { margin: 4px 0 0; color: #cfe0d5; }
-.site-footer > a { color: var(--yellow); font-weight: 850; text-decoration: none; }
+.site-footer > a { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 2px; color: var(--yellow); font-weight: 850; text-decoration: none; }
 .site-footer > a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .footer-values { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
 .footer-values span { padding: 8px 12px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; font-size: .84rem; font-weight: 800; }
@@ -425,8 +466,9 @@ body.high-contrast {
 }
 body.high-contrast .pizza-card, body.high-contrast .recipe-card, body.high-contrast .choice-section { border-width: 2px; }
 body.focus-mode *, body.focus-mode *::before, body.focus-mode *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-body.focus-mode .hero-visual, body.focus-mode .site-header::after, body.focus-mode .pizza-card::after { display: none; }
+body.focus-mode .hero-badge, body.focus-mode .site-header::after, body.focus-mode .pizza-card::after { display: none; }
 body.focus-mode .hero { grid-template-columns: 1fr; min-height: auto; }
+body.focus-mode .hero-plate { box-shadow: none; }
 body.focus-mode .pizza-card { box-shadow: none; }
 
 @media (max-width: 980px) {
@@ -463,8 +505,8 @@ body.focus-mode .pizza-card { box-shadow: none; }
   .order-steps { flex-wrap: wrap; }
   .hero-actions .button { width: 100%; }
   .hero-visual { min-height: 330px; }
-  .hero-visual img { width: 88%; }
-  .hero-visual p { right: 4px; bottom: 0; font-size: .92rem; }
+  .hero-plate { width: min(330px, 92%); }
+  .hero-badge { right: 4px; bottom: 0; font-size: .92rem; }
   .menu-section, .recipe-section { padding: 64px 15px 74px; }
   .section-heading { align-items: stretch; flex-direction: column; }
   .section-heading .quiet-button { align-self: flex-start; }
@@ -497,3 +539,300 @@ body.focus-mode .pizza-card { box-shadow: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* ===========================================================================
+   NOVOS COMPONENTES — logo, alérgenos e montador "Crie sua pizza"
+   =========================================================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Logo no cabeçalho e rodapé --- */
+.brand-logo { flex: 0 0 auto; width: 52px; height: 52px; }
+.footer-brand-block { display: flex; flex-direction: column; gap: 10px; }
+.footer-brand-block img { width: 230px; max-width: 100%; height: auto; padding: 10px 14px; background: var(--cream); border-radius: 14px; }
+
+/* --- Selo de alérgenos --- */
+.allergen-chips {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 18px;
+}
+.allergen-label {
+  color: #7a4a00;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.allergen-chip {
+  padding: 4px 9px;
+  color: #6b3d00;
+  background: var(--yellow-soft);
+  border: 1px solid #e0bb42;
+  border-radius: 999px;
+  font-size: .73rem;
+  font-weight: 800;
+}
+
+/* --- Card "Crie sua pizza" --- */
+.build-card {
+  justify-content: center;
+  text-align: left;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(242,182,50,.16), transparent 42%),
+    var(--green-100);
+  border: 3px dashed var(--green-700);
+  border-top: 8px solid var(--yellow);
+}
+.build-card::after { content: none; }
+.build-card-icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 16px;
+  place-items: center;
+  color: var(--green-950);
+  background: var(--yellow);
+  border-radius: 50%;
+  font-size: 2.3rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.build-tag { align-self: flex-start; margin-bottom: 14px; background: var(--white); }
+.build-card h3 { margin-bottom: 10px; }
+.build-price { margin: 0 0 22px; color: var(--green-950); font-size: .95rem; }
+.build-price strong { color: var(--red); font-size: 1.3rem; font-weight: 900; }
+
+/* --- Cabeçalho do montador --- */
+.builder-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 20px 22px;
+  color: var(--white);
+  background: var(--green-950);
+  border-radius: 18px;
+}
+.builder-intro .eyebrow { color: var(--yellow); }
+.builder-intro h3 { margin: 4px 0 6px; color: var(--white); font-family: Georgia, serif; font-size: 1.35rem; }
+.builder-intro p { margin: 0; color: #cfe0d5; font-size: .92rem; }
+.builder-base-price { flex: 0 0 auto; color: var(--yellow); font-size: 1.6rem; font-weight: 900; }
+.builder-reset-row { align-items: center; margin-bottom: 16px; }
+.builder-count { margin: 0; color: var(--muted); font-weight: 800; }
+
+/* --- Lista de ingredientes com + e − --- */
+.builder-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.builder-item {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 13px;
+  background: var(--cream);
+  border: 2px solid transparent;
+  border-radius: 14px;
+  transition: background .18s ease, border-color .18s ease;
+}
+.builder-item.chosen { background: var(--green-100); border-color: var(--green-700); }
+.builder-item-info { min-width: 0; }
+.builder-item-info strong { display: block; font-weight: 800; line-height: 1.2; }
+.builder-item-info small { display: block; margin-top: 2px; color: var(--muted); font-size: .79rem; line-height: 1.25; }
+
+.stepper {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.stepper-btn {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: var(--green-800);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+}
+.stepper-btn:hover:not(:disabled) { color: var(--white); background: var(--green-800); border-color: var(--green-800); }
+.stepper-btn:disabled { opacity: .32; cursor: not-allowed; }
+.stepper-value { min-width: 26px; text-align: center; font-size: 1.05rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+.builder-radio-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.builder-radio-group label {
+  display: flex;
+  min-height: 60px;
+  align-items: flex-start;
+  gap: 9px;
+  margin-bottom: 8px;
+  padding: 11px;
+  background: var(--cream);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.builder-radio-group label:has(input:checked) { background: var(--green-100); border-color: var(--green-700); }
+.builder-radio-group input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--green-700); }
+.builder-radio-group label span { font-weight: 800; }
+.builder-radio-group small { display: block; color: var(--muted); font-weight: 500; line-height: 1.25; }
+
+/* --- Resumo do montador --- */
+.summary-group { margin: 14px 0 4px; color: var(--green-950); }
+.summary-empty { margin: 14px 0 0; padding: 12px 14px; color: var(--muted); background: var(--cream); border-radius: 12px; }
+.order-summary .summary-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.order-summary .summary-list li em { color: var(--red); font-style: normal; font-weight: 900; }
+.order-summary .summary-list li span { flex: 0 0 auto; color: var(--muted); font-size: .84rem; }
+.cart-item-custom { border-left: 6px solid var(--yellow); }
+
+/* Sobre o painel escuro do resumo, o selo de alérgenos precisa clarear. */
+.order-summary .allergen-chips { margin-bottom: 0; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.14); }
+.order-summary .allergen-label { color: var(--yellow); }
+.order-summary .allergen-chip { color: var(--green-950); background: var(--yellow-soft); border-color: var(--yellow); }
+
+/* --- Ajustes de contraste e foco --- */
+body.high-contrast .build-card { background: var(--white); border-color: #000; }
+body.high-contrast .build-card-icon { color: #000; background: var(--yellow); border: 2px solid #000; }
+body.high-contrast .allergen-chip { color: #000; background: var(--yellow-soft); border-color: #000; }
+body.high-contrast .builder-item { border-color: #767676; }
+body.high-contrast .builder-item.chosen { border-color: #000; border-width: 3px; }
+body.high-contrast .stepper-btn { border-color: #000; }
+body.focus-mode .build-card { background: var(--green-100); }
+
+@media (max-width: 980px) {
+  .builder-items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  .brand-logo { width: 42px; height: 42px; }
+  .footer-brand-block img { width: 200px; }
+  .builder-items { grid-template-columns: 1fr; }
+  .builder-intro { align-items: flex-start; flex-direction: column; gap: 10px; padding: 18px; }
+  .builder-base-price { font-size: 1.45rem; }
+  .builder-reset-row { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .build-card { min-height: auto; }
+  .stepper-btn { width: 42px; height: 42px; }
+}
+
+/* ===========================================================================
+   ITENS QUE ACABARAM ("não tem hoje")
+   =========================================================================== */
+
+.pizza-card.sold-out {
+  background: #f4f2ec;
+  border-top-color: #9aa39d;
+  box-shadow: none;
+}
+.pizza-card.sold-out:hover { transform: none; box-shadow: none; }
+.pizza-card.sold-out h3,
+.pizza-card.sold-out > p,
+.pizza-card.sold-out .ingredient-preview,
+.pizza-card.sold-out .pizza-price { opacity: .55; }
+.pizza-card.sold-out .pizza-tag {
+  color: var(--white);
+  background: #8a534c;
+  border-color: #8a534c;
+}
+.pizza-card.sold-out::after { color: rgba(23, 79, 55, .05); }
+
+.sold-out-flag {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  color: #7d2f24;
+  background: var(--red-soft);
+  border: 1px solid #f0bdb5;
+  border-radius: 12px;
+  font-size: .87rem;
+  font-weight: 800;
+}
+.sold-out-flag > span {
+  display: grid;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  color: var(--white);
+  background: var(--red);
+  border-radius: 50%;
+  font-size: .72rem;
+}
+
+.button:disabled,
+.button[disabled] {
+  background: #d7d3c8;
+  border-color: #d7d3c8;
+  color: #49514b;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Opções esgotadas dentro dos modais */
+.extra-choice.is-out,
+.option-groups label.is-out,
+.builder-radio-group label.is-out,
+.builder-item.is-out {
+  background: #f1efe8;
+  border-color: transparent;
+  cursor: not-allowed;
+}
+.extra-choice.is-out strong,
+.option-groups label.is-out span,
+.builder-radio-group label.is-out span,
+.builder-item.is-out .builder-item-info strong { color: #575f59; text-decoration: line-through; }
+.extra-choice.is-out small,
+.option-groups label.is-out small,
+.builder-radio-group label.is-out small,
+.builder-item.is-out .builder-item-info small {
+  color: #a3372a;
+  font-weight: 800;
+  text-decoration: none;
+}
+.out-badge {
+  flex: 0 0 auto;
+  padding: 8px 13px;
+  color: #7d2f24;
+  background: var(--red-soft);
+  border: 1px solid #f0bdb5;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 900;
+}
+
+.cart-item-out { border-left: 6px solid var(--red); }
+
+body.high-contrast .sold-out-flag { color: #000; background: #fff; border: 2px solid #000; }
+body.high-contrast .pizza-card.sold-out { background: #fff; border: 2px dashed #000; }
+body.high-contrast .out-badge { color: #000; border: 2px solid #000; }
+body.high-contrast .button:disabled { color: #000; background: #e6e6e6; border: 2px solid #000; }
