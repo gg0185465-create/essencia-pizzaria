@@ -8,6 +8,9 @@
   <title>Essência Pizzaria — Nossa história</title>
   <link rel="icon" href="assets/logo-essencia-marca.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/logo-essencia-marca.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -46,7 +49,7 @@
           <a class="button primary" href="#origem">Conheça nossa história</a>
           <button class="button ghost speech-trigger" type="button" data-speech="intro">▶ Ouvir apresentação</button>
         </div>
-        <p class="hero-note"><span aria-hidden="true">●</span> Feito com cuidado, servido com propósito.</p>
+        <p class="hero-note"><span aria-hidden="true">●</span> Todo mundo cabe nessa pizza.</p>
       </div>
     </section>
 
@@ -140,7 +143,7 @@
           <p class="eyebrow">Como a empresa nasceu</p>
           <h2 id="identity-title">Um nome para aquilo que realmente importa.</h2>
           <p class="lead">Escolhemos “Essência” porque a proposta começa na pessoa: em suas preferências, seu ritmo e sua forma de se comunicar.</p>
-          <p>Nossa marca é uma pizza repartida em quatro fatias, cada uma com uma cor da acessibilidade, e um coração no meio. As cores não são enfeite: todas passam no nível AA da WCAG, a norma internacional de contraste, para que ninguém precise forçar a vista para ler um preço ou um aviso de alérgeno.</p>
+          <p>Nossa marca é uma pizza de verdade, com uma fatia sendo servida à mesa e um pepperoni em forma de coração. Ao lado do nome, a palavra “pizza” aparece escrita em Braille, cada letra em uma cor da acessibilidade, e o texto usa a fonte Atkinson Hyperlegible, criada para pessoas com baixa visão. As cores não são enfeite: todas passam no nível AA da WCAG, a norma internacional de contraste, para que ninguém precise forçar a vista para ler um preço ou um aviso de alérgeno.</p>
           <div class="values" aria-label="Valores da Essência Pizzaria">
             <span>Dignidade</span><span>Autonomia</span><span>Previsibilidade</span><span>Acolhimento</span>
           </div>
@@ -192,8 +195,35 @@
         <div class="section-heading centered light-heading">
           <p class="eyebrow light">A pizzaria pode dar certo?</p>
           <h2 id="viability-title">O conceito é promissor — e o próximo passo é validar com pessoas reais.</h2>
-          <p>O protótipo demonstra o valor da experiência. A viabilidade do negócio depende de testes, custos, operação e validação especializada.</p>
+          <p>Com preço médio de R$ 73,64 e 1.500 pizzas por mês, a pizzaria cobre todos os custos e mantém lucro de cerca de 25%: o suficiente para durar, sem deixar de ser acessível.</p>
         </div>
+
+        <div class="price-breakdown" aria-labelledby="breakdown-title">
+          <div class="breakdown-head">
+            <h3 id="breakdown-title">Para onde vai o dinheiro de uma pizza</h3>
+            <p>Exemplo com o preço médio do cardápio, R$ 73,64. Valores estimados para Caraguatatuba em 2026.</p>
+          </div>
+          <div class="breakdown-bar" aria-hidden="true">
+            <span class="seg seg-cmv" style="width: 26.5%"></span>
+            <span class="seg seg-tax" style="width: 11.5%"></span>
+            <span class="seg seg-fixed" style="width: 36.5%"></span>
+            <span class="seg seg-profit" style="width: 25.5%"></span>
+          </div>
+          <ul class="breakdown-legend">
+            <li><span class="swatch seg-cmv" aria-hidden="true"></span><strong>R$ 19,51 · 26,5%</strong> Ingredientes, massa e embalagem</li>
+            <li><span class="swatch seg-tax" aria-hidden="true"></span><strong>R$ 8,47 · 11,5%</strong> Impostos e taxas de cartão</li>
+            <li><span class="swatch seg-fixed" aria-hidden="true"></span><strong>R$ 26,86 · 36,5%</strong> Aluguel, equipe com Libras, contas e equipamentos</li>
+            <li><span class="swatch seg-profit" aria-hidden="true"></span><strong>R$ 18,79 · 25,5%</strong> Lucro da pizzaria</li>
+          </ul>
+          <p class="breakdown-note">Por que não cobrar mais? Nosso público já tem gastos altos com saúde e adaptação. Por que não cobrar menos? Abaixo de 15% de lucro, qualquer imprevisto leva a pizzaria a fechar, e as famílias perdem o lugar que encontraram.</p>
+        </div>
+
+        <dl class="key-numbers">
+          <div><dt>Investimento para abrir</dt><dd>R$ 267 mil</dd></div>
+          <div><dt>Custos fixos por mês</dt><dd>R$ 40,3 mil</dd></div>
+          <div><dt>Ponto de equilíbrio</dt><dd>883 pizzas/mês</dd></div>
+          <div><dt>Retorno do investimento</dt><dd>cerca de 15 meses</dd></div>
+        </dl>
 
         <div class="viability-grid">
           <article>
@@ -211,7 +241,7 @@
             <h3>O que ainda precisa ser comprovado</h3>
             <ul>
               <li>Testes do cardápio com usuários reais</li>
-              <li>Custos, fornecedores e capacidade operacional</li>
+              <li>Orçamentos reais de fornecedores para confirmar os custos estimados</li>
               <li>Protocolos para alergênicos e contaminação cruzada</li>
               <li>Avaliação de acessibilidade com especialistas</li>
             </ul>
@@ -234,7 +264,7 @@
   <footer>
     <div class="container footer-inner">
       <a class="brand footer-brand" href="#inicio"><img class="brand-logo" src="assets/logo-essencia-marca.svg" alt="" width="46" height="46"><span><strong>Essência</strong><small>Pizzaria inclusiva</small></span></a>
-      <p>Feito com cuidado, servido com propósito.</p>
+      <p>Todo mundo cabe nessa pizza. <span class="footer-signature">Feito com cuidado, servido com propósito.</span></p>
       <a href="#inicio">Voltar ao início ↑</a>
     </div>
   </footer>

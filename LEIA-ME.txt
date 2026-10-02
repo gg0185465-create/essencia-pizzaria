@@ -2,6 +2,50 @@ ESSENCIA PIZZARIA — PROJETO COMPLETO
 ====================================================================
 
 
+ATUALIZACAO DE OUTUBRO DE 2026 (ESTA VERSAO)
+--------------------------------------------------------------------
+
+1. LOGO NOVO
+   Os dois arquivos do logo foram substituidos MANTENDO OS MESMOS
+   NOMES, entao nenhum link do site muda:
+     assets/logo-essencia.svg        (logo completo, com o nome)
+     assets/logo-essencia-marca.svg  (so o simbolo, usado como icone)
+   Agora e uma pizza de verdade com uma fatia sendo servida, um
+   pepperoni em forma de coracao e a palavra "pizza" em Braille nas
+   cinco cores da acessibilidade.
+
+2. FONTE ACESSIVEL
+   Todo o site (historia, cardapio e painel) usa a fonte Atkinson
+   Hyperlegible, criada pelo Braille Institute para pessoas com baixa
+   visao. Ela carrega do Google Fonts; sem internet, o site usa a
+   Verdana no lugar.
+
+3. SLOGAN
+   "Todo mundo cabe nessa pizza." aparece no topo da pagina inicial,
+   no selo do cardapio e nos rodapes. A frase "Feito com cuidado,
+   servido com proposito" continua como assinatura.
+
+4. PRECOS NOVOS (cardapio/menu-dados.js)
+     Bacon: de R$ 65,00 para R$ 69,90 (estava abaixo da meta de lucro)
+     Atum:  de R$ 83,90 para R$ 72,90 (lucro estava acima do necessario)
+   Os outros 19 sabores nao mudaram.
+
+5. ANALISE FINANCEIRA NA PAGINA INICIAL
+   A secao "Viabilidade" mostra para onde vai o dinheiro de uma pizza
+   (ingredientes, impostos, custos fixos e lucro), o investimento para
+   abrir, o ponto de equilibrio e o prazo de retorno.
+
+COMO SUBIR: igual sempre. Substitua os arquivos no MESMO repositorio,
+sem criar pasta nova e sem renomear nada (veja "PUBLICAR NO GITHUB SEM
+MUDAR A URL" mais abaixo). Arquivos alterados nesta versao:
+     index.html, styles.css, app.js, LEIA-ME.txt
+     assets/logo-essencia.svg, assets/logo-essencia-marca.svg
+     cardapio/index.html, cardapio/styles.css, cardapio/admin.html
+     cardapio/menu-dados.js
+Se voce ja mudou algum preco pelo painel e publicou depois de
+23/09/2026, confira o menu-dados.js antes de substituir.
+
+
 O QUE MUDOU NESTA VERSAO
 --------------------------------------------------------------------
 

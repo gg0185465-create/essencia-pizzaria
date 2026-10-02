@@ -29,7 +29,7 @@ body {
   min-width: 320px;
   color: var(--ink);
   background: var(--cream);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: calc(16px * var(--font-scale));
   line-height: 1.55;
 }
@@ -101,13 +101,13 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--cream);
   background: var(--green-800);
   border-radius: 50% 50% 50% 12px;
-  font-family: Georgia, serif;
+  font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif;
   font-size: 1.65rem;
   font-style: italic;
   box-shadow: inset -7px -7px 0 rgba(0,0,0,.08);
 }
 .brand strong, .brand small { display: block; line-height: 1.05; }
-.brand strong { font-family: Georgia, serif; font-size: 1.45rem; }
+.brand strong { font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif; font-size: 1.45rem; }
 .brand small { margin-top: 4px; color: var(--red); font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 .main-nav { justify-self: center; display: flex; align-items: center; gap: 6px; }
 .main-nav a, .nav-cart {
@@ -170,8 +170,8 @@ main { overflow: hidden; }
 }
 h1, h2, h3, p { overflow-wrap: anywhere; }
 h1, h2, h3 { margin-top: 0; color: var(--green-950); line-height: 1.08; }
-h1 { max-width: 620px; margin-bottom: 20px; font-family: Georgia, serif; font-size: clamp(2.7rem, 5.3vw, 5rem); letter-spacing: -.045em; }
-h2 { margin-bottom: 12px; font-family: Georgia, serif; font-size: clamp(2.05rem, 3vw, 3.25rem); letter-spacing: -.025em; }
+h1 { max-width: 620px; margin-bottom: 20px; font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif; font-size: clamp(2.7rem, 5.3vw, 5rem); letter-spacing: -.045em; }
+h2 { margin-bottom: 12px; font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif; font-size: clamp(2.05rem, 3vw, 3.25rem); letter-spacing: -.025em; }
 h3 { margin-bottom: 8px; font-size: 1.25rem; }
 .hero-lead { max-width: 590px; margin: 0; color: var(--muted); font-size: 1.22rem; }
 .order-steps {
@@ -207,7 +207,7 @@ h3 { margin-bottom: 8px; font-size: 1.25rem; }
 .text-button { color: var(--green-800); background: transparent; }
 .hero-visual { position: relative; display: grid; min-height: 490px; place-items: center; }
 
-/* Prato: anel com as quatro cores do logo, no mesmo giro da marca. */
+/* Prato: anel com as cores da acessibilidade da marca. */
 .hero-plate {
   position: relative;
   display: grid;
@@ -252,7 +252,7 @@ h3 { margin-bottom: 8px; font-size: 1.25rem; }
   border-left: 6px solid var(--yellow);
   border-radius: 16px;
   box-shadow: var(--shadow-small);
-  font-family: Georgia, serif;
+  font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif;
   font-size: 1.1rem;
   font-style: italic;
   font-weight: 700;
@@ -280,11 +280,11 @@ h3 { margin-bottom: 8px; font-size: 1.25rem; }
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .pizza-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.pizza-card::after { content: attr(data-number); position: absolute; top: 14px; right: 18px; color: rgba(23,79,55,.08); font-family: Georgia, serif; font-size: 5.2rem; font-weight: 800; line-height: 1; }
+.pizza-card::after { content: attr(data-number); position: absolute; top: 14px; right: 18px; color: rgba(23,79,55,.08); font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif; font-size: 5.2rem; font-weight: 800; line-height: 1; }
 .pizza-meta { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
 .pizza-tag { display: inline-flex; min-height: 30px; align-items: center; padding: 5px 10px; color: var(--green-950); background: var(--white); border: 1px solid var(--line); border-radius: 999px; font-size: .76rem; font-weight: 850; }
 .pizza-price { color: var(--red); font-size: 1.15rem; font-weight: 900; }
-.pizza-card h3 { position: relative; z-index: 1; margin-bottom: 10px; font-family: Georgia, serif; font-size: 1.75rem; }
+.pizza-card h3 { position: relative; z-index: 1; margin-bottom: 10px; font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif; font-size: 1.75rem; }
 .pizza-card > p { position: relative; z-index: 1; margin: 0 0 18px; color: var(--muted); }
 .ingredient-preview { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 24px; }
 .ingredient-preview span { padding: 5px 9px; color: var(--green-950); background: var(--white); border-radius: 8px; font-size: .76rem; font-weight: 700; }
@@ -314,7 +314,7 @@ h3 { margin-bottom: 8px; font-size: 1.25rem; }
 .allergy-note p { margin: 2px 0 0; }
 
 .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 42px max(24px, calc((100vw - 1240px) / 2)); color: var(--white); background: var(--green-950); }
-.site-footer strong { font-family: Georgia, serif; font-size: 1.4rem; }
+.site-footer strong { font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif; font-size: 1.4rem; }
 .site-footer p { margin: 4px 0 0; color: #cfe0d5; }
 .site-footer > a { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 2px; color: var(--yellow); font-weight: 850; text-decoration: none; }
 .site-footer > a:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -628,7 +628,7 @@ body.focus-mode .pizza-card { box-shadow: none; }
   border-radius: 18px;
 }
 .builder-intro .eyebrow { color: var(--yellow); }
-.builder-intro h3 { margin: 4px 0 6px; color: var(--white); font-family: Georgia, serif; font-size: 1.35rem; }
+.builder-intro h3 { margin: 4px 0 6px; color: var(--white); font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif; font-size: 1.35rem; }
 .builder-intro p { margin: 0; color: #cfe0d5; font-size: .92rem; }
 .builder-base-price { flex: 0 0 auto; color: var(--yellow); font-size: 1.6rem; font-weight: 900; }
 .builder-reset-row { align-items: center; margin-bottom: 16px; }

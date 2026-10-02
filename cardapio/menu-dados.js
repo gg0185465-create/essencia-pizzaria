@@ -9,7 +9,7 @@
    =========================================================================== */
 
 window.MENU_ESSENCIA = {
-  "versao": "2026-09-23",
+  "versao": "2026-10-01",
   "observacao": "Este arquivo guarda TODO o cardapio. Edite pelo painel do celular (admin.html) e substitua este arquivo no GitHub.",
   "pizzas": [
     {
@@ -53,7 +53,7 @@ window.MENU_ESSENCIA = {
     {
       "id": "atum",
       "nome": "Atum",
-      "preco": 83.9,
+      "preco": 72.9,
       "tag": "Do mar",
       "cor": "#0b5fb0",
       "descricao": "Atum sólido com cebola em tiras, sem queijo.",
@@ -118,7 +118,7 @@ window.MENU_ESSENCIA = {
     {
       "id": "bacon",
       "nome": "Bacon",
-      "preco": 65,
+      "preco": 69.9,
       "tag": "Clássica",
       "cor": "#c8402f",
       "descricao": "Bacon em cubos dourados com muçarela e tomate.",

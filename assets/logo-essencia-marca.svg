@@ -1,19 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-labelledby="marcaTitulo marcaDesc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 212 212" width="120" height="120" role="img" aria-labelledby="marcaTitulo marcaDesc">
   <title id="marcaTitulo">Marca da Essência Pizzaria</title>
-  <desc id="marcaDesc">Pizza vista de cima, dividida em quatro fatias nas cores da acessibilidade — verde, amarelo, azul e vermelho — com um coração no centro.</desc>
-
-  <circle cx="60" cy="60" r="58" fill="#fffaf0"/>
-  <circle cx="60" cy="60" r="52" fill="#e8d5ae"/>
-
-  <!-- Fatia 1: verde — acolhimento -->
-  <path d="M60 60 L62.30 16.06 A44 44 0 0 1 103.94 57.70 Z" fill="#1d7247"/>
-  <!-- Fatia 2: amarelo girassol — deficiências não aparentes -->
-  <path d="M60 60 L103.94 62.30 A44 44 0 0 1 62.30 103.94 Z" fill="#f2b632"/>
-  <!-- Fatia 3: azul — símbolo internacional de acesso -->
-  <path d="M60 60 L57.70 103.94 A44 44 0 0 1 16.06 62.30 Z" fill="#0b5fb0"/>
-  <!-- Fatia 4: vermelho — energia e alerta -->
-  <path d="M60 60 L16.06 57.70 A44 44 0 0 1 57.70 16.06 Z" fill="#c8402f"/>
-
-  <circle cx="60" cy="60" r="15" fill="#fffaf0"/>
-  <path d="M60 68.4c-6.4-4.3-9.4-7.4-9.4-11.1a4.9 4.9 0 0 1 9.4-2 4.9 4.9 0 0 1 9.4 2c0 3.7-3 6.8-9.4 11.1z" fill="#c8402f"/>
+  <desc id="marcaDesc">Pizza vista de cima, com borda, molho, queijo, manjericão e pepperoni. Uma fatia está sendo servida, ligada à pizza por fios de queijo, e tem um pepperoni em forma de coração.</desc>
+<path d="M100 100 L178.0 74.7 A82 82 0 1 1 125.3 22.0 Z" fill="#d9903b"/>
+<path d="M100 100 L167.5 78.1 A71 71 0 1 1 121.9 32.5 Z" fill="#c8402f"/>
+<path d="M100 100 L162.8 79.6 A66 66 0 1 1 120.4 37.2 Z" fill="#f7d98b"/>
+<circle cx="70" cy="62" r="8" fill="#b5362a"/><circle cx="68" cy="60" r="2.4" fill="#d65a4a"/>
+<circle cx="58" cy="108" r="8" fill="#b5362a"/><circle cx="56" cy="106" r="2.4" fill="#d65a4a"/>
+<circle cx="92" cy="140" r="8" fill="#b5362a"/><circle cx="90" cy="138" r="2.4" fill="#d65a4a"/>
+<circle cx="130" cy="128" r="8" fill="#b5362a"/><circle cx="128" cy="126" r="2.4" fill="#d65a4a"/>
+<circle cx="150" cy="100" r="8" fill="#b5362a"/><circle cx="148" cy="98" r="2.4" fill="#d65a4a"/>
+<circle cx="100" cy="84" r="8" fill="#b5362a"/><circle cx="98" cy="82" r="2.4" fill="#d65a4a"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(80 118) rotate(30) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(118 148) rotate(-40) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(62 82) rotate(-20) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(138 112) rotate(70) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M116.5 57.1 Q114.6 56.2 126.4 47.2" fill="none" stroke="#f7d98b" stroke-width="4" stroke-linecap="round"/>
+<path d="M128.0 89.2 Q130.4 89.6 137.9 79.3" fill="none" stroke="#f7d98b" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M109.9 90.1 L135.2 12.1 A82 82 0 0 1 187.9 64.8 Z" fill="#d9903b"/>
+<path d="M109.9 90.1 L131.8 22.6 A71 71 0 0 1 177.4 68.2 Z" fill="#c8402f"/>
+<path d="M109.9 90.1 L130.3 27.3 A66 66 0 0 1 172.7 69.7 Z" fill="#f7d98b"/>
+<path d="M0 6 C-9 0 -11 -5 -7.5 -8.5 C-4.5 -11.5 -1 -10 0 -6.5 C1 -10 4.5 -11.5 7.5 -8.5 C11 -5 9 0 0 6Z" transform="translate(141.0 59.0) scale(1.35)" fill="#c8402f" stroke="#7d2f24" stroke-width="0.8"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(123.7 73.0) rotate(45.0) scale(0.8)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
 </svg>
