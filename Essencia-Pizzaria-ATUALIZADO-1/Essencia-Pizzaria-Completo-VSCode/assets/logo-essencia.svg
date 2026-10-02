@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 120" width="460" height="120" role="img" aria-labelledby="logoTitulo logoDesc">
+  <title id="logoTitulo">Essência Pizzaria</title>
+  <desc id="logoDesc">Logo da Essência Pizzaria: uma pizza com uma fatia sendo servida, ao lado do nome Essência, da palavra Pizzaria e da palavra pizza escrita em Braille nas cinco cores da acessibilidade.</desc>
+  <g transform="translate(2 2) scale(0.547)"><g transform="translate(6 6)">
+<path d="M100 100 L178.0 74.7 A82 82 0 1 1 125.3 22.0 Z" fill="#d9903b"/>
+<path d="M100 100 L167.5 78.1 A71 71 0 1 1 121.9 32.5 Z" fill="#c8402f"/>
+<path d="M100 100 L162.8 79.6 A66 66 0 1 1 120.4 37.2 Z" fill="#f7d98b"/>
+<circle cx="70" cy="62" r="8" fill="#b5362a"/><circle cx="68" cy="60" r="2.4" fill="#d65a4a"/>
+<circle cx="58" cy="108" r="8" fill="#b5362a"/><circle cx="56" cy="106" r="2.4" fill="#d65a4a"/>
+<circle cx="92" cy="140" r="8" fill="#b5362a"/><circle cx="90" cy="138" r="2.4" fill="#d65a4a"/>
+<circle cx="130" cy="128" r="8" fill="#b5362a"/><circle cx="128" cy="126" r="2.4" fill="#d65a4a"/>
+<circle cx="150" cy="100" r="8" fill="#b5362a"/><circle cx="148" cy="98" r="2.4" fill="#d65a4a"/>
+<circle cx="100" cy="84" r="8" fill="#b5362a"/><circle cx="98" cy="82" r="2.4" fill="#d65a4a"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(80 118) rotate(30) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(118 148) rotate(-40) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(62 82) rotate(-20) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(138 112) rotate(70) scale(1)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+<path d="M116.5 57.1 Q114.6 56.2 126.4 47.2" fill="none" stroke="#f7d98b" stroke-width="4" stroke-linecap="round"/>
+<path d="M128.0 89.2 Q130.4 89.6 137.9 79.3" fill="none" stroke="#f7d98b" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M109.9 90.1 L135.2 12.1 A82 82 0 0 1 187.9 64.8 Z" fill="#d9903b"/>
+<path d="M109.9 90.1 L131.8 22.6 A71 71 0 0 1 177.4 68.2 Z" fill="#c8402f"/>
+<path d="M109.9 90.1 L130.3 27.3 A66 66 0 0 1 172.7 69.7 Z" fill="#f7d98b"/>
+<path d="M0 6 C-9 0 -11 -5 -7.5 -8.5 C-4.5 -11.5 -1 -10 0 -6.5 C1 -10 4.5 -11.5 7.5 -8.5 C11 -5 9 0 0 6Z" transform="translate(141.0 59.0) scale(1.35)" fill="#c8402f" stroke="#7d2f24" stroke-width="0.8"/>
+<path d="M0 -9 C6 -5 6 5 0 9 C-6 5 -6 -5 0 -9Z M0 -8 L0 8" transform="translate(123.7 73.0) rotate(45.0) scale(0.8)" fill="#1d7247" stroke="#0f4a2c" stroke-width="1.2"/>
+  </g></g>
+  <text x="138" y="58" font-family="'Atkinson Hyperlegible', Verdana, Arial, sans-serif" font-size="50" font-weight="700" fill="#173f31">Essência</text>
+  <text x="140" y="84" font-family="'Atkinson Hyperlegible', Verdana, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="5.2" fill="#c8402f">PIZZARIA</text>
+  <circle cx="140.0" cy="96.0" r="2.6" fill="#1d7247"/><circle cx="140.0" cy="103.2" r="2.6" fill="#1d7247"/><circle cx="140.0" cy="110.4" r="2.6" fill="#1d7247"/><circle cx="147.2" cy="96.0" r="2.6" fill="#1d7247"/><circle cx="158.0" cy="103.2" r="2.6" fill="#a26f00"/><circle cx="165.2" cy="96.0" r="2.6" fill="#a26f00"/><circle cx="176.0" cy="96.0" r="2.6" fill="#0b5fb0"/><circle cx="176.0" cy="110.4" r="2.6" fill="#0b5fb0"/><circle cx="183.2" cy="103.2" r="2.6" fill="#0b5fb0"/><circle cx="183.2" cy="110.4" r="2.6" fill="#0b5fb0"/><circle cx="194.0" cy="96.0" r="2.6" fill="#c8402f"/><circle cx="194.0" cy="110.4" r="2.6" fill="#c8402f"/><circle cx="201.2" cy="103.2" r="2.6" fill="#c8402f"/><circle cx="201.2" cy="110.4" r="2.6" fill="#c8402f"/><circle cx="212.0" cy="96.0" r="2.6" fill="#744a91"/>
+</svg>

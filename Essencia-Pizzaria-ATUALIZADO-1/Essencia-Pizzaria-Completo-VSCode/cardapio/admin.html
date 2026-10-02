@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#10372a" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Painel do Cardápio | Essência Pizzaria</title>
+<link rel="icon" href="../assets/logo-essencia-marca.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+<style>
+  :root{
+    --green-950:#10372a; --green-800:#174f37; --green-700:#1d6243; --green-100:#e3f0e7;
+    --cream:#fbf8ef; --ink:#19231d; --muted:#5f6962; --line:#d9d2c2; --white:#fff;
+    --yellow:#f2b632; --yellow-soft:#fff3bf; --red:#c84136; --red-soft:#fee8e3; --blue:#2d62a9;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;min-width:320px;color:var(--ink);background:var(--cream);
+    font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.5}
+  button,input,textarea,select{font:inherit;color:inherit}
+  img{display:block;max-width:100%}
+  :focus-visible{outline:4px solid var(--blue);outline-offset:3px;border-radius:8px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+  .stickytop{position:sticky;top:0;z-index:50}
+  header.top{display:flex;align-items:center;gap:12px;
+    padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;color:var(--white);background:var(--green-950);
+    border-bottom:5px solid var(--yellow)}
+  header.top img{width:40px;height:40px;flex:0 0 auto}
+  header.top h1{display:block;margin:0;font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif;font-size:1.12rem;font-weight:700;line-height:1.15}
+  header.top small{display:block;color:#a9cbb8;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  header.top .see{display:inline-flex;align-items:center;min-height:44px;margin-left:auto;padding:10px 13px;color:var(--green-950);background:var(--yellow);
+    border:0;border-radius:10px;font-size:.82rem;font-weight:900;text-decoration:none;white-space:nowrap}
+
+  nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;
+    background:var(--cream);border-bottom:1px solid var(--line);-webkit-overflow-scrolling:touch}
+  nav.tabs button{flex:0 0 auto;min-height:44px;padding:9px 15px;background:var(--white);
+    border:2px solid var(--line);border-radius:999px;font-size:.88rem;font-weight:800;cursor:pointer}
+  nav.tabs button[aria-selected="true"]{color:var(--white);background:var(--green-800);border-color:var(--green-800)}
+
+  main{padding:18px 14px 140px;max-width:760px;margin:0 auto}
+  h2{margin:0 0 6px;font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif;font-size:1.5rem}
+  .hint{margin:0 0 18px;color:var(--muted);font-size:.92rem}
+
+  .item{margin-bottom:12px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .item > summary{display:flex;align-items:center;gap:10px;min-height:62px;padding:12px 14px;cursor:pointer;list-style:none}
+  .item > summary::-webkit-details-marker{display:none}
+  .item > summary::after{content:"▾";margin-left:auto;color:var(--green-700);font-size:1.1rem;font-weight:900}
+  .item[open] > summary{background:var(--green-100);border-bottom:1px solid var(--line)}
+  .item[open] > summary::after{content:"▴"}
+  .swatch{flex:0 0 auto;width:14px;height:36px;border-radius:5px;background:var(--green-700)}
+  .item summary .nm{min-width:0;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .item summary .pr{margin-left:auto;color:var(--red);font-weight:900;white-space:nowrap}
+  .item summary .pr + ::after{margin-left:8px}
+  .body{padding:14px}
+
+  label.f{display:block;margin-bottom:12px}
+  label.f > span{display:block;margin-bottom:5px;font-size:.84rem;font-weight:800;color:var(--green-950)}
+  input[type=text],input[type=number],input[type=password],textarea,select{width:100%;min-height:50px;padding:11px 13px;
+    background:var(--cream);border:2px solid var(--line);border-radius:12px}
+  textarea{min-height:76px;resize:vertical}
+  input:focus,textarea:focus,select:focus{border-color:var(--green-700);outline:none}
+  .row{display:grid;grid-template-columns:1fr 130px;gap:10px}
+  .row3{display:grid;grid-template-columns:1fr 110px 44px;gap:8px;align-items:center;margin-bottom:8px}
+
+  fieldset.aler{margin:0 0 14px;padding:12px;border:2px solid var(--line);border-radius:12px}
+  fieldset.aler legend{padding:0 6px;font-size:.84rem;font-weight:800}
+  .aler-grid{display:flex;flex-wrap:wrap;gap:8px}
+  .aler-grid label{display:flex;align-items:center;gap:7px;min-height:44px;padding:8px 12px;
+    background:var(--cream);border:2px solid transparent;border-radius:999px;font-size:.88rem;font-weight:700;cursor:pointer}
+  .aler-grid label:has(input:checked){background:var(--yellow-soft);border-color:var(--yellow)}
+  .aler-grid input{width:19px;height:19px;accent-color:var(--green-700)}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:50px;padding:12px 18px;
+    border:2px solid transparent;border-radius:12px;font-weight:900;cursor:pointer;text-decoration:none;text-align:center}
+  .btn.primary{color:var(--white);background:var(--green-800)}
+  .btn.primary:hover{background:var(--green-950)}
+  .btn.ghost{color:var(--green-800);background:var(--white);border-color:var(--line)}
+  .btn.danger{color:var(--red);background:var(--red-soft);border-color:#f0bdb5}
+  .btn.full{display:flex;width:100%;margin-bottom:10px}
+  .btn.mini{min-height:44px;width:44px;padding:0;font-size:1.2rem}
+  .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+
+  .addbar{position:fixed;right:0;bottom:0;left:0;z-index:60;display:flex;gap:8px;
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(251,248,239,.97);
+    border-top:1px solid var(--line);box-shadow:0 -6px 22px rgba(16,55,42,.09)}
+  .addbar .btn{flex:1}
+
+  .note{padding:14px 16px;margin-bottom:16px;background:var(--yellow-soft);border:2px solid #e0bb42;border-radius:14px;font-size:.93rem}
+  .note > strong:first-child{display:block;margin-bottom:4px}
+  .ok{background:var(--green-100);border-color:var(--green-700)}
+  .steps{margin:0;padding-left:22px}
+  .steps li{margin-bottom:10px}
+  code{padding:2px 6px;background:var(--white);border:1px solid var(--line);border-radius:6px;font-size:.88em;word-break:break-all}
+  pre{max-height:260px;overflow:auto;padding:12px;background:var(--green-950);color:#d6ece0;border-radius:12px;font-size:.74rem;line-height:1.45}
+
+  .toast{position:fixed;z-index:200;right:14px;bottom:88px;left:14px;padding:14px 16px;color:var(--white);
+    background:var(--green-950);border-radius:12px;opacity:0;pointer-events:none;transform:translateY(12px);
+    transition:opacity .18s ease,transform .18s ease;font-weight:700}
+  .toast.show{opacity:1;transform:translateY(0)}
+  .empty{padding:24px;text-align:center;color:var(--muted);background:var(--white);border:2px dashed var(--line);border-radius:var(--radius)}
+  .group-box{margin-bottom:14px;padding:14px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius)}
+  .group-box h3{margin:0 0 4px;font-size:1.06rem}
+  .group-box > p{margin:0 0 12px;color:var(--muted);font-size:.87rem}
+
+
+
+  /* --- Tela de login da equipe --- */
+  body.travado{overflow:hidden}
+  .login-screen{position:fixed;inset:0;z-index:500;display:grid;place-items:center;
+    padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px));background:var(--green-950);overflow:auto}
+  .login-box{width:100%;max-width:400px;padding:28px 24px;background:var(--cream);border-radius:22px;
+    box-shadow:0 26px 70px rgba(0,0,0,.4)}
+  .login-box img{width:76px;height:76px;margin:0 auto 14px}
+  .login-box h2{margin:0 0 4px;font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif;font-size:1.5rem;text-align:center}
+  .login-sub{margin:0 0 22px;color:var(--muted);font-size:.92rem;text-align:center}
+  .login-box .btn{margin-top:4px}
+  .login-erro{display:none;margin:0 0 14px;padding:11px 13px;color:#7d2f24;background:var(--red-soft);
+    border:2px solid #f0bdb5;border-radius:12px;font-size:.9rem;font-weight:800}
+  .login-erro.show{display:block}
+  .senha-wrap{position:relative;margin-bottom:12px}
+  .senha-wrap input{padding-right:78px}
+  .ver-senha{position:absolute;top:50%;right:6px;transform:translateY(-50%);min-height:40px;padding:8px 12px;
+    background:var(--white);border:1px solid var(--line);border-radius:10px;font-size:.82rem;font-weight:800;cursor:pointer}
+  .login-nota{margin:18px 0 0;padding:11px 13px;color:#6b3d00;background:var(--yellow-soft);
+    border:1px solid #e0bb42;border-radius:12px;font-size:.8rem;line-height:1.4}
+  .sair-btn{min-height:44px;margin-left:8px;padding:10px 13px;color:var(--white);background:transparent;
+    border:2px solid rgba(255,255,255,.4);border-radius:10px;font-size:.82rem;font-weight:800;cursor:pointer}
+  .sair-btn:hover{background:rgba(255,255,255,.14)}
+
+  /* --- O que acabou --- */
+  .stk-group{margin-bottom:18px}
+  .stk-group h3{margin:0 0 8px;font-size:1.02rem;color:var(--green-950)}
+  .stk-row{display:flex;align-items:center;gap:10px;min-height:60px;margin-bottom:8px;padding:9px 12px;
+    background:var(--white);border:1px solid var(--line);border-radius:14px}
+  .stk-row.out{background:#fdf1ef;border-color:#f0bdb5}
+  .stk-name{min-width:0;flex:1;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .stk-row.out .stk-name{color:#6d766f;text-decoration:line-through}
+  .stk-toggle{flex:0 0 auto;min-height:44px;min-width:104px;padding:9px 14px;border-radius:999px;
+    border:2px solid var(--green-700);background:var(--green-100);color:var(--green-950);
+    font-weight:900;cursor:pointer}
+  .stk-toggle[aria-pressed="true"]{border-color:var(--red);background:var(--red);color:#fff}
+  .stk-count{font-weight:900}
+
+  @media (min-width:720px){ .row3{grid-template-columns:1fr 130px 48px} }
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="login-screen">
+  <form class="login-box" id="login-form" autocomplete="on">
+    <img src="../assets/logo-essencia-marca.svg" alt="" />
+    <h2>Área da equipe</h2>
+    <p class="login-sub">Painel do cardápio da Essência Pizzaria</p>
+
+    <p class="login-erro" id="login-erro" role="alert"></p>
+
+    <label class="f" for="login-user"><span>Usuário</span>
+      <input type="text" id="login-user" name="username" autocomplete="username"
+             autocapitalize="words" placeholder="Seu nome de acesso" required />
+    </label>
+
+    <label class="f" for="login-pass" style="margin-bottom:5px"><span>Senha</span></label>
+    <div class="senha-wrap f">
+      <input type="password" id="login-pass" name="password" autocomplete="current-password"
+             placeholder="Sua senha" required />
+      <button type="button" class="ver-senha" id="ver-senha" aria-pressed="false">Mostrar</button>
+    </div>
+
+    <button class="btn primary full" type="submit">Entrar</button>
+
+    <p class="login-nota">
+      Este painel nao altera o site sozinho. Ele so monta o arquivo do cardapio
+      para voce publicar no GitHub.
+    </p>
+  </form>
+</div>
+
+<div class="stickytop">
+<header class="top">
+  <img src="../assets/logo-essencia-marca.svg" alt="" />
+  <div>
+    <h1>Painel do Cardápio</h1>
+    <small>Essência Pizzaria</small>
+  </div>
+  <a class="see" href="index.html" target="_blank" rel="noopener">Ver cardápio</a>
+  <button type="button" class="sair-btn" id="btn-sair">Sair</button>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Seções do painel">
+  <button role="tab" id="tab-pizzas"   aria-selected="true"  aria-controls="p-pizzas">Pizzas</button>
+  <button role="tab" id="tab-extras"   aria-selected="false" aria-controls="p-extras">Adicionais</button>
+  <button role="tab" id="tab-bordas"   aria-selected="false" aria-controls="p-bordas">Bordas</button>
+  <button role="tab" id="tab-montagem" aria-selected="false" aria-controls="p-montagem">Crie sua pizza</button>
+  <button role="tab" id="tab-estoque"  aria-selected="false" aria-controls="p-estoque">O que acabou</button>
+  <button role="tab" id="tab-publicar" aria-selected="false" aria-controls="p-publicar">Publicar</button>
+</nav>
+</div>
+
+<main>
+  <!-- ============================ PIZZAS ============================ -->
+  <section id="p-pizzas" role="tabpanel" aria-labelledby="tab-pizzas">
+    <h2>Pizzas do cardápio</h2>
+    <p class="hint">Toque numa pizza para abrir. Tudo que você mudar aqui aparece no cardápio depois de <strong>Salvar</strong>.</p>
+    <div id="lista-pizzas"></div>
+  </section>
+
+  <!-- ========================== ADICIONAIS ========================== -->
+  <section id="p-extras" role="tabpanel" aria-labelledby="tab-extras" hidden>
+    <h2>Adicionais</h2>
+    <p class="hint">Aparecem no passo “Quer acrescentar algo?” quando o cliente personaliza uma pizza do cardápio.</p>
+    <div id="lista-extras"></div>
+  </section>
+
+  <!-- ============================ BORDAS ============================ -->
+  <section id="p-bordas" role="tabpanel" aria-labelledby="tab-bordas" hidden>
+    <h2>Bordas</h2>
+    <p class="hint">Deixe uma borda com preço <strong>0</strong> para ser a opção padrão, sem acréscimo.</p>
+    <div id="lista-bordas"></div>
+  </section>
+
+  <!-- ========================== CRIE SUA PIZZA ========================== -->
+  <section id="p-montagem" role="tabpanel" aria-labelledby="tab-montagem" hidden>
+    <h2>Crie sua pizza</h2>
+    <p class="hint">É o card “Crie sua pizza” do cardápio. O cliente começa pelo preço base e cada ingrediente soma.</p>
+
+    <label class="f">
+      <span>Preço base (massa + molho + 8 fatias)</span>
+      <input type="number" id="preco-base" min="0" step="0.5" inputmode="decimal" />
+    </label>
+    <label class="f">
+      <span>Frase que explica o preço base</span>
+      <textarea id="desc-base" maxlength="180"></textarea>
+    </label>
+
+    <div id="lista-grupos"></div>
+  </section>
+
+
+  <!-- ========================== O QUE ACABOU ========================== -->
+  <section id="p-estoque" role="tabpanel" aria-labelledby="tab-estoque" hidden>
+    <h2>O que acabou hoje</h2>
+    <p class="hint">Toque para marcar o que não tem. Fica riscado no cardápio e o cliente não consegue pedir.</p>
+
+    <div class="note" id="resumo-estoque"></div>
+    <button class="btn ghost full" id="btn-repor">Marcar tudo como disponível</button>
+
+    <div id="lista-estoque"></div>
+  </section>
+
+  <!-- =========================== PUBLICAR =========================== -->
+  <section id="p-publicar" role="tabpanel" aria-labelledby="tab-publicar" hidden>
+    <h2>Publicar no site</h2>
+    <p class="hint">São duas coisas diferentes. Leia com calma que é rápido.</p>
+
+    <div class="note ok">
+      <strong>1. Salvar neste aparelho</strong>
+      Vale só no seu celular, serve para você conferir como ficou antes de publicar para todo mundo.
+    </div>
+    <button class="btn primary full" id="btn-salvar">Salvar e ver no meu cardápio</button>
+    <button class="btn ghost full" id="btn-descartar">Descartar e voltar ao que está publicado</button>
+
+    <div class="note" style="margin-top:22px">
+      <strong>2. Publicar para todos os clientes</strong>
+      Aqui você troca o arquivo <code>menu-dados.js</code> no GitHub. A URL do site e o seu QR Code <strong>não mudam</strong>.
+    </div>
+
+    <button class="btn primary full" id="btn-copiar">Copiar o arquivo novo</button>
+    <button class="btn ghost full" id="btn-baixar">Baixar menu-dados.js</button>
+
+    <h3 style="margin:22px 0 8px;font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif">Como colar no GitHub pelo celular</h3>
+    <ol class="steps">
+      <li>Toque em <strong>Copiar o arquivo novo</strong> aqui em cima.</li>
+      <li>Abra o seu repositório no GitHub pelo navegador do celular.</li>
+      <li>Entre na pasta <code>cardapio</code> e toque no arquivo <code>menu-dados.js</code>.</li>
+      <li>Toque no lápis <strong>✏️ (Edit)</strong>. Se não aparecer, toque nos três pontinhos <strong>⋯</strong> e escolha <em>Edit in place</em>.</li>
+      <li>Apague <strong>tudo</strong> que está lá dentro (toque e segure → Selecionar tudo → apagar).</li>
+      <li>Cole o que você copiou.</li>
+      <li>Desça e toque em <strong>Commit changes</strong>.</li>
+      <li>Espere 1 ou 2 minutos e abra o site. O cardápio novo já está no ar, no mesmo link de sempre.</li>
+    </ol>
+
+    <h3 style="margin:22px 0 8px;font-family: "Atkinson Hyperlegible", Verdana, "Segoe UI", sans-serif">Prévia do arquivo</h3>
+    <pre id="preview" aria-label="Conteúdo do arquivo menu-dados.js"></pre>
+  </section>
+</main>
+
+<div class="addbar" id="addbar"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="menu-dados.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var ALERGENOS = {
+    leite:'Leite', gluten:'Glúten', ovo:'Ovo', peixe:'Peixe',
+    crustaceo:'Crustáceo', soja:'Soja', amendoim:'Amendoim', castanhas:'Castanhas'
+  };
+  var CORES = [
+    ['#1d7247','Verde'], ['#f2b632','Amarelo'], ['#0b5fb0','Azul'],
+    ['#c8402f','Vermelho'], ['#744a91','Roxo']
+  ];
+
+  var $  = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+  function moeda(n) {
+    return Number(n || 0).toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+  }
+  function slug(txt) {
+    return String(txt).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'pizza-' + Date.now();
+  }
+  function toast(msg) {
+    var t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast.t);
+    toast.t = setTimeout(function () { t.classList.remove('show'); }, 3200);
+  }
+
+  /* ---------------- estado ---------------- */
+  var publicado = window.MENU_ESSENCIA;
+  var menu;
+  try {
+    var salvo = JSON.parse(localStorage.getItem('essencia-menu') || 'null');
+    menu = (salvo && salvo.pizzas && salvo.pizzas.length) ? salvo : clone(publicado);
+  } catch (e) {
+    menu = clone(publicado);
+  }
+  if (!menu || !menu.pizzas) { menu = clone(publicado); }
+
+  var aba = 'pizzas';
+
+  /* ---------------- abas ---------------- */
+  var ABAS = ['pizzas', 'extras', 'bordas', 'montagem', 'estoque', 'publicar'];
+  function irPara(nome) {
+    aba = nome;
+    ABAS.forEach(function (a) {
+      $('#tab-' + a).setAttribute('aria-selected', String(a === nome));
+      $('#p-' + a).hidden = (a !== nome);
+    });
+    if (nome === 'estoque') { renderEstoque(); }
+    if (nome === 'publicar') { atualizarPreview(); }
+    renderAddBar();
+    // Salto direto, sem animação: trocar de aba não deve virar um scroll longo.
+    window.scrollTo(0, 0);
+  }
+  ABAS.forEach(function (a) {
+    $('#tab-' + a).addEventListener('click', function () { irPara(a); });
+  });
+
+  function renderAddBar() {
+    var bar = $('#addbar');
+    var mapa = {
+      pizzas:   '<button class="btn primary" data-add="pizza">+ Nova pizza</button>',
+      extras:   '<button class="btn primary" data-add="extra">+ Novo adicional</button>',
+      bordas:   '<button class="btn primary" data-add="borda">+ Nova borda</button>',
+      montagem: '<button class="btn primary" data-add="grupo">+ Novo grupo</button>',
+      estoque:  '',
+      publicar: ''
+    };
+    bar.innerHTML = (mapa[aba] || '') +
+      '<button class="btn ' + ((aba === 'publicar' || aba === 'estoque') ? 'primary' : 'ghost') + '" data-salvar>Salvar</button>';
+    bar.hidden = false;
+  }
+
+  /* ---------------- campos reutilizáveis ---------------- */
+  function campoAlergenos(lista, attrs) {
+    return '<fieldset class="aler"><legend>Contém</legend><div class="aler-grid">' +
+      Object.keys(ALERGENOS).map(function (k) {
+        var on = (lista || []).indexOf(k) >= 0;
+        return '<label><input type="checkbox" ' + attrs + ' data-aler="' + k + '"' + (on ? ' checked' : '') + ' />' +
+               esc(ALERGENOS[k]) + '</label>';
+      }).join('') +
+      '</div></fieldset>';
+  }
+
+  /* ---------------- PIZZAS ---------------- */
+  function renderPizzas() {
+    var alvo = $('#lista-pizzas');
+    if (!menu.pizzas.length) {
+      alvo.innerHTML = '<p class="empty">Nenhuma pizza ainda. Toque em <strong>+ Nova pizza</strong> ali embaixo.</p>';
+      return;
+    }
+    alvo.innerHTML = menu.pizzas.map(function (p, i) {
+      return '' +
+      '<details class="item" data-i="' + i + '">' +
+        '<summary>' +
+          '<span class="swatch" style="background:' + esc(p.cor || '#1d7247') + '"></span>' +
+          '<span class="nm">' + esc(p.nome) + '</span>' +
+          '<span class="pr">' + moeda(p.preco) + '</span>' +
+        '</summary>' +
+        '<div class="body">' +
+          '<div class="row">' +
+            '<label class="f"><span>Nome</span><input type="text" data-f="nome" value="' + esc(p.nome) + '" /></label>' +
+            '<label class="f"><span>Preço (R$)</span><input type="number" min="0" step="0.1" inputmode="decimal" data-f="preco" value="' + Number(p.preco) + '" /></label>' +
+          '</div>' +
+          '<div class="row">' +
+            '<label class="f"><span>Etiqueta</span><input type="text" data-f="tag" value="' + esc(p.tag || '') + '" placeholder="Clássica, Cremosa..." /></label>' +
+            '<label class="f"><span>Cor</span><select data-f="cor">' +
+              CORES.map(function (c) {
+                return '<option value="' + c[0] + '"' + ((p.cor || '') === c[0] ? ' selected' : '') + '>' + c[1] + '</option>';
+              }).join('') +
+            '</select></label>' +
+          '</div>' +
+          '<label class="f"><span>Descrição</span><textarea data-f="descricao" maxlength="160">' + esc(p.descricao || '') + '</textarea></label>' +
+
+          campoAlergenos(p.alergenos, 'data-scope="pizza"') +
+
+          '<span style="display:block;margin-bottom:6px;font-size:.84rem;font-weight:800">Ingredientes</span>' +
+          '<div data-ings>' +
+            p.ingredientes.map(function (ing, j) {
+              return '<div class="row3" data-j="' + j + '">' +
+                '<input type="text" data-ing="nome" value="' + esc(ing[0]) + '" aria-label="Nome do ingrediente" />' +
+                '<input type="text" data-ing="qtd" value="' + esc(ing[1]) + '" aria-label="Quantidade" placeholder="150 g" />' +
+                '<button type="button" class="btn danger mini" data-del-ing="' + j + '" aria-label="Remover ' + esc(ing[0]) + '">×</button>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+          '<div class="btn-row">' +
+            '<button type="button" class="btn ghost" data-add-ing>+ Ingrediente</button>' +
+            '<button type="button" class="btn ghost" data-mover="-1" aria-label="Subir pizza">↑</button>' +
+            '<button type="button" class="btn ghost" data-mover="1" aria-label="Descer pizza">↓</button>' +
+            '<button type="button" class="btn danger" data-del-pizza>Apagar pizza</button>' +
+          '</div>' +
+        '</div>' +
+      '</details>';
+    }).join('');
+  }
+
+  /* ---------------- ADICIONAIS / BORDAS ---------------- */
+  function renderSimples(chave, alvoSel, temDetalhe) {
+    var lista = menu[chave] || [];
+    var alvo = $(alvoSel);
+    if (!lista.length) {
+      alvo.innerHTML = '<p class="empty">Nada cadastrado ainda.</p>';
+      return;
+    }
+    alvo.innerHTML = lista.map(function (it, i) {
+      return '' +
+      '<details class="item" data-i="' + i + '" data-lista="' + chave + '">' +
+        '<summary><span class="nm">' + esc(it.nome) + '</span>' +
+        '<span class="pr">' + (it.preco ? '+ ' + moeda(it.preco) : 'Grátis') + '</span></summary>' +
+        '<div class="body">' +
+          '<div class="row">' +
+            '<label class="f"><span>Nome</span><input type="text" data-f="nome" value="' + esc(it.nome) + '" /></label>' +
+            '<label class="f"><span>Preço (R$)</span><input type="number" min="0" step="0.5" inputmode="decimal" data-f="preco" value="' + Number(it.preco) + '" /></label>' +
+          '</div>' +
+          (temDetalhe ? '<label class="f"><span>Detalhe</span><input type="text" data-f="detalhe" value="' + esc(it.detalhe || '') + '" placeholder="Borda recheada" /></label>' : '') +
+          campoAlergenos(it.alergenos, 'data-scope="simples"') +
+          '<div class="btn-row"><button type="button" class="btn danger" data-del-simples>Apagar</button></div>' +
+        '</div>' +
+      '</details>';
+    }).join('');
+  }
+
+  /* ---------------- MONTAGEM ---------------- */
+  function renderMontagem() {
+    $('#preco-base').value = Number(menu.montagem.precoBase);
+    $('#desc-base').value = menu.montagem.descricaoBase || '';
+
+    $('#lista-grupos').innerHTML = menu.montagem.grupos.map(function (g, gi) {
+      return '' +
+      '<div class="group-box" data-g="' + gi + '">' +
+        '<h3>' + esc(g.titulo) + '</h3>' +
+        '<p>' + (g.tipo === 'unico' ? 'O cliente escolhe UMA opção.' : 'O cliente pode repetir até ' + g.maximo + 'x cada item.') + '</p>' +
+        '<label class="f"><span>Título do grupo</span><input type="text" data-gf="titulo" value="' + esc(g.titulo) + '" /></label>' +
+        '<label class="f"><span>Explicação</span><input type="text" data-gf="descricao" value="' + esc(g.descricao || '') + '" /></label>' +
+        (g.tipo === 'unico' ? '' :
+          '<label class="f"><span>Máximo por item</span><input type="number" min="1" max="9" inputmode="numeric" data-gf="maximo" value="' + Number(g.maximo || 3) + '" /></label>') +
+        '<span style="display:block;margin:4px 0 6px;font-size:.84rem;font-weight:800">Ingredientes deste grupo</span>' +
+        g.itens.map(function (it, ii) {
+          return '<div class="row3" data-gi="' + ii + '">' +
+            '<input type="text" data-gif="nome" value="' + esc(it.nome) + '" aria-label="Nome" />' +
+            '<input type="number" min="0" step="0.5" inputmode="decimal" data-gif="preco" value="' + Number(it.preco) + '" aria-label="Preço" />' +
+            '<button type="button" class="btn danger mini" data-del-gitem="' + ii + '" aria-label="Remover ' + esc(it.nome) + '">×</button>' +
+          '</div>';
+        }).join('') +
+        '<div class="btn-row">' +
+          '<button type="button" class="btn ghost" data-add-gitem>+ Ingrediente</button>' +
+          '<button type="button" class="btn danger" data-del-grupo>Apagar grupo</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderTudo() {
+    renderPizzas();
+    renderSimples('adicionais', '#lista-extras', false);
+    renderSimples('bordas', '#lista-bordas', true);
+    renderMontagem();
+    renderAddBar();
+  }
+
+  /* ---------------- leitura dos campos ---------------- */
+  function lerPizzas() {
+    $$('#lista-pizzas .item').forEach(function (node) {
+      var p = menu.pizzas[Number(node.dataset.i)];
+      if (!p) return;
+      p.nome = $('[data-f="nome"]', node).value.trim() || p.nome;
+      p.preco = Number($('[data-f="preco"]', node).value) || 0;
+      p.tag = $('[data-f="tag"]', node).value.trim();
+      p.cor = $('[data-f="cor"]', node).value;
+      p.descricao = $('[data-f="descricao"]', node).value.trim();
+      p.alergenos = $$('[data-aler]:checked', node).map(function (c) { return c.dataset.aler; });
+      p.ingredientes = $$('[data-ings] .row3', node).map(function (r) {
+        return [ $('[data-ing="nome"]', r).value.trim(), $('[data-ing="qtd"]', r).value.trim() ];
+      }).filter(function (par) { return par[0]; });
+      if (!p.id) p.id = slug(p.nome);
+    });
+  }
+
+  function lerSimples(chave, sel) {
+    $$(sel + ' .item').forEach(function (node) {
+      var it = menu[chave][Number(node.dataset.i)];
+      if (!it) return;
+      it.nome = $('[data-f="nome"]', node).value.trim() || it.nome;
+      it.preco = Number($('[data-f="preco"]', node).value) || 0;
+      var det = $('[data-f="detalhe"]', node);
+      if (det) it.detalhe = det.value.trim();
+      it.alergenos = $$('[data-aler]:checked', node).map(function (c) { return c.dataset.aler; });
+    });
+  }
+
+  function lerMontagem() {
+    menu.montagem.precoBase = Number($('#preco-base').value) || 0;
+    menu.montagem.descricaoBase = $('#desc-base').value.trim();
+    $$('#lista-grupos .group-box').forEach(function (node) {
+      var g = menu.montagem.grupos[Number(node.dataset.g)];
+      if (!g) return;
+      g.titulo = $('[data-gf="titulo"]', node).value.trim() || g.titulo;
+      g.descricao = $('[data-gf="descricao"]', node).value.trim();
+      var max = $('[data-gf="maximo"]', node);
+      if (max) g.maximo = Math.max(1, Number(max.value) || 3);
+      g.itens = $$('.row3', node).map(function (r, i) {
+        var antigo = g.itens[i] || {};
+        var novo = {
+          nome: $('[data-gif="nome"]', r).value.trim(),
+          preco: Number($('[data-gif="preco"]', r).value) || 0,
+          alergenos: antigo.alergenos || []
+        };
+        // preserva a marcação de "acabou" feita na aba O que acabou
+        if (antigo.esgotado === true) novo.esgotado = true;
+        return novo;
+      }).filter(function (it) { return it.nome; });
+    });
+  }
+
+  function lerTudo() {
+    lerPizzas();
+    lerSimples('adicionais', '#lista-extras');
+    lerSimples('bordas', '#lista-bordas');
+    lerMontagem();
+    menu.versao = new Date().toISOString().slice(0, 10);
+  }
+
+  /* ---------------- arquivo final ---------------- */
+  function gerarArquivo() {
+    var cabecalho =
+'/* ===========================================================================\n' +
+'   ESSENCIA PIZZARIA — DADOS DO CARDAPIO\n' +
+'   ---------------------------------------------------------------------------\n' +
+'   Gerado pelo painel admin.html em ' + new Date().toLocaleString('pt-BR') + '\n' +
+'   Substitua este arquivo no GitHub para publicar o cardapio novo.\n' +
+'   =========================================================================== */\n\n' +
+'window.MENU_ESSENCIA = ';
+    return cabecalho + JSON.stringify(menu, null, 2) + ';\n';
+  }
+
+  function atualizarPreview() {
+    lerTudo();
+    $('#preview').textContent = gerarArquivo();
+  }
+
+  /* ---------------- ações ---------------- */
+  function salvarLocal() {
+    lerTudo();
+    try {
+      localStorage.setItem('essencia-menu', JSON.stringify(menu));
+      toast('Salvo neste aparelho. Toque em "Ver cardápio" para conferir.');
+    } catch (e) {
+      toast('Não foi possível salvar neste aparelho.');
+    }
+    renderTudo();
+  }
+
+  document.addEventListener('click', function (ev) {
+    var t = ev.target;
+
+    if (t.closest('[data-salvar]')) { salvarLocal(); return; }
+
+    /* --- adicionar --- */
+    var add = t.closest('[data-add]');
+    if (add) {
+      lerTudo();
+      var tipo = add.dataset.add;
+      if (tipo === 'pizza') {
+        menu.pizzas.push({
+          id: 'nova-' + Date.now(), nome: 'Nova pizza', preco: 65, tag: 'Nova', cor: '#1d7247',
+          descricao: '', alergenos: ['gluten'],
+          ingredientes: [['Molho de tomate', '90 g'], ['Muçarela', '180 g']]
+        });
+      } else if (tipo === 'extra') {
+        menu.adicionais.push({ nome: 'Novo adicional', preco: 5, alergenos: [] });
+      } else if (tipo === 'borda') {
+        menu.bordas.push({ nome: 'Nova borda', preco: 10, detalhe: 'Borda recheada', alergenos: [] });
+      } else if (tipo === 'grupo') {
+        menu.montagem.grupos.push({
+          id: 'grupo-' + Date.now(), titulo: 'Novo grupo', descricao: '',
+          tipo: 'quantidade', maximo: 3, itens: [{ nome: 'Novo ingrediente', preco: 5, alergenos: [] }]
+        });
+      }
+      renderTudo();
+      var novos = $$('#p-' + aba + ' .item, #p-' + aba + ' .group-box');
+      var ultimo = novos[novos.length - 1];
+      if (ultimo) { if (ultimo.tagName === 'DETAILS') ultimo.open = true; ultimo.scrollIntoView({ block:'center' }); }
+      toast('Adicionado. Não esqueça de Salvar.');
+      return;
+    }
+
+    /* --- pizzas --- */
+    var item = t.closest('.item[data-i]');
+    if (item && !item.dataset.lista) {
+      var idx = Number(item.dataset.i);
+
+      if (t.closest('[data-add-ing]')) {
+        lerTudo();
+        menu.pizzas[idx].ingredientes.push(['Novo ingrediente', '50 g']);
+        renderTudo();
+        var re = $('#lista-pizzas .item[data-i="' + idx + '"]'); if (re) re.open = true;
+        return;
+      }
+      var delIng = t.closest('[data-del-ing]');
+      if (delIng) {
+        lerTudo();
+        menu.pizzas[idx].ingredientes.splice(Number(delIng.dataset.delIng), 1);
+        renderTudo();
+        var re2 = $('#lista-pizzas .item[data-i="' + idx + '"]'); if (re2) re2.open = true;
+        return;
+      }
+      if (t.closest('[data-del-pizza]')) {
+        if (!window.confirm('Apagar "' + menu.pizzas[idx].nome + '" do cardápio?')) return;
+        lerTudo();
+        menu.pizzas.splice(idx, 1);
+        renderTudo();
+        toast('Pizza apagada. Não esqueça de Salvar.');
+        return;
+      }
+      var mover = t.closest('[data-mover]');
+      if (mover) {
+        var destino = idx + Number(mover.dataset.mover);
+        if (destino < 0 || destino >= menu.pizzas.length) return;
+        lerTudo();
+        var tmp = menu.pizzas[idx];
+        menu.pizzas[idx] = menu.pizzas[destino];
+        menu.pizzas[destino] = tmp;
+        renderTudo();
+        var re3 = $('#lista-pizzas .item[data-i="' + destino + '"]');
+        if (re3) { re3.open = true; re3.scrollIntoView({ block:'center' }); }
+        return;
+      }
+    }
+
+    /* --- adicionais e bordas --- */
+    var simples = t.closest('.item[data-lista]');
+    if (simples && t.closest('[data-del-simples]')) {
+      var chave = simples.dataset.lista;
+      var i2 = Number(simples.dataset.i);
+      if (!window.confirm('Apagar "' + menu[chave][i2].nome + '"?')) return;
+      lerTudo();
+      menu[chave].splice(i2, 1);
+      renderTudo();
+      toast('Apagado. Não esqueça de Salvar.');
+      return;
+    }
+
+    /* --- grupos do Crie sua pizza --- */
+    var box = t.closest('.group-box');
+    if (box) {
+      var gi = Number(box.dataset.g);
+      if (t.closest('[data-add-gitem]')) {
+        lerTudo();
+        menu.montagem.grupos[gi].itens.push({ nome: 'Novo ingrediente', preco: 5, alergenos: [] });
+        renderTudo();
+        var rb = $('#lista-grupos .group-box[data-g="' + gi + '"]'); if (rb) rb.scrollIntoView({ block:'center' });
+        return;
+      }
+      var delG = t.closest('[data-del-gitem]');
+      if (delG) {
+        lerTudo();
+        menu.montagem.grupos[gi].itens.splice(Number(delG.dataset.delGitem), 1);
+        renderTudo();
+        return;
+      }
+      if (t.closest('[data-del-grupo]')) {
+        if (!window.confirm('Apagar o grupo "' + menu.montagem.grupos[gi].titulo + '"?')) return;
+        lerTudo();
+        menu.montagem.grupos.splice(gi, 1);
+        renderTudo();
+        toast('Grupo apagado. Não esqueça de Salvar.');
+        return;
+      }
+    }
+  });
+
+  /* mantém nome e preço visíveis no cabeçalho enquanto digita */
+  document.addEventListener('input', function (ev) {
+    var node = ev.target.closest('.item');
+    if (!node) return;
+    var f = ev.target.dataset.f;
+    if (f === 'nome') $('.nm', node).textContent = ev.target.value || '(sem nome)';
+    if (f === 'preco') {
+      var v = Number(ev.target.value) || 0;
+      $('.pr', node).textContent = node.dataset.lista ? (v ? '+ ' + moeda(v) : 'Grátis') : moeda(v);
+    }
+    if (f === 'cor') { var s = $('.swatch', node); if (s) s.style.background = ev.target.value; }
+  });
+  document.addEventListener('change', function (ev) {
+    if (ev.target.dataset.f === 'cor') {
+      var node = ev.target.closest('.item');
+      var s = node && $('.swatch', node);
+      if (s) s.style.background = ev.target.value;
+    }
+  });
+
+  $('#btn-salvar').addEventListener('click', salvarLocal);
+
+  $('#btn-descartar').addEventListener('click', function () {
+    if (!window.confirm('Descartar suas alterações e voltar ao cardápio que está publicado no site?')) return;
+    try { localStorage.removeItem('essencia-menu'); } catch (e) {}
+    menu = clone(publicado);
+    renderTudo();
+    atualizarPreview();
+    toast('Voltou para o cardápio publicado.');
+  });
+
+  $('#btn-copiar').addEventListener('click', async function () {
+    atualizarPreview();
+    var texto = gerarArquivo();
+    try {
+      await navigator.clipboard.writeText(texto);
+      toast('Copiado! Agora é só colar no GitHub.');
+    } catch (e) {
+      var pre = $('#preview');
+      var sel = window.getSelection();
+      var range = document.createRange();
+      range.selectNodeContents(pre);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      toast('Não consegui copiar sozinho. Selecionei o texto: toque e escolha Copiar.');
+    }
+  });
+
+  $('#btn-baixar').addEventListener('click', function () {
+    atualizarPreview();
+    var blob = new Blob([gerarArquivo()], { type: 'text/javascript;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'menu-dados.js';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    toast('Arquivo baixado: menu-dados.js');
+  });
+
+
+  /* ---------------- O QUE ACABOU ---------------- */
+
+  /** Todas as listas de itens que podem ficar esgotados. */
+  function fontesEstoque() {
+    var fontes = [
+      { titulo: 'Pizzas', itens: menu.pizzas },
+      { titulo: 'Adicionais', itens: menu.adicionais },
+      { titulo: 'Bordas', itens: menu.bordas }
+    ];
+    menu.montagem.grupos.forEach(function (g) {
+      fontes.push({ titulo: 'Crie sua pizza — ' + g.titulo, itens: g.itens });
+    });
+    return fontes;
+  }
+
+  function renderEstoque() {
+    var fontes = fontesEstoque();
+    var total = 0, fora = 0;
+
+    $('#lista-estoque').innerHTML = fontes.map(function (f, fi) {
+      return '<div class="stk-group">' +
+        '<h3>' + esc(f.titulo) + '</h3>' +
+        f.itens.map(function (it, ii) {
+          var out = it.esgotado === true;
+          total++; if (out) fora++;
+          return '<div class="stk-row' + (out ? ' out' : '') + '" data-f="' + fi + '" data-i="' + ii + '">' +
+            '<span class="stk-name">' + esc(it.nome) + '</span>' +
+            '<button type="button" class="stk-toggle" aria-pressed="' + out + '" ' +
+              'aria-label="' + esc(it.nome) + (out ? ': marcado como acabou' : ': disponível') + '">' +
+              (out ? 'Acabou' : 'Tem') + '</button>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+    }).join('');
+
+    $('#resumo-estoque').innerHTML = fora
+      ? '<strong>' + fora + ' de ' + total + ' itens marcados como esgotados.</strong>' +
+        'Lembre de <em>Salvar</em> e depois <em>Publicar</em> para os clientes verem.'
+      : '<strong>Está tudo disponível.</strong>Nada marcado como esgotado no momento.';
+    $('#resumo-estoque').className = fora ? 'note' : 'note ok';
+  }
+
+  document.addEventListener('click', function (ev) {
+    var botao = ev.target.closest('.stk-toggle');
+    if (!botao) return;
+    var linha = botao.closest('.stk-row');
+    var f = fontesEstoque()[Number(linha.dataset.f)];
+    var item = f.itens[Number(linha.dataset.i)];
+    item.esgotado = !(item.esgotado === true);
+    renderEstoque();
+    toast(item.esgotado ? '"' + item.nome + '" marcado como acabou.' : '"' + item.nome + '" está disponível de novo.');
+  });
+
+  $('#btn-repor').addEventListener('click', function () {
+    fontesEstoque().forEach(function (f) {
+      f.itens.forEach(function (it) { delete it.esgotado; });
+    });
+    renderEstoque();
+    toast('Tudo marcado como disponível.');
+  });
+
+
+  /* =========================================================================
+     ACESSO DA EQUIPE
+     -------------------------------------------------------------------------
+     ATENCAO: isto e uma tranca simples, NAO e seguranca de verdade.
+     Como o site e estatico, o usuario e a senha ficam visiveis para quem
+     abrir o codigo da pagina. Serve para evitar que alguem mexa por engano,
+     nao para impedir quem realmente queira entrar.
+     Isso nao e um risco: este painel nao altera o site publicado. Ele so
+     monta o arquivo que o Marcio decide colar no GitHub.
+     ========================================================================= */
+
+  var ACESSO = { usuario: 'victor brunno', senha: '1234' };
+
+  var telaLogin = $('#login-screen');
+  var alvosBloqueio = [$('.stickytop'), $('main'), $('#addbar')];
+
+  function bloquear(sim) {
+    document.body.classList.toggle('travado', sim);
+    alvosBloqueio.forEach(function (el) {
+      if (!el) return;
+      if (sim) { el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); }
+      else { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); }
+    });
+  }
+
+  function entrar() {
+    telaLogin.remove();
+    bloquear(false);
+    try { sessionStorage.setItem('essencia-acesso', '1'); } catch (e) {}
+    toast('Bem-vindo! Lembre de Salvar e Publicar ao terminar.');
+  }
+
+  function jaEntrou() {
+    try { return sessionStorage.getItem('essencia-acesso') === '1'; } catch (e) { return false; }
+  }
+
+  $('#login-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var u = $('#login-user').value.trim().toLowerCase().replace(/\s+/g, ' ');
+    var p = $('#login-pass').value;
+    var erro = $('#login-erro');
+
+    if (u === ACESSO.usuario && p === ACESSO.senha) { entrar(); return; }
+
+    erro.textContent = 'Usuário ou senha incorretos. Confira e tente de novo.';
+    erro.classList.add('show');
+    $('#login-pass').value = '';
+    $('#login-pass').focus();
+  });
+
+  $('#ver-senha').addEventListener('click', function () {
+    var campo = $('#login-pass');
+    var mostrando = campo.type === 'text';
+    campo.type = mostrando ? 'password' : 'text';
+    this.textContent = mostrando ? 'Mostrar' : 'Ocultar';
+    this.setAttribute('aria-pressed', String(!mostrando));
+    campo.focus();
+  });
+
+  $('#btn-sair').addEventListener('click', function () {
+    if (!window.confirm('Sair do painel? Alterações não salvas serão perdidas.')) return;
+    try { sessionStorage.removeItem('essencia-acesso'); } catch (e) {}
+    location.reload();
+  });
+
+  renderTudo();
+  irPara('pizzas');
+
+  if (jaEntrou()) {
+    telaLogin.remove();
+  } else {
+    bloquear(true);
+    $('#login-user').focus();
+  }
+})();
+</script>
+</body>
+</html>
