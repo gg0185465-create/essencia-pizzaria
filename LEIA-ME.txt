@@ -2,7 +2,37 @@ ESSENCIA PIZZARIA — PROJETO COMPLETO
 ====================================================================
 
 
-ATUALIZACAO DE OUTUBRO DE 2026 (ESTA VERSAO)
+ATUALIZACAO DE 27/10/2026: FASE 1 (ESTA VERSAO)
+--------------------------------------------------------------------
+
+1. SECAO "VIABILIDADE" COM AS FASES
+   A pagina inicial agora mostra o plano em tres fases:
+     Fase 1 (meses 0 a 12): delivery + retirada + Noite Essencia,
+       investimento de R$ 23 mil.
+     Fase 2 (meses 12 a 24): balcao e de 4 a 6 mesas acessiveis.
+     Fase 3 (apos 24 meses): salao completo, cerca de R$ 267 mil.
+   Os numeros foram trocados pelos da Fase 1: custos fixos de
+   R$ 7.170/mes, ponto de equilibrio de 158 pizzas/mes e retorno
+   entre 9 e 21 meses. A barra "para onde vai o dinheiro" usa 200
+   pizzas/mes e ganhou um grafico com as metas de vendas. As barras
+   crescem quando aparecem na tela (o modo foco desliga a animacao).
+
+2. PAGINAS NOVAS
+     espaco-3d.html     maquete da cozinha da Fase 1 e do salao da
+                        Fase 2, com botao para ver em 3D ou planta.
+     embalagem-3d.html  caixa da pizza em 3D (gira e abre a tampa),
+                        ficha tecnica e etiqueta com Braille.
+   As duas usam paginas-fase1.css e paginas-fase1.js e respeitam as
+   preferencias de contraste, texto maior e modo foco do site.
+
+ARQUIVOS DESTA VERSAO
+     alterados: index.html, styles.css, app.js, LEIA-ME.txt
+     novos:     espaco-3d.html, embalagem-3d.html,
+                paginas-fase1.css, paginas-fase1.js
+   Os precos do cardapio NAO mudaram (cardapio/ nao foi alterado).
+
+
+ATUALIZACAO DE OUTUBRO DE 2026
 --------------------------------------------------------------------
 
 1. LOGO NOVO

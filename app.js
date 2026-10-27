@@ -140,6 +140,19 @@
     }
   });
 
+  const animatedBars = $$(".animate-bars");
+  if (animatedBars.length && "IntersectionObserver" in window) {
+    document.body.classList.add("js-anim");
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("in-view");
+        barObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+    animatedBars.forEach((element) => barObserver.observe(element));
+  }
+
   window.addEventListener("scroll", updateProgress, { passive: true });
   window.addEventListener("resize", updateProgress);
   updateProgress();
