@@ -33,10 +33,28 @@ ATUALIZACAO DE 05/11/2026: PLANO DE NEGOCIOS E MOVIMENTO
    "Feita com cuidado, servida com proposito." em todas as paginas
    (pedido do grupo). "Todo mundo cabe nessa pizza" saiu.
 
+4. O ESPACO EM 3D DE VERDADE (espaco-3d.html)
+   Visualizador 3D (Three.js) com 4 abas e todas as medidas:
+     Cozinha Fase 1   4,00 x 3,50 m = 14 m2, 8 areas numeradas,
+                      fluxo animado em sentido unico, forno 45 x 60 cm
+     Loja Fase 2      salao de 6,00 x 4,00 m, balcao rebaixado,
+                      4 mesas, mesa livre para cadeira de rodas,
+                      banheiro 1,50 x 1,70 m, cantinho sensorial, rampa
+     Caixa da pizza   36 x 36 x 4,5 cm, tampa que abre, etiqueta
+     A pizza          35 cm, 8 fatias, fatia que sai da pizza
+   Gira com o dedo ou o mouse, aproxima, "Ver de cima", liga e
+   desliga medidas e pessoas para comparar. Tocar numa peca (ou na
+   lista ao lado) mostra o nome, a medida e de onde ela veio.
+   Embaixo tem a tabela de medidas em texto.
+   Links diretos: espaco-3d.html#cozinha, #loja, #caixa, #pizza
+   Medidas da norma: ABNT NBR 9050. Os lados da cozinha e o salao
+   sao proposta ilustrativa (o plano so fixa os 14 m2).
+   Precisa de internet (carrega o Three.js do jsDelivr).
+
 ARQUIVOS DESTA VERSAO
      novos:     plano.html, plano.css, plano.js,
-                movimento.css, movimento.js
-     alterados: index.html, espaco-3d.html, embalagem-3d.html,
+                movimento.css, movimento.js, espaco3d.css, espaco3d.js
+     alterados: index.html, espaco-3d.html (refeita), embalagem-3d.html,
                 app.js, cardapio/index.html (so o slogan), LEIA-ME.txt
    Os precos do cardapio NAO mudaram.
    A URL e o QR Code continuam os mesmos.

@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Maquete 3D da cozinha da Fase 1 da Essência e de como o mesmo espaço cresce na Fase 2, com balcão e salão acessível.">
+  <meta name="description" content="Veja em 3D a cozinha da Fase 1, a loja completa da Fase 2, a caixa e a pizza da Essência, com todas as medidas.">
   <meta name="theme-color" content="#173f31">
-  <title>Essência Pizzaria — O espaço</title>
+  <title>Essência Pizzaria — O espaço em 3D</title>
   <link rel="icon" href="assets/logo-essencia-marca.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,17 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="movimento.css">
   <link rel="stylesheet" href="paginas-fase1.css">
+  <link rel="stylesheet" href="espaco3d.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
-<body class="subpage">
+<body class="subpage espaco-page">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
   <header class="site-header" aria-label="Cabeçalho principal">
@@ -36,82 +45,58 @@
   <main id="conteudo">
     <section class="section sub-hero" aria-labelledby="page-title">
       <div class="container">
-        <p class="eyebrow">Fases 1 e 2 · O espaço</p>
-        <h1 id="page-title">Uma cozinha pequena, pensada para crescer.</h1>
-        <p class="lead">Na Fase 1 não há salão: tudo acontece em uma cozinha de cerca de 14 m², com fluxo em sentido único e uma bancada só para pedidos sem alérgenos. Na Fase 2, o mesmo espaço ganha balcão de retirada e mesas acessíveis.</p>
+        <p class="eyebrow">O espaço e as medidas · em 3D</p>
+        <h1 id="page-title">Entre na Essência antes de ela existir.</h1>
+        <p class="lead">Gire, aproxime e toque em cada parte para ver o tamanho. Aqui estão a cozinha da Fase 1, a loja completa da Fase 2, a caixa da pizza e a própria pizza.</p>
       </div>
     </section>
 
-    <section class="section viewer-section" aria-labelledby="viewer-title">
+    <section class="section viewer3d-section" aria-labelledby="viewer-title">
       <div class="container">
-        <div class="viewer-card wide">
-          <div class="plan-toolbar">
-            <h2 id="viewer-title">Maquete do espaço</h2>
-            <div class="segmented" role="group" aria-label="Escolher a fase">
-              <button type="button" class="seg-btn" data-phase="1" aria-pressed="true">Fase 1 · cozinha</button>
-              <button type="button" class="seg-btn" data-phase="2" aria-pressed="false">Fase 2 · balcão e salão</button>
-            </div>
-            <button type="button" class="button ghost" id="toggleView" aria-pressed="true">Ver como planta</button>
-          </div>
+        <h2 id="viewer-title" class="visually-hidden">Visualizador 3D</h2>
 
-          <div class="plan-scene" id="planScene" data-phase="1" role="img" aria-label="Maquete da cozinha da Fase 1, com as áreas numeradas de 1 a 8 em sentido único, do recebimento até a saída das entregas.">
-            <div class="plan" id="plan">
-              <div class="floor kitchen">
-                <div class="zone z1"><b>1</b><span>Recebimento</span></div>
-                <div class="zone z2 cold"><b>2</b><span>Freezer e estoque</span></div>
-                <div class="zone z3"><b>3</b><span>Massa</span></div>
-                <div class="zone z4 hot"><b>4</b><span>Forno a gás</span></div>
-                <div class="zone z5 safe"><b>5</b><span>Sem alérgenos</span></div>
-                <div class="zone z6"><b>6</b><span>Montagem</span></div>
-                <div class="zone z7"><b>7</b><span>Expedição</span></div>
-                <div class="zone z8 exit"><b>8</b><span class="f1">Saída</span><span class="f2">Balcão</span></div>
-              </div>
-              <div class="floor salon">
-                <div class="zone z9 seat"><b>9</b><span>Mesa livre</span></div>
-                <div class="zone ztable seat"><span>Mesa</span></div>
-                <div class="zone ztable2 seat"><span>Mesa</span></div>
-                <div class="zone ztable3 seat"><span>Mesa</span></div>
-                <div class="zone z10 wc"><b>10</b><span>Banheiro</span></div>
-                <div class="zone z11 calm"><b>11</b><span>Descompressão</span></div>
-                <div class="zone z12 ramp"><b>12</b><span>Rampa</span></div>
-              </div>
-            </div>
-          </div>
-          <p class="viewer-hint">Representação ilustrativa, sem escala.</p>
+        <div class="v3d-tabs" role="tablist" aria-label="Escolher o que ver">
+          <button type="button" role="tab" id="tab-cozinha" aria-selected="true" aria-controls="v3d-panel" data-view="cozinha"><b>1</b><span>Cozinha · Fase 1</span><small>4,00 × 3,50 m</small></button>
+          <button type="button" role="tab" id="tab-loja" aria-selected="false" aria-controls="v3d-panel" data-view="loja"><b>2</b><span>Loja · Fase 2</span><small>cozinha + salão</small></button>
+          <button type="button" role="tab" id="tab-caixa" aria-selected="false" aria-controls="v3d-panel" data-view="caixa"><b>3</b><span>Caixa da pizza</span><small>36 × 36 × 4,5 cm</small></button>
+          <button type="button" role="tab" id="tab-pizza" aria-selected="false" aria-controls="v3d-panel" data-view="pizza"><b>4</b><span>A pizza</span><small>35 cm · 8 fatias</small></button>
         </div>
 
-        <div class="legend-grid">
-          <div>
-            <h3>Fase 1 · cozinha</h3>
-            <ol class="legend" start="1">
-              <li>Recebimento e higienização</li>
-              <li>Freezer e estoque seco</li>
-              <li>Preparo da massa</li>
-              <li>Forno a gás e exaustão</li>
-              <li>Bancada sem alérgenos</li>
-              <li>Bancada de montagem</li>
-              <li>Expedição e embalagem</li>
-              <li>Saída das entregas (Fase 1) / balcão de retirada (Fase 2)</li>
-            </ol>
+        <div class="v3d-card" id="v3d-panel" role="tabpanel" aria-labelledby="tab-cozinha">
+          <div class="v3d-stage" id="stage">
+            <canvas id="v3d" role="img" aria-label="Visualização 3D da cozinha da Fase 1."></canvas>
+            <div class="v3d-labels" id="labels" aria-hidden="true"></div>
+            <div class="v3d-loading" id="loading"><span class="spinner" aria-hidden="true"></span><p>Montando a maquete…</p></div>
+            <div class="v3d-fallback" id="fallback" hidden>
+              <strong>Não deu para abrir o 3D neste aparelho.</strong>
+              <p>Ele precisa de internet e de um navegador com WebGL. Todas as medidas estão na tabela logo abaixo.</p>
+            </div>
+            <p class="v3d-hint" id="hint" aria-hidden="true">Arraste para girar · role ou use dois dedos para aproximar · toque numa peça</p>
+            <div class="v3d-info" id="info" aria-live="polite" hidden></div>
           </div>
-          <div>
-            <h3>Fase 2 · o que entra</h3>
-            <ol class="legend" start="9">
-              <li>Mesa livre para cadeira de rodas</li>
-              <li>Banheiro acessível</li>
-              <li>Cantinho de descompressão sensorial</li>
-              <li>Rampa e piso tátil</li>
-            </ol>
-            <p class="legend-note">De 4 a 6 mesas no total, com espaço de circulação conforme a ABNT NBR 9050.</p>
+
+          <div class="v3d-toolbar" role="group" aria-label="Controles do 3D">
+            <button type="button" class="tool" id="btnTop" aria-pressed="false"><span aria-hidden="true">⬒</span> Ver de cima</button>
+            <button type="button" class="tool" id="btnMeasures" aria-pressed="true"><span aria-hidden="true">↔</span> Medidas</button>
+            <button type="button" class="tool" id="btnFlow" aria-pressed="true"><span aria-hidden="true">➜</span> Fluxo da cozinha</button>
+            <button type="button" class="tool" id="btnPerson" aria-pressed="true"><span aria-hidden="true">♿</span> Pessoas para comparar</button>
+            <button type="button" class="tool" id="btnLid" aria-pressed="false" hidden><span aria-hidden="true">▤</span> Abrir a tampa</button>
+            <button type="button" class="tool" id="btnSlice" aria-pressed="false" hidden><span aria-hidden="true">◔</span> Servir uma fatia</button>
+            <button type="button" class="tool" id="btnSpin" aria-pressed="true"><span aria-hidden="true">⟳</span> Girar sozinho</button>
+            <button type="button" class="tool" id="btnReset"><span aria-hidden="true">⌂</span> Voltar à vista inicial</button>
           </div>
-          <div>
-            <h3>Regras da cozinha</h3>
-            <ul class="legend plain">
-              <li>Fluxo em sentido único: o que é sujo não cruza com o que é limpo</li>
-              <li>Pia exclusiva para lavar as mãos e telas nas janelas</li>
-              <li>Utensílios separados por cor e conferência dupla de cada pedido</li>
-              <li>Boas práticas da RDC nº 216/2004 da ANVISA</li>
-            </ul>
+        </div>
+
+        <div class="v3d-side">
+          <div class="card v3d-legend">
+            <h3 id="legendTitle">Peças da cozinha</h3>
+            <p class="legend-help">Toque num item para ver no 3D.</p>
+            <ol id="legendList"></ol>
+          </div>
+          <div class="card v3d-table">
+            <h3 id="tableTitle">Medidas</h3>
+            <div class="table-wrap"><table><thead><tr><th scope="col">Item</th><th scope="col">Medida</th><th scope="col">De onde vem</th></tr></thead><tbody id="measureBody"></tbody></table></div>
+            <p class="v3d-note" id="tableNote"></p>
           </div>
         </div>
       </div>
@@ -122,11 +107,12 @@
     <div class="container footer-inner">
       <a class="brand footer-brand" href="index.html"><img class="brand-logo" src="assets/logo-essencia-marca.svg" alt="" width="46" height="46"><span><strong>Essência</strong><small>Pizzaria inclusiva</small></span></a>
       <p>Feita com cuidado, servida com propósito.</p>
-      <a href="index.html#viabilidade">Voltar à viabilidade ↑</a>
+      <a href="plano.html">Ver o plano de negócios →</a>
     </div>
   </footer>
 
   <script src="paginas-fase1.js"></script>
   <script src="movimento.js"></script>
+  <script type="module" src="espaco3d.js"></script>
 </body>
 </html>
