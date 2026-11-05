@@ -1299,10 +1299,11 @@ body.high-contrast .learning-note {
 .breakdown-bar { display: flex; height: 34px; overflow: hidden; border-radius: 999px; background: rgba(255, 255, 255, 0.1); }
 .breakdown-bar .seg { display: block; height: 100%; }
 .breakdown-bar .seg + .seg { border-left: 3px solid var(--green-950); }
-.seg-cmv { background: #f2b632; }
-.seg-tax { background: #8fbff0; }
-.seg-fixed { background: #f08a7a; }
-.seg-profit { background: #5fc08a; }
+.seg-cmv { background: #c08612; }
+.seg-tax { background: #4f97e0; }
+.seg-fixed { background: #e0684f; }
+.seg-socios { background: #a07fd0; }
+.seg-profit { background: #2f9a63; }
 .breakdown-legend { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 22px 0 0; padding: 0; list-style: none; }
 .breakdown-legend li { display: grid; grid-template-columns: 16px 1fr; column-gap: 10px; align-items: start; color: rgba(255, 255, 255, 0.82); line-height: 1.4; }
 .breakdown-legend strong { display: block; color: var(--white); }

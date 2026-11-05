@@ -2,6 +2,32 @@ ESSENCIA PIZZARIA — PROJETO COMPLETO
 ====================================================================
 
 
+ATUALIZACAO DE 05/11/2026 (TARDE): 6 SOCIOS, PLANILHA E PLANTA DO GRUPO
+--------------------------------------------------------------------
+
+1. SEIS SOCIOS
+   Ana Luiza (gerente), Gabriela Souza (chef pizzaiola), Debora
+   (auxiliar de cozinha), Victor Brunno (caixa e marketing), Gabriela
+   Chagas (atendente) e Mateus (entregador).
+
+2. PLANILHA "GASTOS MENSAIS DO ESSENCIA" NO PLANO (plano.html)
+   A tabela de gastos do grupo, com as fontes, e a retirada de cada
+   socio (total R$ 12.340,50). Regra: depois de pagar as contas fixas
+   da Fase 1 (R$ 2.170), 70% do que sobra e a retirada dos socios (ate
+   o valor da planilha) e 30% fica na empresa. Resultado:
+     retorno do investimento no mes 11 (base) ou 14 (baixa temporada)
+     retirada cheia da planilha a partir de 318 pizzas/mes
+     loja de 100 m2 (Fase 2) so com mais de 430 pizzas/mes
+   A pagina inicial (viabilidade) foi atualizada com esses numeros.
+
+3. LOJA DA FASE 2 NO 3D = PLANTA DESENHADA PELO GRUPO
+   espaco-3d.html#loja agora segue o desenho do caderno explicado
+   pela Gabi: area pet, balcao, cozinha, salao com 4 mesas, area
+   tranquila com 3 mesas redondas, banheiros feminino, masculino e
+   acessivel, piso tatil e estacionamento do lado de fora.
+   Cerca de 10,0 x 11,5 m (93 m2 construidos). Medidas aproximadas.
+
+
 ATUALIZACAO DE 05/11/2026: PLANO DE NEGOCIOS E MOVIMENTO
 --------------------------------------------------------------------
 

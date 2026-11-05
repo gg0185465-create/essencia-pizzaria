@@ -41,18 +41,22 @@
   // ---------- Fluxo de caixa: base x conservador ----------
   // Premissas do plano de negócios da Fase 1.
   const PRECO = 73.64, VARIAVEL = 19.51 + 8.47, INVEST = 23000;
-  const fixos = (m) => (m <= 3 ? 4170 : 7170); // pró-labore reduzido nos 3 primeiros meses
-  const vendasBase = (m) => (m <= 3 ? 120 : m <= 6 ? 200 : 280);
+  // Fase 1: contas fixas de R$ 2.170. Do que sobra, 70% é a retirada dos 6 sócios
+  // (até os R$ 12.340,50 da planilha do grupo) e 30% fica na empresa.
+  const FIXOS = 2170, RETIRADA_CHEIA = 12340.5, PARTE_SOCIOS = 0.7, SOCIOS = 6;
+  const vendasBase = (m) => (m <= 3 ? 120 : m <= 6 ? 200 : m <= 12 ? 280 : 436);
   const MESES = 24;
 
   const serie = (fator) => {
     let saldo = -INVEST;
-    const pts = [{ m: 0, saldo, pizzas: 0, resultado: 0 }];
+    const pts = [{ m: 0, saldo, pizzas: 0, resultado: 0, retirada: 0 }];
     for (let m = 1; m <= MESES; m++) {
       const pizzas = Math.round(vendasBase(m) * fator);
-      const resultado = pizzas * (PRECO - VARIAVEL) - fixos(m);
+      const sobra = pizzas * (PRECO - VARIAVEL) - FIXOS;
+      const retirada = sobra > 0 ? Math.min(RETIRADA_CHEIA, sobra * PARTE_SOCIOS) : 0;
+      const resultado = sobra - retirada;
       saldo += resultado;
-      pts.push({ m, saldo, pizzas, resultado });
+      pts.push({ m, saldo, pizzas, resultado, retirada });
     }
     return pts;
   };
@@ -63,9 +67,9 @@
   const rb = retorno(base), rc = retorno(cons);
   if (rb) document.getElementById("payBase").textContent = `retorno no mês ${rb}`;
   if (rc) document.getElementById("payCons").textContent = `retorno no mês ${rc}`;
-  const deficit = cons.slice(1, 7).reduce((a, p) => a + Math.min(0, p.resultado), 0);
+  const porSocio = (p) => brl(Math.round(p.retirada / SOCIOS), 0);
   const note = document.getElementById("deficitNote");
-  if (note) note.innerHTML = `<strong>O caixa não acaba:</strong> no cenário conservador, os seis primeiros meses somam um prejuízo de cerca de ${brl(Math.abs(Math.round(deficit)), 0)}, menor que o colchão de R$ 5.400.`;
+  if (note) note.innerHTML = `<strong>Retirada por sócio (média):</strong> no cenário base, ${porSocio(base[1])} nos meses 1 a 3, ${porSocio(base[4])} nos meses 4 a 6, ${porSocio(base[7])} nos meses 7 a 12 e a retirada cheia da planilha no 2º ano. No conservador, de ${porSocio(cons[1])} a ${porSocio(cons[13])}. Nenhum mês fica no vermelho.`;
 
   const host = document.getElementById("cashChart");
   if (!host) return;
@@ -117,7 +121,7 @@
     const b = base[m], c = cons[m];
     tip.innerHTML = m === 0
       ? `<strong>Abertura</strong><br>Investimento: ${brl(-INVEST, 0)}`
-      : `<strong>Mês ${m}</strong><br>Base: ${b.pizzas} pizzas · saldo ${brl(Math.round(b.saldo), 0)}<br>Conservador: ${c.pizzas} pizzas · saldo ${brl(Math.round(c.saldo), 0)}`;
+      : `<strong>Mês ${m}</strong><br>Base: ${b.pizzas} pizzas · ${porSocio(b)} por sócio · saldo ${brl(Math.round(b.saldo), 0)}<br>Conservador: ${c.pizzas} pizzas · ${porSocio(c)} por sócio · saldo ${brl(Math.round(c.saldo), 0)}`;
     tip.style.left = `${(x(m) / W) * 100}%`;
     tip.style.top = `${((T + 8) / H) * 100}%`;
     tip.classList.toggle("flip", m > MESES * 0.6);

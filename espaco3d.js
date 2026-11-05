@@ -339,83 +339,172 @@ function cenaCozinha(fase2 = false) {
     pessoa(g, -1.05, 0.95);
   }
 
-  if (fase2) {
-    // salão de 6,00 × 4,00 m ao lado da cozinha
-    const X1 = 2, X2 = 8, Z1 = -1.75, Z2 = 2.25;
-    g.add(piso(X1, X2, Z1, Z2, texturaPiso("#ead6ad", "#e2cb9c", 6), 1.5));
-    parede(g, X1, Z1, X2, Z1);
-    parede(g, X2, Z1, X2, Z2);
-    parede(g, X1, Z2, X2, Z2, [[2.2, 3.1]]);                 // porta de entrada 0,90 m
-    parede(g, X1, 1.75, X1, Z2);
-    item(8, "Balcão de retirada", "1,20 m, com parte rebaixada de 0,75–0,85 m", "O vão da saída das entregas vira balcão. Uma parte fica mais baixa para quem usa cadeira de rodas, com pelo menos 0,90 m de largura.", FONTE.nbr, COR.verdeEsc,
-      (() => { const o = new THREE.Group(); o.add(caixaXZ(2.06, 2.56, 0.55, 1.05, 1.05, COR.verdeEsc)); o.add(caixaXZ(2.06, 2.56, 1.05, 1.95, 0.8, COR.verde)); return o; })());
-    
+  return { g, itens };
+}
 
-    item(9, "Mesa livre para cadeira de rodas", "mesa de 0,80 × 0,80 m · altura 0,75 m", "Um lado da mesa fica sem cadeira. Embaixo, altura livre de pelo menos 0,73 m para as pernas. Na frente, espaço do módulo de referência (0,80 × 1,20 m) e giro de 1,50 m.", FONTE.nbr, COR.verde,
-      (() => { const o = new THREE.Group(); mesa(o, 3.1, -0.95, ["l", "o"]); return o; })());
-    cadeirante(g, 3.1, -0.15, Math.PI);
-    const modulo = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 1.2), new THREE.MeshBasicMaterial({ color: COR.azul, transparent: true, opacity: 0.18 }));
-    modulo.rotation.x = -Math.PI / 2; modulo.position.set(3.1, 0.006, -0.0); modulo.userData.dim = true; g.add(modulo);
-    nota("módulo 0,80 × 1,20 m", new THREE.Vector3(3.1, 0.1, 0.8), g);
-    const giro = new THREE.Mesh(new THREE.RingGeometry(0.72, 0.75, 64), new THREE.MeshBasicMaterial({ color: COR.azul }));
-    giro.rotation.x = -Math.PI / 2; giro.position.set(4.6, 0.008, 1.35); giro.userData.dim = true; g.add(giro);
-    cota(new THREE.Vector3(3.85, 0.02, 1.35), new THREE.Vector3(5.35, 0.02, 1.35), "giro Ø 1,50 m", g, { azul: true });
+// Loja completa (Fase 2) — planta desenhada pelo grupo no caderno (Gabi, 31/10/2026).
+// Coordenadas em metros a partir do canto de cima à esquerda do desenho (x para a direita, z para baixo).
+function cenaLoja() {
+  const g = new THREE.Group(), itens = [];
+  g.add(chao(40));
+  const L = new THREE.Group();
+  L.position.set(-5, 0, -5.75);
+  g.add(L);
+  L.updateMatrixWorld(true);
 
-    const mesas = new THREE.Group();
-    mesa(mesas, 4.75, -1.0, ["l", "o"]); mesa(mesas, 4.35, 0.2, ["l", "o"]); mesa(mesas, 6.0, 0.4, ["n", "s"]);
-    g.add(mesas);
-    nota("mesas: altura 0,75 m", new THREE.Vector3(4.75, 1.0, -1.0), g);
+  const COR_PET = 0x2bbf7a, COR_ROSA = 0xe8559a, COR_LARANJA = 0xf08a24;
+  const item = (n, nome, medida, desc, fonte, cor, obj) => {
+    obj.traverse((o) => { if (o.isMesh) { o.material = o.material.clone(); o.userData.item = n; } });
+    L.add(obj);
+    L.updateMatrixWorld(true);
+    const caixa = new THREE.Box3().setFromObject(obj);
+    const topo = new THREE.Vector3((caixa.min.x + caixa.max.x) / 2, caixa.max.y + 0.25, (caixa.min.z + caixa.max.z) / 2);
+    rotulo(String(n), "num", L.worldToLocal(topo.clone()), L).userData.num = n;
+    itens.push({ n, nome, medida, desc, fonte, cor, obj, centro: caixa.getCenter(new THREE.Vector3()) });
+  };
+  const V = (x, y, z) => new THREE.Vector3(x, y, z);
+  const pisoCor = (x1, x2, z1, z2, cor, y = 0.003) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(x2 - x1, z2 - z1), mat(cor, { roughness: 0.95 })); m.rotation.x = -Math.PI / 2; m.position.set((x1 + x2) / 2, y, (z1 + z2) / 2); m.receiveShadow = true; return m; };
+  const DESENHO = "Desenho do grupo (planta no caderno)";
 
-    item(10, "Banheiro acessível", "1,50 × 1,70 m", "Medida mínima da norma, com barras de apoio e porta de 0,80 m que abre para fora.", FONTE.nbr, COR.azul,
-      (() => { const o = new THREE.Group(); parede(o, 6.5, -1.75, 6.5, -0.05, [[0.85, 1.65]], 1.0, 0.08); parede(o, 6.5, -0.05, 8, -0.05, [], 1.0, 0.08); o.add(caixaXZ(7.45, 7.9, -1.7, -1.25, 0.45, 0xffffff)); o.add(caixaXZ(6.6, 7.1, -1.7, -1.35, 0.8, 0xffffff)); o.add(caixaXZ(6.54, 7.96, -1.74, -0.09, 0.01, COR.azul, 0.002, 0.004)); return o; })());
-    cota(new THREE.Vector3(6.5, 1.15, -1.75), new THREE.Vector3(8, 1.15, -1.75), "1,50 m", g);
-    cota(new THREE.Vector3(8.15, 1.15, -1.75), new THREE.Vector3(8.15, 1.15, -0.05), "1,70 m", g);
+  // pisos
+  L.add(piso(0, 10, 0, 5.6, texturaPiso("#ead6ad", "#e2cb9c", 6), 1.5));
+  L.add(piso(3.7, 10, 5.6, 11.5, texturaPiso("#ead6ad", "#e2cb9c", 6), 1.5));
+  L.add(piso(7.3, 10, 0, 5.3, texturaPiso("#f3eee2", "#e6dcc6", 8), 1.2));       // cozinha com piso lavável
+  L.add(pisoCor(-1.6, 0, 3.6, 11.5, 0xd8d2c4, 0.002));                           // calçada
 
-    item(11, "Cantinho de descompressão sensorial", "1,40 × 1,40 m", "Canto com luz baixa, almofadas e pouco barulho, para quem precisa de uma pausa durante a refeição.", FONTE.prop, COR.roxo,
-      (() => { const o = new THREE.Group(); o.add(caixaXZ(6.6, 8, 0.85, 2.25, 0.02, COR.roxo, 0.002, 0.005)); o.add(bloco(0.9, 0.35, 0.5, 0x9a78b5, 7.4, 1.9, 0)); o.add(bloco(0.45, 0.3, 0.45, 0xb79ad0, 6.95, 1.2, 0, 0.12)); parede(o, 6.6, 0.85, 6.6, 1.5, [], 1.0, 0.06); return o; })());
+  // paredes externas (cortadas a 1 m para ver dentro)
+  parede(L, 0, 0, 10, 0);
+  parede(L, 10, 0, 10, 11.5);
+  parede(L, 3.7, 11.5, 10, 11.5);
+  parede(L, 0, 0, 0, 5.6, [[4.3, 5.3]]);       // entrada principal de 1,00 m
+  parede(L, 0, 5.6, 3.7, 5.6);
+  parede(L, 3.7, 5.6, 3.7, 11.5);
+  // paredes internas
+  parede(L, 3.8, 0, 3.8, 2.3, [], 1.0, 0.1);    // área pet | balcão
+  parede(L, 0, 2.7, 2.6, 2.7, [], 1.0, 0.1);    // fundo da área pet
+  parede(L, 0.8, 3.9, 3.6, 3.9, [], 1.0, 0.1);  // passagem da área pet
+  parede(L, 4.9, 3.0, 7.3, 3.0, [], 1.0, 0.1);  // fundo do balcão
+  parede(L, 7.3, 0, 7.3, 5.3, [], 1.0, 0.1);    // cozinha
+  parede(L, 8.2, 5.3, 10, 5.3, [], 1.0, 0.1);   // porta da cozinha 0,90 m
+  parede(L, 4.9, 8.3, 6.5, 8.3, [], 1.0, 0.1);  // área tranquila
+  parede(L, 6.5, 8.3, 6.5, 11.5, [], 1.0, 0.1);
+  parede(L, 7.5, 6.6, 10, 6.6, [], 1.0, 0.1);   // banheiros
+  parede(L, 7.5, 8.1, 10, 8.1, [], 1.0, 0.1);
+  parede(L, 7.5, 9.6, 10, 9.6, [], 1.0, 0.1);
+  parede(L, 7.5, 6.6, 7.5, 11.5, [[0.35, 1.25], [1.85, 2.75], [3.4, 4.3]], 1.0, 0.1);
 
-    item(12, "Rampa e piso tátil", "rampa com inclinação até 8,33%", "Entrada pela rampa, com piso tátil de alerta no começo e no fim. Porta de entrada com 0,90 m livres.", FONTE.nbr, COR.amarelo,
-      (() => { const o = new THREE.Group();
-        const rampa = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.04, 1.4), mat(0xbfb6a3)); rampa.position.set(4.65, 0.06, 3.0); rampa.rotation.x = -0.083; rampa.castShadow = rampa.receiveShadow = true; o.add(rampa);
-        o.add(caixaXZ(4.05, 5.25, 2.27, 2.5, 0.012, COR.amarelo, 0.11, 0.004)); o.add(caixaXZ(4.05, 5.25, 3.6, 3.85, 0.012, COR.amarelo, 0.0, 0.004)); return o; })());
-    cota(new THREE.Vector3(2, 0.02, -2.25), new THREE.Vector3(8, 0.02, -2.25), "salão 6,00 m", g);
+  // 1. Entrada e piso tátil
+  const tatil = new THREE.Group();
+  const faixa = (x1, z1, x2, z2) => {
+    const L2 = Math.hypot(x2 - x1, z2 - z1);
+    const m = new THREE.Mesh(new THREE.BoxGeometry(Math.abs(x2 - x1) > 0.01 ? L2 : 0.25, 0.012, Math.abs(x2 - x1) > 0.01 ? 0.25 : L2), mat(COR.amarelo, { roughness: 0.6 }));
+    m.position.set((x1 + x2) / 2, 0.008, (z1 + z2) / 2); m.receiveShadow = true; tatil.add(m);
+  };
+  const alerta = (x, z) => { const m = bloco(0.45, 0.016, 0.45, 0xe09a10, x, z, 0.002, 0.004); tatil.add(m); };
+  faixa(-1.2, 4.8, 4.15, 4.8); faixa(4.15, 1.9, 4.15, 8.4); faixa(4.15, 5.8, 9.7, 5.8); faixa(7.0, 5.8, 7.0, 11.0); faixa(1.0, 3.15, 4.15, 3.15);
+  [[-1.2, 4.8], [4.15, 1.9], [4.15, 4.8], [4.15, 5.8], [4.15, 8.4], [7.0, 5.8], [7.0, 11.0], [9.7, 5.8], [1.0, 3.15], [4.15, 3.15]].forEach(([x, z]) => alerta(x, z));
+  item(1, "Entrada e piso tátil", "porta de 1,00 m · faixa de 25 cm", "Os riscos do desenho viram piso tátil: a faixa direcional leva da entrada ao balcão, às mesas, à área tranquila, aos banheiros e à área pet. Os quadrados de alerta marcam onde o caminho muda.", DESENHO + " · ABNT NBR 16537", COR.amarelo, tatil);
 
-    // estacionamento: rua calma, com vaga acessível na frente (pedido do grupo)
-    const vagaTex = (() => {
-      const cv = document.createElement("canvas"); cv.width = 128; cv.height = 256;
-      const x = cv.getContext("2d");
-      x.fillStyle = "#0b5fb0"; x.fillRect(0, 0, 128, 256);
-      x.strokeStyle = "#ffffff"; x.lineWidth = 6; x.strokeRect(4, 4, 120, 248);
-      x.fillStyle = "#ffffff"; x.font = "700 64px Verdana"; x.textAlign = "center"; x.fillText("♿", 64, 150);
-      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
-    })();
-    const faixaTex = (() => {
-      const cv = document.createElement("canvas"); cv.width = cv.height = 128;
-      const x = cv.getContext("2d"); x.fillStyle = "#5e6466"; x.fillRect(0, 0, 128, 128);
-      x.strokeStyle = "#f2b632"; x.lineWidth = 14;
-      for (let k = -128; k < 256; k += 36) { x.beginPath(); x.moveTo(k, 128); x.lineTo(k + 128, 0); x.stroke(); }
-      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 4); return t;
-    })();
-    item(13, "Vaga acessível no estacionamento", "vaga de 2,50 × 5,00 m + faixa de 1,20 m", "O grupo definiu um ponto fora da agitação da orla, em rua calma, com estacionamento e acesso fácil. A vaga para pessoa com deficiência tem faixa lateral para a cadeira de rodas sair do carro e fica perto da rampa.", FONTE.nbr + " · ponto ideal definido pelo grupo", COR.azul,
-      (() => {
-        const o = new THREE.Group();
-        const asfalto = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 5.6), mat(0x6f7476)); asfalto.rotation.x = -Math.PI / 2; asfalto.position.set(7.0, 0.001, 5.15); asfalto.receiveShadow = true; o.add(asfalto);
-        const vaga = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 5.0), new THREE.MeshStandardMaterial({ map: vagaTex, roughness: 0.9 })); vaga.rotation.x = -Math.PI / 2; vaga.position.set(7.9, 0.004, 5.2); vaga.receiveShadow = true; o.add(vaga);
-        const faixa = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 5.0), new THREE.MeshStandardMaterial({ map: faixaTex, roughness: 0.9 })); faixa.rotation.x = -Math.PI / 2; faixa.position.set(6.05, 0.004, 5.2); faixa.receiveShadow = true; o.add(faixa);
-        const carro = new THREE.Group();
-        carro.add(bloco(1.75, 0.7, 4.1, 0x8aa3b5, 0, 0, 0.28, 0.18));
-        carro.add(bloco(1.5, 0.55, 2.1, 0x9fb7c8, 0, -0.15, 0.95, 0.2));
-        [[-0.8, -1.35], [0.8, -1.35], [-0.8, 1.35], [0.8, 1.35]].forEach(([a, c]) => { const rd = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.22, 20), mat(0x222222)); rd.rotation.z = Math.PI / 2; rd.position.set(a, 0.32, c); rd.castShadow = true; carro.add(rd); });
-        carro.position.set(7.9, 0, 5.4);
-        o.add(carro);
-        return o;
-      })());
-    cota(new THREE.Vector3(6.65, 0.03, 7.95), new THREE.Vector3(9.15, 0.03, 7.95), "2,50 m", g);
-    cota(new THREE.Vector3(9.45, 0.03, 2.7), new THREE.Vector3(9.45, 0.03, 7.7), "5,00 m", g);
-    cota(new THREE.Vector3(5.45, 0.03, 7.95), new THREE.Vector3(6.65, 0.03, 7.95), "1,20 m", g, { azul: true });
-    cota(new THREE.Vector3(8.5, 0.02, -1.75), new THREE.Vector3(8.5, 0.02, 2.25), "4,00 m", g);
-    nota("salão · 24 m²", new THREE.Vector3(5.6, 0.05, -0.45), g);
-  }
+  // 2. Área pet
+  item(2, "Área pet", "≈ 3,80 × 2,70 m", "Espaço para quem vem com o cachorro, que a Ana sugeriu. Tem caminha, pote de água e piso fácil de limpar. Fica separada do salão e da cozinha.", DESENHO, COR_PET,
+    (() => { const o = new THREE.Group(); o.add(pisoCor(0.06, 3.75, 0.06, 2.65, 0xbfe8cf)); o.add(bloco(0.9, 0.18, 0.7, 0x8a6a4a, 0.8, 0.7, 0, 0.08)); o.add(bloco(0.8, 0.1, 0.6, 0xd9c2a0, 0.8, 0.7, 0.12, 0.05));
+      const pote = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.11, 0.09, 20), mat(COR.azul)); pote.position.set(2.0, 0.045, 0.5); pote.castShadow = true; o.add(pote);
+      o.add(bloco(1.2, 0.45, 0.45, COR.madeira, 2.9, 2.2, 0, 0.05)); return o; })());
+
+  // 3. Balcão
+  item(3, "Balcão de atendimento", "≈ 1,90 m, com parte rebaixada de 0,75–0,85 m", "Onde o cliente faz e retira o pedido e paga. Uma parte do balcão fica mais baixa para quem usa cadeira de rodas, com pelo menos 0,90 m de largura.", DESENHO + " · ABNT NBR 9050", COR.roxo,
+    (() => { const o = new THREE.Group(); o.add(pisoCor(3.85, 7.25, 0.06, 2.95, 0xe7dcef)); o.add(caixaXZ(4.9, 5.5, 1.1, 2.1, 1.05, COR.roxo)); o.add(caixaXZ(4.9, 5.5, 2.1, 2.95, 0.8, 0x9a78b5)); o.add(caixaXZ(6.6, 7.2, 0.1, 1.6, 0.9, 0xc8b48c)); return o; })());
+
+  // 4. Cozinha
+  item(4, "Cozinha", "≈ 2,70 × 5,30 m (cerca de 14 m²)", "A mesma cozinha da Fase 1, agora dentro da loja: bancadas, pia, forno a gás de 45 × 60 cm (4 pizzas por fornada) e freezer. A porta dá para o corredor com piso tátil.", DESENHO + " · Pesquisa de preços", COR.amarelo,
+    (() => { const o = new THREE.Group();
+      o.add(caixaXZ(7.4, 8.0, 0.4, 4.2, 0.9, COR.inox));                                   // bancada de montagem
+      o.add(caixaXZ(8.9, 9.95, 0.06, 0.7, 0.9, COR.inox)); o.add(caixaXZ(9.05, 9.75, 0.15, 0.6, 0.02, 0x7d8a88, 0.9, 0.01)); // pia
+      o.add(caixaXZ(9.4, 9.95, 2.4, 3.0, 0.8, 0x3b4446, 0, 0.02)); o.add(caixaXZ(9.45, 9.95, 2.4, 3.0, 0.42, COR.vermelho, 0.8)); // forno
+      o.add(caixaXZ(9.35, 9.95, 3.9, 4.9, 0.85, 0xeef3f6)); o.add(caixaXZ(9.37, 9.93, 3.92, 4.88, 0.02, COR.azul, 0.85, 0.01)); // freezer
+      o.add(caixaXZ(8.4, 9.0, 0.06, 1.2, 0.9, COR.amarelo));                                   // bancada sem alérgenos
+      return o; })());
+
+  // 5. Salão principal
+  const salao = new THREE.Group();
+  mesa(salao, 4.95, 4.35, ["n", "s"]); mesa(salao, 6.45, 4.35, ["n", "s"]); mesa(salao, 4.95, 6.9, ["n", "s"]); mesa(salao, 6.45, 6.9, ["n", "s"]);
+  item(5, "Salão principal", "4 mesas de 0,80 × 0,80 m · altura 0,75 m", "A primeira área de mesas do desenho, perto do balcão. As mesas ficam afastadas para a cadeira de rodas passar, com o corredor de piso tátil no meio.", DESENHO + " · ABNT NBR 9050", COR.verde, salao);
+
+  // 6. Área tranquila
+  const calma = new THREE.Group();
+  calma.add(pisoCor(3.8, 6.4, 8.4, 11.4, 0xdccfe6));
+  [[5.6, 9.1, "lo"], [4.4, 10.6, "ns"], [5.7, 10.6, "ns"]].forEach(([x, z, lado]) => {
+    const t = new THREE.Group();
+    const tampo = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.04, 32), mat(COR.madeira)); tampo.position.y = 0.73; tampo.castShadow = true; t.add(tampo);
+    const pe = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.71, 12), mat(0x3a3a3a)); pe.position.y = 0.355; t.add(pe);
+    [-0.6, 0.6].forEach((d) => { const c = lado === "lo" ? bloco(0.42, 0.45, 0.42, COR.roxo, d, 0, 0, 0.06) : bloco(0.42, 0.45, 0.42, COR.roxo, 0, d, 0, 0.06); t.add(c); });
+    t.position.set(x, 0, z); calma.add(t);
+  });
+  const luz = new THREE.PointLight(0xffc98a, 2.2, 3.5, 2); luz.position.set(5.2, 1.4, 9.9); calma.add(luz);
+  item(6, "Área tranquila", "3 mesas redondas · ≈ 2,70 × 3,10 m", "A segunda área de mesas do desenho, separada por paredes: menos barulho e luz mais suave, para quem tem sensibilidade a som e a luz.", DESENHO + " (explicado pela Gabi)", COR.roxo, calma);
+
+  // 7, 8 e 9. Banheiros
+  const banheiro = (z1, z2, acessivel) => {
+    const o = new THREE.Group();
+    o.add(pisoCor(7.55, 9.95, z1 + 0.05, z2 - 0.05, acessivel ? 0xcfe0f3 : 0xf3e3cf));
+    o.add(caixaXZ(9.45, 9.9, (z1 + z2) / 2 - 0.2, (z1 + z2) / 2 + 0.25, 0.45, 0xffffff));    // vaso
+    o.add(caixaXZ(8.2, 8.8, z1 + 0.06, z1 + 0.5, 0.8, 0xffffff));                             // pia
+    if (acessivel) {
+      const barra = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.8, 10), mat(0x9aa4a8, { metalness: 0.6 })); barra.rotation.x = Math.PI / 2; barra.position.set(9.92, 0.75, (z1 + z2) / 2); o.add(barra);
+      const giro = new THREE.Mesh(new THREE.RingGeometry(0.72, 0.75, 64), new THREE.MeshBasicMaterial({ color: COR.azul })); giro.rotation.x = -Math.PI / 2; giro.position.set(8.55, 0.01, (z1 + z2) / 2 + 0.1); giro.userData.dim = true; o.add(giro);
+    }
+    return o;
+  };
+  item(7, "Banheiro feminino", "≈ 2,50 × 1,50 m", "Primeiro dos três banheiros do desenho, com porta para o corredor de piso tátil.", DESENHO, COR_LARANJA, banheiro(6.6, 8.1, false));
+  item(8, "Banheiro masculino", "≈ 2,50 × 1,50 m", "Segundo banheiro, ao lado do feminino.", DESENHO, COR_LARANJA, banheiro(8.1, 9.6, false));
+  item(9, "Banheiro acessível", "≈ 2,50 × 1,90 m (mínimo da norma: 1,50 × 1,70 m)", "Para quem usa cadeira de rodas: barras de apoio, giro de 1,50 m e porta de 0,90 m.", DESENHO + " · ABNT NBR 9050", COR_LARANJA, banheiro(9.6, 11.5, true));
+
+  // 10. Estacionamento do lado de fora
+  const vagaTex = (() => {
+    const cv = document.createElement("canvas"); cv.width = 128; cv.height = 256;
+    const x = cv.getContext("2d");
+    x.fillStyle = "#0b5fb0"; x.fillRect(0, 0, 128, 256);
+    x.strokeStyle = "#ffffff"; x.lineWidth = 6; x.strokeRect(4, 4, 120, 248);
+    x.fillStyle = "#ffffff"; x.font = "700 64px Verdana"; x.textAlign = "center"; x.fillText("♿", 64, 150);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+  })();
+  const zebra = (() => {
+    const cv = document.createElement("canvas"); cv.width = cv.height = 128;
+    const x = cv.getContext("2d"); x.fillStyle = "#5e6466"; x.fillRect(0, 0, 128, 128);
+    x.strokeStyle = "#f2b632"; x.lineWidth = 14;
+    for (let k = -128; k < 256; k += 36) { x.beginPath(); x.moveTo(k, 128); x.lineTo(k + 128, 0); x.stroke(); }
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 4); return t;
+  })();
+  item(10, "Estacionamento (lado de fora)", "vaga de 2,50 × 5,00 m + faixa de 1,20 m", "Fica do lado de fora, como no desenho. A vaga para pessoa com deficiência tem a faixa listrada ao lado para a cadeira de rodas sair do carro, e a calçada leva até a entrada.", DESENHO + " · ABNT NBR 9050", COR_ROSA,
+    (() => {
+      const o = new THREE.Group();
+      o.add(pisoCor(0, 3.7, 5.75, 11.5, 0x6f7476, 0.002));
+      const vg = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 5.0), new THREE.MeshStandardMaterial({ map: vagaTex, roughness: 0.9 })); vg.rotation.x = -Math.PI / 2; vg.position.set(1.25, 0.005, 8.6); vg.receiveShadow = true; o.add(vg);
+      const fx = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 5.0), new THREE.MeshStandardMaterial({ map: zebra, roughness: 0.9 })); fx.rotation.x = -Math.PI / 2; fx.position.set(3.1, 0.005, 8.6); fx.receiveShadow = true; o.add(fx);
+      const carro = new THREE.Group();
+      carro.add(bloco(1.75, 0.7, 4.1, 0x8aa3b5, 0, 0, 0.28, 0.18));
+      carro.add(bloco(1.5, 0.55, 2.1, 0x9fb7c8, 0, -0.15, 0.95, 0.2));
+      [[-0.8, -1.35], [0.8, -1.35], [-0.8, 1.35], [0.8, 1.35]].forEach(([a, c]) => { const rd = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.22, 20), mat(0x222222)); rd.rotation.z = Math.PI / 2; rd.position.set(a, 0.32, c); rd.castShadow = true; carro.add(rd); });
+      carro.position.set(1.25, 0, 8.7); o.add(carro);
+      return o;
+    })());
+
+  // pessoas para comparar
+  cadeirante(L, 5.7, 5.8, -Math.PI / 2);
+  pessoa(L, -0.8, 5.5);
+
+  // medidas
+  cota(V(0, 0.03, -0.6), V(10, 0.03, -0.6), "10,00 m", L);
+  cota(V(10.6, 0.03, 0), V(10.6, 0.03, 11.5), "11,50 m", L);
+  cota(V(7.3, 1.15, -0.25), V(10, 1.15, -0.25), "2,70 m", L, { azul: true });
+  cota(V(0, 1.15, -0.25), V(3.8, 1.15, -0.25), "3,80 m", L, { azul: true });
+  cota(V(-0.3, 0.03, 4.3), V(-0.3, 0.03, 5.3), "1,00 m", L);
+  cota(V(0, 0.03, 11.85), V(2.5, 0.03, 11.85), "2,50 m", L);
+  cota(V(2.5, 0.03, 11.85), V(3.7, 0.03, 11.85), "1,20 m", L, { azul: true });
+  cota(V(10.3, 1.15, 9.6), V(10.3, 1.15, 11.5), "1,90 m", L);
+  nota("loja ≈ 93 m² construídos", V(6.0, 0.06, 2.0), L);
+  nota("cozinha ≈ 14 m²", V(8.6, 0.06, 2.0), L);
+  nota("piso tátil", V(2.0, 0.06, 4.55), L);
   return { g, itens };
 }
 
@@ -481,10 +570,10 @@ const VISTAS = {
     notaTabela: "O plano define a cozinha de cerca de 14 m². A posição das peças e os lados de 4,00 × 3,50 m são uma proposta ilustrativa do grupo. As paredes aparecem cortadas a 1 m para dar para ver dentro."
   },
   loja: {
-    titulo: "Peças da loja (Fase 2)", rotuloCanvas: "Maquete 3D da Fase 2: a cozinha de 14 metros quadrados ao lado de um salão de 6 por 4 metros, com balcão de retirada rebaixado, 4 mesas, uma delas livre para cadeira de rodas, banheiro acessível de 1,50 por 1,70 metro, cantinho de descompressão, rampa com piso tátil e vaga acessível no estacionamento, de 2,50 por 5 metros com faixa de 1,20 metro.",
-    casa: { pos: [6.8, 10.5, 10.8], alvo: [3.4, 0.2, 1.3] }, dist: [4, 30], sombra: 10, ferramentas: ["btnPerson"],
-    medidas: [["Salão", "6,00 × 4,00 m = 24 m²", "Proposta"], ["Mesas", "4 mesas · 0,80 × 0,80 m · altura 0,75 m", "Plano (4 a 6 mesas) · NBR 9050 (0,75 a 0,85 m)"], ["Altura livre sob a mesa", "≥ 0,73 m", "NBR 9050"], ["Módulo de referência", "0,80 × 1,20 m", "NBR 9050"], ["Giro da cadeira de rodas", "Ø 1,50 m", "NBR 9050"], ["Balcão de retirada", "parte rebaixada 0,75–0,85 m · ≥ 0,90 m de largura", "NBR 9050"], ["Banheiro acessível", "1,50 × 1,70 m", "NBR 9050 (mínimo)"], ["Rampa", "inclinação até 8,33%", "NBR 9050"], ["Cantinho de descompressão", "1,40 × 1,40 m", "Proposta"], ["Vaga acessível", "2,50 × 5,00 m + faixa de 1,20 m", "NBR 9050 · ponto com estacionamento (grupo)"]],
-    notaTabela: "A Fase 2 começa depois de 12 meses, paga com o lucro da Fase 1. Medidas da norma: ABNT NBR 9050:2020. O tamanho do salão e a posição dos móveis são uma proposta ilustrativa."
+    titulo: "Peças da loja (planta do grupo)", rotuloCanvas: "Maquete 3D da loja completa da Fase 2, feita a partir da planta desenhada pelo grupo: cerca de 10 por 11,5 metros, uns 93 metros quadrados construídos. Tem entrada com piso tátil, área pet, balcão, cozinha de 14 metros quadrados, salão com 4 mesas, área tranquila com 3 mesas redondas, banheiros feminino, masculino e acessível, e estacionamento do lado de fora com vaga para pessoa com deficiência.",
+    casa: { pos: [8.5, 13.5, 12.5], alvo: [0, 0, 0.6] }, dist: [4, 32], sombra: 9, ferramentas: ["btnPerson"],
+    medidas: [["Loja", "≈ 10,00 × 11,50 m · ≈ 93 m² construídos", "Desenho do grupo · planilha (ponto de 100 m²)"], ["Cozinha", "≈ 2,70 × 5,30 m (≈ 14 m²)", "Desenho do grupo"], ["Área pet", "≈ 3,80 × 2,70 m", "Desenho do grupo (ideia da Ana)"], ["Balcão", "parte rebaixada 0,75–0,85 m · ≥ 0,90 m de largura", "ABNT NBR 9050"], ["Salão principal", "4 mesas · 0,80 × 0,80 m · altura 0,75 m", "Desenho · NBR 9050 (0,75 a 0,85 m)"], ["Área tranquila", "3 mesas redondas · menos som e luz suave", "Desenho do grupo (Gabi)"], ["Banheiros", "feminino e masculino ≈ 2,50 × 1,50 m · acessível ≈ 2,50 × 1,90 m", "Desenho · NBR 9050 (acessível ≥ 1,50 × 1,70 m)"], ["Portas", "entrada 1,00 m · demais 0,90 m", "NBR 9050 (mínimo 0,80 m)"], ["Piso tátil", "faixa direcional de 25 cm e alertas nas mudanças de caminho", "Desenho · ABNT NBR 16537"], ["Estacionamento", "vaga 2,50 × 5,00 m + faixa de 1,20 m", "Desenho (lado de fora) · NBR 9050"]],
+    notaTabela: "Planta baseada no desenho do caderno do grupo, explicado pela Gabi em 31/10/2026. As medidas são aproximadas, tiradas da proporção do desenho para um ponto de cerca de 100 m² (planilha de gastos). Confirmar no imóvel."
   },
   caixa: {
     titulo: "Partes da caixa", rotuloCanvas: "Caixa de pizza em 3D: 36 por 36 centímetros por dentro e 4,5 centímetros de altura, de papelão kraft, com o logo na tampa, a etiqueta acessível de 9 centímetros e o lacre na frente. Dentro, a pizza de 35 centímetros.",
@@ -534,7 +623,7 @@ function montar(nome, primeira = false) {
   limparCena();
   atual = nome;
   const v = VISTAS[nome];
-  montado = nome === "cozinha" ? cenaCozinha(false) : nome === "loja" ? cenaCozinha(true) : nome === "caixa" ? cenaCaixa() : cenaPizza();
+  montado = nome === "cozinha" ? cenaCozinha(false) : nome === "loja" ? cenaLoja() : nome === "caixa" ? cenaCaixa() : cenaPizza();
   scene.add(montado.g);
   tampaAberta = false; fatiaServida = false;
   if (nome === "caixa") { montado.g.userData.pivo.rotation.x = -1.15; tampaAberta = true; }
