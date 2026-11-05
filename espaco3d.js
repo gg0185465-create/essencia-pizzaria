@@ -378,7 +378,41 @@ function cenaCozinha(fase2 = false) {
       (() => { const o = new THREE.Group();
         const rampa = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.04, 1.4), mat(0xbfb6a3)); rampa.position.set(4.65, 0.06, 3.0); rampa.rotation.x = -0.083; rampa.castShadow = rampa.receiveShadow = true; o.add(rampa);
         o.add(caixaXZ(4.05, 5.25, 2.27, 2.5, 0.012, COR.amarelo, 0.11, 0.004)); o.add(caixaXZ(4.05, 5.25, 3.6, 3.85, 0.012, COR.amarelo, 0.0, 0.004)); return o; })());
-    cota(new THREE.Vector3(2, 0.02, 4.2), new THREE.Vector3(8, 0.02, 4.2), "salão 6,00 m", g);
+    cota(new THREE.Vector3(2, 0.02, -2.25), new THREE.Vector3(8, 0.02, -2.25), "salão 6,00 m", g);
+
+    // estacionamento: rua calma, com vaga acessível na frente (pedido do grupo)
+    const vagaTex = (() => {
+      const cv = document.createElement("canvas"); cv.width = 128; cv.height = 256;
+      const x = cv.getContext("2d");
+      x.fillStyle = "#0b5fb0"; x.fillRect(0, 0, 128, 256);
+      x.strokeStyle = "#ffffff"; x.lineWidth = 6; x.strokeRect(4, 4, 120, 248);
+      x.fillStyle = "#ffffff"; x.font = "700 64px Verdana"; x.textAlign = "center"; x.fillText("♿", 64, 150);
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+    })();
+    const faixaTex = (() => {
+      const cv = document.createElement("canvas"); cv.width = cv.height = 128;
+      const x = cv.getContext("2d"); x.fillStyle = "#5e6466"; x.fillRect(0, 0, 128, 128);
+      x.strokeStyle = "#f2b632"; x.lineWidth = 14;
+      for (let k = -128; k < 256; k += 36) { x.beginPath(); x.moveTo(k, 128); x.lineTo(k + 128, 0); x.stroke(); }
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 4); return t;
+    })();
+    item(13, "Vaga acessível no estacionamento", "vaga de 2,50 × 5,00 m + faixa de 1,20 m", "O grupo definiu um ponto fora da agitação da orla, em rua calma, com estacionamento e acesso fácil. A vaga para pessoa com deficiência tem faixa lateral para a cadeira de rodas sair do carro e fica perto da rampa.", FONTE.nbr + " · ponto ideal definido pelo grupo", COR.azul,
+      (() => {
+        const o = new THREE.Group();
+        const asfalto = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 5.6), mat(0x6f7476)); asfalto.rotation.x = -Math.PI / 2; asfalto.position.set(7.0, 0.001, 5.15); asfalto.receiveShadow = true; o.add(asfalto);
+        const vaga = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 5.0), new THREE.MeshStandardMaterial({ map: vagaTex, roughness: 0.9 })); vaga.rotation.x = -Math.PI / 2; vaga.position.set(7.9, 0.004, 5.2); vaga.receiveShadow = true; o.add(vaga);
+        const faixa = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 5.0), new THREE.MeshStandardMaterial({ map: faixaTex, roughness: 0.9 })); faixa.rotation.x = -Math.PI / 2; faixa.position.set(6.05, 0.004, 5.2); faixa.receiveShadow = true; o.add(faixa);
+        const carro = new THREE.Group();
+        carro.add(bloco(1.75, 0.7, 4.1, 0x8aa3b5, 0, 0, 0.28, 0.18));
+        carro.add(bloco(1.5, 0.55, 2.1, 0x9fb7c8, 0, -0.15, 0.95, 0.2));
+        [[-0.8, -1.35], [0.8, -1.35], [-0.8, 1.35], [0.8, 1.35]].forEach(([a, c]) => { const rd = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.22, 20), mat(0x222222)); rd.rotation.z = Math.PI / 2; rd.position.set(a, 0.32, c); rd.castShadow = true; carro.add(rd); });
+        carro.position.set(7.9, 0, 5.4);
+        o.add(carro);
+        return o;
+      })());
+    cota(new THREE.Vector3(6.65, 0.03, 7.95), new THREE.Vector3(9.15, 0.03, 7.95), "2,50 m", g);
+    cota(new THREE.Vector3(9.45, 0.03, 2.7), new THREE.Vector3(9.45, 0.03, 7.7), "5,00 m", g);
+    cota(new THREE.Vector3(5.45, 0.03, 7.95), new THREE.Vector3(6.65, 0.03, 7.95), "1,20 m", g, { azul: true });
     cota(new THREE.Vector3(8.5, 0.02, -1.75), new THREE.Vector3(8.5, 0.02, 2.25), "4,00 m", g);
     nota("salão · 24 m²", new THREE.Vector3(5.6, 0.05, -0.45), g);
   }
@@ -447,9 +481,9 @@ const VISTAS = {
     notaTabela: "O plano define a cozinha de cerca de 14 m². A posição das peças e os lados de 4,00 × 3,50 m são uma proposta ilustrativa do grupo. As paredes aparecem cortadas a 1 m para dar para ver dentro."
   },
   loja: {
-    titulo: "Peças da loja (Fase 2)", rotuloCanvas: "Maquete 3D da Fase 2: a cozinha de 14 metros quadrados ao lado de um salão de 6 por 4 metros, com balcão de retirada rebaixado, 4 mesas, uma delas livre para cadeira de rodas, banheiro acessível de 1,50 por 1,70 metro, cantinho de descompressão e rampa com piso tátil.",
-    casa: { pos: [7.5, 10.5, 10.5], alvo: [3, 0.2, 0.5] }, dist: [4, 24], sombra: 8, ferramentas: ["btnPerson"],
-    medidas: [["Salão", "6,00 × 4,00 m = 24 m²", "Proposta"], ["Mesas", "4 mesas · 0,80 × 0,80 m · altura 0,75 m", "Plano (4 a 6 mesas) · NBR 9050 (0,75 a 0,85 m)"], ["Altura livre sob a mesa", "≥ 0,73 m", "NBR 9050"], ["Módulo de referência", "0,80 × 1,20 m", "NBR 9050"], ["Giro da cadeira de rodas", "Ø 1,50 m", "NBR 9050"], ["Balcão de retirada", "parte rebaixada 0,75–0,85 m · ≥ 0,90 m de largura", "NBR 9050"], ["Banheiro acessível", "1,50 × 1,70 m", "NBR 9050 (mínimo)"], ["Rampa", "inclinação até 8,33%", "NBR 9050"], ["Cantinho de descompressão", "1,40 × 1,40 m", "Proposta"]],
+    titulo: "Peças da loja (Fase 2)", rotuloCanvas: "Maquete 3D da Fase 2: a cozinha de 14 metros quadrados ao lado de um salão de 6 por 4 metros, com balcão de retirada rebaixado, 4 mesas, uma delas livre para cadeira de rodas, banheiro acessível de 1,50 por 1,70 metro, cantinho de descompressão, rampa com piso tátil e vaga acessível no estacionamento, de 2,50 por 5 metros com faixa de 1,20 metro.",
+    casa: { pos: [6.8, 10.5, 10.8], alvo: [3.4, 0.2, 1.3] }, dist: [4, 30], sombra: 10, ferramentas: ["btnPerson"],
+    medidas: [["Salão", "6,00 × 4,00 m = 24 m²", "Proposta"], ["Mesas", "4 mesas · 0,80 × 0,80 m · altura 0,75 m", "Plano (4 a 6 mesas) · NBR 9050 (0,75 a 0,85 m)"], ["Altura livre sob a mesa", "≥ 0,73 m", "NBR 9050"], ["Módulo de referência", "0,80 × 1,20 m", "NBR 9050"], ["Giro da cadeira de rodas", "Ø 1,50 m", "NBR 9050"], ["Balcão de retirada", "parte rebaixada 0,75–0,85 m · ≥ 0,90 m de largura", "NBR 9050"], ["Banheiro acessível", "1,50 × 1,70 m", "NBR 9050 (mínimo)"], ["Rampa", "inclinação até 8,33%", "NBR 9050"], ["Cantinho de descompressão", "1,40 × 1,40 m", "Proposta"], ["Vaga acessível", "2,50 × 5,00 m + faixa de 1,20 m", "NBR 9050 · ponto com estacionamento (grupo)"]],
     notaTabela: "A Fase 2 começa depois de 12 meses, paga com o lucro da Fase 1. Medidas da norma: ABNT NBR 9050:2020. O tamanho do salão e a posição dos móveis são uma proposta ilustrativa."
   },
   caixa: {

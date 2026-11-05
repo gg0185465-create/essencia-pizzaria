@@ -42,7 +42,7 @@
 .v3d-info p { margin: 0; color: var(--muted); }
 
 .v3d-toolbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; border-top: 1px solid rgba(16, 55, 42, 0.1); }
-.tool { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 8px 14px; border: 2px solid rgba(16, 55, 42, 0.25); border-radius: 999px; color: var(--green-900); background: var(--white); font: inherit; font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 160ms var(--ease-out, ease); }
+.tool { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 8px 14px; border: 2px solid rgba(16, 55, 42, 0.25); border-radius: 999px; color: var(--green-900); background: var(--white); font: inherit; font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: transform 160ms var(--ease-out, ease); }
 .tool[aria-pressed="true"] { color: var(--white); background: var(--green-800); border-color: var(--green-800); }
 @media (hover: hover) and (pointer: fine) { .tool:hover { border-color: var(--green-700); } .v3d-tabs button:hover { transform: translateY(-2px); } }
 
