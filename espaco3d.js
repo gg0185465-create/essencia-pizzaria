@@ -591,6 +591,8 @@ const VISTAS = {
 
 // ---------- Estado e interface ----------
 let atual = null, montado = null, girar = !calmo(), vistaDeCima = false, tampaAberta = false, fatiaServida = false;
+// Modo foto (espaco-3d.html?captura#loja): só o 3D na tela, parado, para tirar print para o trabalho.
+if (new URLSearchParams(location.search).has("captura")) { document.body.classList.add("modo-captura"); girar = false; }
 const botoes = { top: $("btnTop"), med: $("btnMeasures"), flow: $("btnFlow"), pes: $("btnPerson"), lid: $("btnLid"), slice: $("btnSlice"), spin: $("btnSpin"), reset: $("btnReset") };
 botoes.spin.setAttribute("aria-pressed", String(girar));
 let tweens = [];

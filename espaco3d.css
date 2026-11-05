@@ -89,3 +89,10 @@ body.high-contrast .v3d-table td:last-child, body.high-contrast .legend-help, bo
 .v3d-stage [hidden], .v3d-toolbar [hidden] { display: none !important; }
 .v3d-labels { z-index: 1; }
 .v3d-info, .v3d-hint { z-index: 3; }
+/* modo foto: espaco-3d.html?captura */
+.modo-captura .site-header, .modo-captura .sub-hero, .modo-captura .v3d-tabs, .modo-captura .v3d-toolbar, .modo-captura .v3d-side, .modo-captura footer, .modo-captura .v3d-hint, .modo-captura .skip-link { display: none !important; }
+.modo-captura .viewer3d-section { padding: 0; }
+.modo-captura .viewer3d-section > .container { display: block; max-width: none; padding: 0; }
+.modo-captura .v3d-card { border-radius: 0; box-shadow: none; }
+.modo-captura .v3d-stage { height: 100vh; }
+.modo-captura .rv { opacity: 1 !important; transform: none !important; }
