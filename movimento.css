@@ -1,0 +1,109 @@
+/* Movimento do site (usado com movimento.js) */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Entradas ao rolar: só escondem quando o script está ativo */
+.mv .rv { opacity: 0; transform: translateY(18px); transition: opacity 600ms var(--ease-out) var(--d, 0ms), transform 700ms var(--ease-out) var(--d, 0ms); }
+.mv .rv.is-in { opacity: 1; transform: none; }
+
+/* Barras horizontais do plano crescem da esquerda */
+.plano-page .hbars i { position: relative; overflow: hidden; background: #e8e2d2 !important; }
+.plano-page .hbars i::before { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--v) * 1%); border-radius: 4px; background: var(--bar, var(--c1)); transform-origin: left center; transition: transform 1000ms var(--ease-out); }
+.plano-page .hbars.cap i::before { --bar: var(--c3); }
+.plano-page .hbars.cap li:first-child i::before { --bar: var(--c2); }
+.plano-page .hbars.cap li.max i::before { background: repeating-linear-gradient(135deg, #9aa8a2 0 4px, #c9d1cd 4px 8px); }
+.plano-page .hbars li:nth-child(2) i::before { transition-delay: 70ms; }
+.plano-page .hbars li:nth-child(3) i::before { transition-delay: 140ms; }
+.plano-page .hbars li:nth-child(4) i::before { transition-delay: 210ms; }
+.plano-page .hbars li:nth-child(5) i::before { transition-delay: 280ms; }
+.plano-page .hbars li:nth-child(6) i::before { transition-delay: 350ms; }
+.plano-page .hbars li:nth-child(7) i::before { transition-delay: 420ms; }
+.plano-page .hbars li:nth-child(8) i::before { transition-delay: 490ms; }
+.plano-page .hbars li:nth-child(9) i::before { transition-delay: 560ms; }
+.mv .hbars:not(.is-in) i::before { transform: scaleX(0); }
+
+/* Barra empilhada do preço */
+.stackbar span { transform-origin: left center; transition: transform 700ms var(--ease-out), opacity 500ms ease; }
+.stackbar span:nth-child(2) { transition-delay: 120ms; }
+.stackbar span:nth-child(3) { transition-delay: 240ms; }
+.stackbar span:nth-child(4) { transition-delay: 360ms; }
+.mv .stackbar:not(.is-in) span { transform: scaleX(0.2); opacity: 0; }
+
+/* Cronograma */
+.g-row i { transform-origin: left center; transition: transform 900ms var(--ease-out); }
+.g-row em { transition: transform 400ms var(--ease-out), opacity 300ms ease; }
+.g-row:nth-child(3) i { transition-delay: 80ms; }
+.g-row:nth-child(4) i { transition-delay: 160ms; }
+.g-row:nth-child(5) i { transition-delay: 240ms; }
+.g-row:nth-child(6) i { transition-delay: 320ms; }
+.g-row:nth-child(7) i { transition-delay: 400ms; }
+.g-row em:nth-of-type(n) { transition-delay: calc(500ms + var(--c) * 60ms); }
+.mv .gantt:not(.is-in) .g-row i { transform: scaleX(0); }
+.mv .gantt:not(.is-in) .g-row em { transform: scale(0.4); opacity: 0; }
+
+/* Fluxo: os passos acendem um depois do outro */
+.flow li { transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, opacity 600ms var(--ease-out) var(--d, 0ms), transform 700ms var(--ease-out) var(--d, 0ms); }
+.flow li b { transition: transform 300ms var(--ease-out), background-color 300ms ease; }
+.flow li.lit { border-color: var(--green-700); background: #e3f1e8; box-shadow: 0 6px 18px rgba(29, 114, 71, 0.14); }
+.flow li.lit b { transform: scale(1.12); background: var(--green-800); }
+.flow li.lit:last-child { border-color: var(--yellow); background: #fff4d6; }
+
+/* Cartões reagem ao passar o mouse (só em telas com mouse) */
+@media (hover: hover) and (pointer: fine) {
+  .plano-page .card, .feature-card, .phase, .key-numbers > div, .checklist a {
+    transition: transform 220ms var(--ease-out), box-shadow 220ms ease;
+  }
+  .mv .plano-page .card.rv.is-in, .mv .feature-card.rv.is-in, .mv .phase.rv.is-in, .mv .key-numbers > div.rv.is-in {
+    transition: opacity 600ms var(--ease-out) var(--d, 0ms), transform 220ms var(--ease-out), box-shadow 220ms ease;
+  }
+  .plano-page .card:hover, .feature-card:hover, .phase:hover, .checklist a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 60px rgba(16, 55, 42, 0.18);
+  }
+  .checklist a:hover b { transform: rotate(-8deg) scale(1.08); }
+  .checklist b { transition: transform 220ms var(--ease-out); }
+  .supplier li { transition: transform 220ms var(--ease-out); }
+  .supplier li:hover { transform: translateX(4px); }
+  .flow li:hover { transform: translateY(-3px); }
+}
+.button, .menu-button, .checklist a, .seg-btn { -webkit-tap-highlight-color: transparent; }
+.button:active, .menu-button:active, .checklist a:active, .seg-btn:active { transform: scale(0.97); }
+
+/* Pizza girando devagar no topo do plano (decoração) */
+.plano-page .sub-hero { position: relative; overflow: hidden; }
+.plano-page .sub-hero::after {
+  content: ""; position: absolute; z-index: 0; right: -90px; top: 50%; width: clamp(240px, 34vw, 440px); aspect-ratio: 1;
+  background: url("assets/logo-essencia-marca.svg") center / contain no-repeat; opacity: 0.13;
+  transform: translateY(-50%); animation: girar 60s linear infinite; pointer-events: none;
+}
+.plano-page .sub-hero .container { position: relative; z-index: 1; }
+@keyframes girar { to { transform: translateY(-50%) rotate(360deg); } }
+
+/* Menu dos 7 apontamentos que acompanha a rolagem */
+.plano-spy { position: sticky; z-index: 900; top: 76px; margin-bottom: -1px; background: rgba(255, 250, 240, 0.94); border-bottom: 1px solid rgba(16, 55, 42, 0.1); backdrop-filter: blur(8px); transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity 220ms ease, transform 260ms var(--ease-out); }
+.plano-spy.show { opacity: 1; transform: none; pointer-events: auto; }
+.plano-spy ol { display: flex; gap: 6px; max-width: var(--container); margin: 0 auto; padding: 8px 20px; overflow-x: auto; list-style: none; scrollbar-width: none; }
+.plano-spy ol::-webkit-scrollbar { display: none; }
+.plano-spy a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 14px; border-radius: 999px; color: var(--green-900); font-size: 0.9rem; font-weight: 700; text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
+.plano-spy a b { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: var(--white); background: var(--green-700); font-size: 0.78rem; transition: transform 200ms var(--ease-out); }
+.plano-spy a:hover { background: rgba(16, 55, 42, 0.07); }
+.plano-spy a[aria-current="true"] { color: var(--white); background: var(--green-800); }
+.plano-spy a[aria-current="true"] b { color: var(--green-950); background: var(--yellow); transform: scale(1.08); }
+.plano-spy a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.spy-progress { height: 3px; background: rgba(16, 55, 42, 0.08); }
+.spy-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--green-700), var(--yellow), var(--blue), var(--red)); transform: scaleX(0); transform-origin: left center; }
+
+/* Acessibilidade: modo foco e menos movimento */
+body.focus-mode .rv, body.focus-mode .stackbar span, body.focus-mode .g-row i, body.focus-mode .g-row em, body.focus-mode .hbars i::before { opacity: 1 !important; transform: none !important; }
+body.focus-mode.plano-page .sub-hero::after { display: none; }
+body.high-contrast .plano-spy { background: #000000; border-color: #ffffff; }
+body.high-contrast .plano-spy a { color: #ffffff; }
+body.high-contrast .plano-spy a[aria-current="true"] { color: #000000; background: #ffe600; }
+@media (prefers-reduced-motion: reduce) {
+  .mv .rv, .mv .stackbar span, .mv .g-row i, .mv .g-row em, .mv .hbars i::before { opacity: 1 !important; transform: none !important; transition: opacity 200ms ease !important; }
+  .plano-page .sub-hero::after { animation: none; }
+  .flow li.lit b { transform: none; }
+}
+@media (max-width: 560px) { .plano-spy a span { display: none; } .plano-spy a { padding: 6px 8px; } }

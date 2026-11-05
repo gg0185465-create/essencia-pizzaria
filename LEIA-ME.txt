@@ -2,6 +2,46 @@ ESSENCIA PIZZARIA — PROJETO COMPLETO
 ====================================================================
 
 
+ATUALIZACAO DE 05/11/2026: PLANO DE NEGOCIOS E MOVIMENTO
+--------------------------------------------------------------------
+
+1. PAGINA NOVA: plano.html ("Plano de negocios")
+   Responde, um por um, aos 7 apontamentos da orientadora:
+     1 Pesquisa de mercado (14 respostas reais, em grafico)
+     2 Plano de acao de marketing (precos, orcamento, 5W2H,
+       cronograma do 1o ano e metas SMART)
+     3 Plano operacional (horario, forno, capacidade, mesas,
+       equipe e fluxo de producao)
+     4 Custos e fornecedores (formacao do preco, ficha tecnica de
+       cada sabor lida do cardapio, equipamentos pesquisados)
+     5 Aspectos legais (LTDA no Simples e tabela de licencas)
+     6 Viabilidade (fluxo de caixa base x conservador e baixa
+       temporada)
+     7 Referencias e correcoes
+   O que depende do grupo aparece marcado como "pendente".
+   A ficha tecnica e a faixa de precos leem cardapio/menu-dados.js:
+   se mudar um preco pelo painel, a pagina muda junto.
+
+2. MOVIMENTO (movimento.css e movimento.js)
+   Os blocos entram suavemente ao rolar, os numeros contam, as
+   barras crescem, o grafico do caixa se desenha e o fluxo da
+   cozinha acende passo a passo. No plano, um menu com os 7
+   apontamentos acompanha a leitura. No "Modo foco" e para quem
+   pede menos movimento no sistema, tudo aparece parado.
+
+3. SLOGAN UNICO
+   "Feita com cuidado, servida com proposito." em todas as paginas
+   (pedido do grupo). "Todo mundo cabe nessa pizza" saiu.
+
+ARQUIVOS DESTA VERSAO
+     novos:     plano.html, plano.css, plano.js,
+                movimento.css, movimento.js
+     alterados: index.html, espaco-3d.html, embalagem-3d.html,
+                app.js, cardapio/index.html (so o slogan), LEIA-ME.txt
+   Os precos do cardapio NAO mudaram.
+   A URL e o QR Code continuam os mesmos.
+
+
 ATUALIZACAO DE 27/10/2026: FASE 1 (ESTA VERSAO)
 --------------------------------------------------------------------
 
