@@ -401,9 +401,18 @@ function cenaLoja() {
     m.position.set((x1 + x2) / 2, 0.008, (z1 + z2) / 2); m.receiveShadow = true; tatil.add(m);
   };
   const alerta = (x, z) => { const m = bloco(0.45, 0.016, 0.45, 0xe09a10, x, z, 0.002, 0.004); tatil.add(m); };
-  faixa(-1.2, 4.8, 4.15, 4.8); faixa(4.15, 1.9, 4.15, 8.4); faixa(4.15, 5.8, 9.7, 5.8); faixa(7.0, 5.8, 7.0, 11.0); faixa(1.0, 3.15, 4.15, 3.15);
-  [[-1.2, 4.8], [4.15, 1.9], [4.15, 4.8], [4.15, 5.8], [4.15, 8.4], [7.0, 5.8], [7.0, 11.0], [9.7, 5.8], [1.0, 3.15], [4.15, 3.15]].forEach(([x, z]) => alerta(x, z));
-  item(1, "Entrada e piso tátil", "porta de 1,00 m · faixa de 25 cm", "Os riscos do desenho viram piso tátil: a faixa direcional leva da entrada ao balcão, às mesas, à área tranquila, aos banheiros e à área pet. Os quadrados de alerta marcam onde o caminho muda.", DESENHO + " · ABNT NBR 16537", COR.amarelo, tatil);
+  // Faixa direcional (NBR 16537): só leva aonde o cliente precisa chegar. Todo trecho termina
+  // num alerta na frente de uma porta, do balcão ou de uma área — nunca numa parede vazia.
+  // (No desenho do caderno, o risco do corredor ia até a parede da direita, entre a cozinha e os
+  // banheiros, onde não há porta. A cozinha é só da equipe, então a faixa para no corredor dos banheiros.)
+  faixa(-1.2, 4.8, 4.15, 4.8);    // calçada → entrada → corredor central
+  faixa(4.15, 1.9, 4.15, 8.4);    // balcão ↔ salão ↔ área tranquila
+  faixa(4.15, 5.8, 7.0, 5.8);     // salão → corredor dos banheiros
+  faixa(7.0, 5.8, 7.0, 10.45);    // corredor dos banheiros, até a porta do acessível
+  faixa(3.2, 3.15, 4.15, 3.15);   // corredor central → porta da área pet
+  [[-1.2, 4.8], [4.15, 1.9], [4.15, 3.15], [4.15, 4.8], [4.15, 5.8], [4.15, 8.4], [3.2, 3.15], [7.0, 5.8],
+   [7.0, 7.4], [7.0, 8.9], [7.0, 10.45]].forEach(([x, z]) => alerta(x, z));   // alertas: mudanças de direção e portas
+  item(1, "Entrada e piso tátil", "porta de 1,00 m · faixa de 25 cm", "Os riscos do desenho viram piso tátil: a faixa direcional leva da entrada ao balcão, às mesas, à área tranquila, à área pet e às portas dos três banheiros. Os quadrados de alerta marcam onde o caminho muda e a frente de cada porta. A faixa não entra na cozinha, que é só da equipe.", DESENHO + " · ABNT NBR 16537", COR.amarelo, tatil);
 
   // 2. Área pet
   item(2, "Área pet", "≈ 3,80 × 2,70 m", "Espaço para quem vem com o cachorro, que a Ana sugeriu. Tem caminha, pote de água e piso fácil de limpar. Fica separada do salão e da cozinha.", DESENHO, COR_PET,
