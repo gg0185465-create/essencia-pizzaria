@@ -369,17 +369,18 @@ o commit. E o unico jeito sem contratar um servidor.
 LOGIN DO PAINEL DA EQUIPE
 --------------------------------------------------------------------
 
-  Usuario: Victor Brunno
-  Senha:   1234
+  Usuario e senha: combinados com a equipe. Eles NAO ficam escritos
+  neste arquivo nem no site (o site guarda so um "resumo" da senha).
 
 Nao diferencia maiuscula de minuscula nem espaco a mais no nome.
 A sessao dura ate fechar a aba. Tem botao "Sair" no cabecalho.
 
 LEIA ISTO COM ATENCAO - a senha NAO protege de verdade:
 
-Como o site e estatico, o usuario e a senha ficam escritos dentro do
-arquivo admin.html, que qualquer pessoa pode ler clicando com o botao
-direito em "Exibir codigo fonte". Quem souber fazer isso entra.
+Como o site e estatico, nao existe login de verdade. O arquivo
+admin.js guarda so o resumo (hash SHA-256) do usuario e da senha, e
+nao o texto. Mesmo assim, uma senha curta pode ser descoberta por
+tentativa, e quem souber mexer no navegador consegue pular a tela.
 
 Isso serve para:
   - evitar que alguem da equipe mexa por engano;
@@ -398,9 +399,9 @@ Se um dia o projeto virar um negocio de verdade e precisar de login
 com senha protegida, ai sim o site precisa de servidor (e de uma
 mensalidade). Me chame quando chegar essa hora.
 
-Para trocar usuario ou senha: abra cardapio/admin.html, procure a
-linha que comeca com  var ACESSO =  e mude ali. O usuario precisa
-estar escrito em letra minuscula nessa linha.
+Para trocar usuario ou senha: escolha uma senha nova e longa e peca
+ao Claude para gerar o novo resumo (ACESSO_HASH em cardapio/admin.js).
+Nunca escreva a senha em texto em nenhum arquivo do repositorio.
 
 
 PUBLICAR NO GITHUB SEM MUDAR A URL (O QR CODE CONTINUA VALENDO)
