@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="movimento.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Como vocês evitam contato cruzado com alérgenos?", "acceptedAnswer": {"@type": "Answer", "text": "Na proposta da cozinha, os utensílios são separados por cor, há uma bancada só para pedidos com restrição e cada pedido segue um checklist de restrições. Antes de fechar a caixa, uma segunda pessoa confere o pedido. Mesmo assim, retirar um ingrediente não elimina o risco de contato cruzado: escreva a alergia na observação do pedido."}}, {"@type": "Question", "name": "Como vou pedir?", "acceptedAnswer": {"@type": "Answer", "text": "A Fase 1 prevê pedidos pelo WhatsApp, pelo iFood e retirada no balcão. No cardápio do site você já vê cada ingrediente, a quantidade e os alérgenos antes de escolher."}}, {"@type": "Question", "name": "Qual vai ser o horário?", "acceptedAnswer": {"@type": "Answer", "text": "De quinta a domingo, das 18h às 23h. A massa é preparada à tarde."}}, {"@type": "Question", "name": "Como a pizza chega em casa?", "acceptedAnswer": {"@type": "Answer", "text": "Na caixa de papelão kraft com etiqueta em Braille, pictograma, os alérgenos do pedido e um lacre de papel na frente, que mostra se a caixa foi aberta depois da conferência na cozinha."}}, {"@type": "Question", "name": "O cardápio é acessível?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Ele tem leitura em áudio, tradutor de Libras (VLibras), texto maior, alto contraste e modo foco, e você pode montar a pizza do zero, ingrediente por ingrediente."}}, {"@type": "Question", "name": "Vai ter lugar para comer?", "acceptedAnswer": {"@type": "Answer", "text": "Na Fase 1, não: é delivery e retirada, mais a Noite Essência, um encontro mensal com som baixo e luz indireta em um espaço parceiro. A loja da Fase 2, com cerca de 100 m², terá área tranquila, área pet, banheiros acessíveis, piso tátil e estacionamento. Dá para ver a planta no espaço em 3D."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Como vocês evitam contato cruzado com alérgenos?", "acceptedAnswer": {"@type": "Answer", "text": "Na proposta da cozinha, os utensílios são separados por cor, há uma bancada só para pedidos com restrição e cada pedido segue um checklist de restrições. Antes de fechar a caixa, uma segunda pessoa confere o pedido. Mesmo assim, retirar um ingrediente não elimina o risco de contato cruzado: escreva a alergia na observação do pedido."}}, {"@type": "Question", "name": "Como vou pedir?", "acceptedAnswer": {"@type": "Answer", "text": "A Fase 1 prevê pedidos pelo WhatsApp, pelo iFood e retirada no balcão. No cardápio do site você já vê cada ingrediente, a quantidade e os alérgenos antes de escolher."}}, {"@type": "Question", "name": "Qual vai ser o horário?", "acceptedAnswer": {"@type": "Answer", "text": "De quinta a domingo, das 18h às 23h. A massa é preparada à tarde."}}, {"@type": "Question", "name": "Como a pizza chega em casa?", "acceptedAnswer": {"@type": "Answer", "text": "Na caixa de papelão kraft com etiqueta em Braille, pictograma, os alérgenos do pedido e um lacre de papel na frente, que mostra se a caixa foi aberta depois da conferência na cozinha."}}, {"@type": "Question", "name": "O cardápio é acessível?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Ele tem leitura em áudio, tradutor de Libras (VLibras), texto maior, alto contraste e modo foco, e você pode montar a pizza do zero, ingrediente por ingrediente."}}, {"@type": "Question", "name": "Por que a pizza custa o que custa?", "acceptedAnswer": {"@type": "Answer", "text": "Numa pizza média de R$ 73,64, R$ 19,51 pagam ingredientes e embalagem, R$ 8,47 vão para impostos e taxas e cerca de R$ 10,85 pagam as contas fixas da Fase 1 (com 200 pizzas por mês). O que sobra vira a retirada dos 6 sócios (70%) e o caixa da empresa (30%). Tirar um ingrediente não muda o preço. A conta completa está na seção de viabilidade."}}, {"@type": "Question", "name": "Vai ter lugar para comer?", "acceptedAnswer": {"@type": "Answer", "text": "Na Fase 1, não: é delivery e retirada, mais a Noite Essência, um encontro mensal com som baixo e luz indireta em um espaço parceiro. A loja da Fase 2, com cerca de 100 m², terá área tranquila, área pet, banheiros acessíveis, piso tátil e estacionamento. Dá para ver a planta no espaço em 3D."}}]}</script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -241,7 +241,7 @@
           <a class="button ghost" href="espaco-3d.html">Ver o espaço em 3D <span aria-hidden="true">→</span></a>
         </div>
 
-        <div class="price-breakdown" aria-labelledby="breakdown-title">
+        <div class="price-breakdown" id="composicao-preco" aria-labelledby="breakdown-title">
           <div class="breakdown-head">
             <h3 id="breakdown-title">Para onde vai o dinheiro de uma pizza na Fase 1</h3>
             <p>Exemplo com o preço médio do cardápio, R$ 73,64, vendendo 200 pizzas por mês. Valores estimados para Caraguatatuba em 2026.</p>
@@ -307,6 +307,28 @@
       </div>
     </section>
 
+    <section class="section seguranca" id="seguranca" aria-labelledby="seguranca-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Segurança alimentar na prática</p>
+          <h2 id="seguranca-title">O caminho de cada pedido com restrição</h2>
+          <p>É o protocolo previsto no plano de negócios para a cozinha da Fase 1. Ele ainda vai ser testado na prática antes da abertura.</p>
+        </div>
+        <ol class="protocolo">
+          <li><b>1</b><strong>Pedido com a restrição escrita</strong><span>O cardápio mostra os alérgenos de cada sabor e tem um campo de observação, que chega para a equipe junto com o pedido.</span></li>
+          <li><b>2</b><strong>Utensílios separados por cor</strong><span>Pedidos com restrição são montados numa bancada só para eles, com utensílios de outra cor.</span></li>
+          <li><b>3</b><strong>Checklist de restrições</strong><span>Cada pedido com restrição segue um checklist antes de ir ao forno.</span></li>
+          <li><b>4</b><strong>Conferência dupla</strong><span>Uma segunda pessoa confere o pedido antes de fechar a caixa.</span></li>
+          <li><b>5</b><strong>Caixa com lacre e etiqueta</strong><span>A etiqueta tem Braille, pictograma e os alérgenos do pedido. O lacre de papel na frente mostra se a caixa foi aberta depois da conferência. <a href="embalagem-3d.html">Ver a caixa em 3D</a></span></li>
+        </ol>
+        <div class="seguranca-rodape">
+          <p><strong>Normas:</strong> a cozinha vai seguir a RDC 216/2004 da Anvisa (boas práticas para serviços de alimentação) e a Portaria CVS 3/2026 do Estado de São Paulo, com Manual de Boas Práticas e POPs. A licença da Vigilância Sanitária ainda está pendente: o grupo precisa confirmar se ela aceita a cozinha da Fase 1.</p>
+          <p class="seguranca-links"><a class="button ghost" href="cardapio/index.html#cardapio">Ver os alérgenos de cada sabor</a> <a class="button ghost" href="plano.html#ficha-tecnica">Ver a ficha técnica com as quantidades</a></p>
+          <p class="small-print">Quando a Essência abrir, a mesma tabela de alérgenos vai para o catálogo do WhatsApp Business e para o Instagram.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section faq" id="perguntas" aria-labelledby="faq-title">
       <div class="container faq-inner">
         <div class="section-heading">
@@ -334,6 +356,10 @@
           <details>
             <summary>O cardápio é acessível?</summary>
             <p>Sim. Ele tem leitura em áudio, tradutor de Libras (VLibras), texto maior, alto contraste e modo foco, e você pode montar a pizza do zero, ingrediente por ingrediente.</p>
+          </details>
+          <details>
+            <summary>Por que a pizza custa o que custa?</summary>
+            <p>Numa pizza média de R$ 73,64, R$ 19,51 pagam ingredientes e embalagem, R$ 8,47 vão para impostos e taxas e cerca de R$ 10,85 pagam as contas fixas da Fase 1 (com 200 pizzas por mês). O que sobra vira a retirada dos 6 sócios (70%) e o caixa da empresa (30%). Tirar um ingrediente não muda o preço. A conta completa está na seção de viabilidade. <a href="#composicao-preco">Ver a divisão do preço</a></p>
           </details>
           <details>
             <summary>Vai ter lugar para comer?</summary>
