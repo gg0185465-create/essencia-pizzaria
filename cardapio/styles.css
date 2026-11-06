@@ -234,6 +234,11 @@ h3 { margin-bottom: 8px; font-size: 1.25rem; }
   background: var(--cream);
   border-radius: 50%;
 }
+/* O <picture> (WebP + PNG) não pode virar uma caixa própria: a foto precisa
+   ser o item centralizado do prato, senão a pizza fica fora do centro do anel. */
+.hero-plate picture { display: contents; }
+.hero-plate source { display: none; }
+.hero-plate img { grid-area: 1 / 1; }
 .hero-visual img {
   position: relative;
   z-index: 2;
