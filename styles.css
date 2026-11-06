@@ -6,7 +6,7 @@
   --cream: #fffaf0;
   --cream-deep: #f4ecd9;
   --ink: #173029;
-  --muted: #5b6a64;
+  --muted: #424f4a;
   --yellow: #f2b632;
   --yellow-soft: #ffe59a;
   --red: #c8402f;
@@ -18,6 +18,7 @@
   --radius-md: 18px;
   --container: 1180px;
   --base-size: 16px;
+  --header-h: 76px;
 }
 
 * {
@@ -26,7 +27,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: calc(var(--header-h) + 12px);
 }
 
 body {
@@ -107,9 +108,11 @@ button {
 
 .reading-progress span {
   display: block;
-  width: 0;
+  width: 100%;
   height: 100%;
   background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
 .container {
@@ -128,8 +131,7 @@ button {
   min-height: 76px;
   padding: 10px max(24px, calc((100vw - var(--container)) / 2));
   border-bottom: 1px solid rgba(23, 48, 41, 0.09);
-  background: rgba(255, 250, 240, 0.95);
-  backdrop-filter: blur(14px);
+  background: var(--cream);
 }
 
 .brand {
@@ -236,6 +238,7 @@ button {
   overflow: hidden;
   color: var(--white);
   background: var(--green-950) url("assets/ambiente-essencia.png") center / cover no-repeat;
+  background-image: image-set(url("assets/ambiente-essencia.webp") type("image/webp"), url("assets/ambiente-essencia.png") type("image/png"));
 }
 
 .hero-overlay {
@@ -639,6 +642,16 @@ button {
   grid-column: 1 / -1;
   color: var(--white);
   background: var(--purple);
+}
+
+.color-band.red small {
+  color: #ffffff;
+}
+
+.final-cta .eyebrow,
+.final-cta small,
+.cta-inner small {
+  color: var(--green-950);
 }
 
 .color-band small {
@@ -1118,13 +1131,48 @@ body.high-contrast .access-button span {
   color: #ffe100;
 }
 
+@media (max-width: 760px) {
+  .hero {
+    background-image: image-set(url("assets/ambiente-essencia-900.webp") type("image/webp"), url("assets/ambiente-essencia.png") type("image/png"));
+  }
+}
+
 @media (max-width: 1060px) {
-  .site-header {
-    grid-template-columns: 1fr auto;
+  :root {
+    --header-h: 124px;
   }
 
+  .site-header {
+    grid-template-columns: 1fr auto;
+    row-gap: 6px;
+  }
+
+  /* Antes o menu sumia abaixo de 1060 px. Agora vira uma linha que rola para o lado. */
   .main-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: flex-start;
+    gap: 22px;
+    margin-inline: -4px;
+    padding: 4px 4px 6px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .main-nav::-webkit-scrollbar {
     display: none;
+  }
+
+  .main-nav a {
+    padding: 6px 0;
+  }
+
+  .main-nav a[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-color: var(--yellow);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
   }
 
   .feature-grid {

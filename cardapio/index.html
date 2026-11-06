@@ -8,8 +8,21 @@
       name="description"
       content="Cardápio acessível e personalizável da Essência Pizzaria. Escolha ingredientes, monte sua própria pizza e use os recursos de leitura."
     />
-    <title>Essência Pizzaria | Cardápio acessível</title>
-    <link rel="icon" href="../assets/logo-essencia-marca.svg" type="image/svg+xml" />
+    <title>Cardápio acessível com alérgenos | Essência Pizzaria</title>
+    <link rel="canonical" href="https://gg0185465-create.github.io/essencia-pizzaria/cardapio/index.html">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Essência Pizzaria">
+  <meta property="og:title" content="Cardápio acessível com alérgenos | Essência Pizzaria">
+  <meta property="og:description" content="Cardápio acessível e personalizável da Essência Pizzaria. Escolha ingredientes, monte sua própria pizza e use os recursos de leitura.">
+  <meta property="og:url" content="https://gg0185465-create.github.io/essencia-pizzaria/cardapio/index.html">
+  <meta property="og:image" content="https://gg0185465-create.github.io/essencia-pizzaria/assets/og-essencia.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Essência, pizzaria inclusiva em Caraguatatuba: família à mesa com cadeira de rodas.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/logo-essencia-marca.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="../assets/logo-essencia-marca.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +49,7 @@
 
       <button class="access-trigger" id="open-access" type="button" aria-haspopup="dialog">
         <span aria-hidden="true">◉</span>
-        <span>Como prefere ler?</span>
+        <span>Acessibilidade</span>
       </button>
     </header>
 
@@ -61,7 +74,10 @@
 
         <div class="hero-visual" aria-hidden="true">
           <div class="hero-plate">
-            <img src="assets/hero-pizza.png" alt="" width="900" height="900" />
+            <picture>
+              <source type="image/webp" srcset="assets/hero-pizza-600.webp 600w, assets/hero-pizza.webp 900w" sizes="(max-width: 760px) 78vw, 480px" />
+              <img src="assets/hero-pizza.png" alt="" width="900" height="900" fetchpriority="high" decoding="async" />
+            </picture>
           </div>
           <p class="hero-badge">Feita com cuidado,<br />servida com propósito.</p>
         </div>
@@ -377,7 +393,7 @@
       <div vw-access-button class="active"></div>
       <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
     </div>
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer></script>
     <script src="menu-dados.js"></script>
     <script src="app.js"></script>
   </body>

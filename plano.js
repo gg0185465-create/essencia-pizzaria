@@ -29,7 +29,7 @@
       const alerg = esc((p.alergenos || []).map((a) => ALERGENOS[a] || a).join(", ") || "nenhum informado");
       out.innerHTML = `
         <div class="ficha-head"><strong>${esc(p.nome)}</strong><span>${brl(p.preco)}</span></div>
-        <div class="table-wrap"><table class="compact"><thead><tr><th scope="col">Ingrediente</th><th scope="col">Quantidade</th></tr></thead><tbody>${linhas}</tbody></table></div>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Ficha técnica"><table class="compact"><thead><tr><th scope="col">Ingrediente</th><th scope="col">Quantidade</th></tr></thead><tbody>${linhas}</tbody></table></div>
         <p class="alerg"><strong>Contém:</strong> ${alerg}. Pode haver contato cruzado na cozinha.</p>`;
     };
     select.addEventListener("change", render);

@@ -82,7 +82,7 @@
 @keyframes girar { to { transform: translateY(-50%) rotate(360deg); } }
 
 /* Menu dos 7 apontamentos que acompanha a rolagem */
-.plano-spy { position: sticky; z-index: 900; top: 76px; margin-bottom: -1px; background: rgba(255, 250, 240, 0.94); border-bottom: 1px solid rgba(16, 55, 42, 0.1); backdrop-filter: blur(8px); transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity 220ms ease, transform 260ms var(--ease-out); }
+.plano-spy { position: sticky; z-index: 900; top: var(--header-h, 76px); margin-bottom: -1px; background: var(--cream); border-bottom: 1px solid rgba(16, 55, 42, 0.1); transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity 220ms ease, transform 260ms var(--ease-out); }
 .plano-spy.show { opacity: 1; transform: none; pointer-events: auto; }
 .plano-spy ol { display: flex; gap: 6px; max-width: var(--container); margin: 0 auto; padding: 8px 20px; overflow-x: auto; list-style: none; scrollbar-width: none; }
 .plano-spy ol::-webkit-scrollbar { display: none; }

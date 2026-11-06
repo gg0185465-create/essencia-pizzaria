@@ -74,10 +74,18 @@
     speak(clone.textContent);
   }
 
+  const progressBar = $("#readingProgress");
+  let progressPending = false;
   function updateProgress() {
+    progressPending = false;
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const percentage = scrollable > 0 ? Math.min(100, (window.scrollY / scrollable) * 100) : 0;
-    $("#readingProgress").style.width = `${percentage}%`;
+    const share = scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0;
+    progressBar.style.transform = `scaleX(${share})`;
+  }
+  function scheduleProgress() {
+    if (progressPending) return;
+    progressPending = true;
+    window.requestAnimationFrame(updateProgress);
   }
 
   $("#openAccessibility").addEventListener("click", () => dialog.showModal());
@@ -153,8 +161,8 @@
     animatedBars.forEach((element) => barObserver.observe(element));
   }
 
-  window.addEventListener("scroll", updateProgress, { passive: true });
-  window.addEventListener("resize", updateProgress);
+  window.addEventListener("scroll", scheduleProgress, { passive: true });
+  window.addEventListener("resize", scheduleProgress);
   updateProgress();
 
   window.addEventListener("load", () => {

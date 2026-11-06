@@ -73,10 +73,9 @@ img { display: block; max-width: 100%; height: auto; }
   gap: 28px;
   min-height: 82px;
   padding: 12px max(24px, calc((100vw - 1240px) / 2));
-  background: rgba(251, 248, 239, 0.96);
+  background: var(--cream);
   border-top: 7px solid var(--green-800);
   border-bottom: 1px solid rgba(23, 79, 55, 0.14);
-  backdrop-filter: blur(14px);
 }
 .site-header::after {
   content: "";

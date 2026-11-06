@@ -620,9 +620,13 @@ function limparCena() {
   montado = null;
 }
 
+let sujo = 2; // quadros que ainda precisam ser desenhados
+const pedirQuadro = () => { sujo = 2; };
+
 function montar(nome, primeira = false) {
   if (!renderer) return;
   limparCena();
+  pedirQuadro();
   atual = nome;
   const v = VISTAS[nome];
   montado = nome === "cozinha" ? cenaCozinha(false) : nome === "loja" ? cenaLoja() : nome === "caixa" ? cenaCaixa() : cenaPizza();
@@ -764,6 +768,7 @@ function tamanho() {
   camera.aspect = w / h;
   camera.fov = w < 560 ? 52 : 40;
   camera.updateProjectionMatrix();
+  pedirQuadro();
 }
 let visivel = true;
 new IntersectionObserver((e) => { visivel = e[0].isIntersecting; }).observe(stage);
@@ -771,10 +776,15 @@ function quadro(t) {
   requestAnimationFrame(quadro);
   if (!visivel || document.hidden || !montado) return;
   const agora = performance.now();
+  const animando = tweens.length > 0;
   tweens = tweens.filter((tw) => { const k = Math.min(1, (agora - tw.t0) / tw.dur); tw.passo(k); if (k >= 1) { tw.fim && tw.fim(); return false; } return true; });
   controls.autoRotate = girar && !calmo() && !vistaDeCima;
-  controls.update();
-  montado.g.traverse((o) => { if (o.userData.anim) o.userData.anim(t / 1000); });
+  const mexeu = controls.update();
+  let fluxo = false;
+  montado.g.traverse((o) => { if (o.userData.anim && o.visible) { o.userData.anim(t / 1000); fluxo = true; } });
+  // Parado e sem animação: não redesenha (economiza bateria no celular).
+  if (!mexeu && !animando && !fluxo && !controls.autoRotate && sujo <= 0) return;
+  sujo = Math.max(0, sujo - 1);
   renderer.render(scene, camera);
   labelRenderer.render(scene, camera);
 }
@@ -787,4 +797,33 @@ if (renderer) {
   $("loading").hidden = true;
   requestAnimationFrame(quadro);
   addEventListener("hashchange", () => { const h = location.hash.slice(1); if (VISTAS[h] && h !== atual) montar(h); });
+  // Qualquer botão, tecla ou toque na área do 3D pede um quadro novo.
+  const card = stage.closest(".v3d-card") || document;
+  ["click", "keydown", "pointerup"].forEach((ev) => card.addEventListener(ev, () => setTimeout(pedirQuadro, 0)));
+  controls.addEventListener("change", pedirQuadro);
+  document.addEventListener("visibilitychange", pedirQuadro);
+  new MutationObserver(pedirQuadro).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+  // Celular: o 3D começa "solto" para a página rolar; um botão liga o giro com o dedo.
+  if (matchMedia("(pointer: coarse)").matches && !document.body.classList.contains("modo-captura")) {
+    const ativar = document.createElement("button");
+    ativar.type = "button";
+    ativar.className = "v3d-touch";
+    ativar.textContent = "Tocar para girar o 3D";
+    const soltar = document.createElement("button");
+    soltar.type = "button";
+    soltar.className = "v3d-touch v3d-touch-soltar";
+    soltar.textContent = "Soltar e rolar a página";
+    const modo = (on) => {
+      controls.enabled = on;
+      canvas.style.touchAction = on ? "none" : "pan-y";
+      stage.classList.toggle("v3d-ativo", on);
+      ativar.hidden = on;
+      soltar.hidden = !on;
+    };
+    ativar.addEventListener("click", () => { modo(true); $("hint").classList.add("gone"); });
+    soltar.addEventListener("click", () => modo(false));
+    stage.append(ativar, soltar);
+    modo(false);
+  }
 }

@@ -14,6 +14,11 @@
 
 .v3d-card { grid-area: view; overflow: hidden; border-radius: var(--radius-lg); background: var(--white); box-shadow: var(--shadow); }
 .v3d-stage { position: relative; height: clamp(380px, 62vh, 620px); background: radial-gradient(ellipse at 50% 35%, #fffdf7 0%, #f4ecd9 70%, #e9dec4 100%); touch-action: none; }
+@media (pointer: coarse) { .v3d-stage { touch-action: pan-y; } .v3d-stage.v3d-ativo { touch-action: none; } }
+.v3d-touch { position: absolute; z-index: 4; top: 12px; left: 50%; min-height: 44px; padding: 10px 18px; border: 2px solid var(--green-900); border-radius: 999px; color: var(--white); background: var(--green-900); font-weight: 800; white-space: nowrap; transform: translateX(-50%); box-shadow: 0 8px 22px rgba(16, 55, 42, 0.22); cursor: pointer; }
+.v3d-touch-soltar { color: var(--green-900); background: var(--white); }
+body.high-contrast .v3d-touch { color: #000000; background: #ffe100; border-color: #ffe100; }
+.modo-captura .v3d-touch { display: none !important; }
 .v3d-stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
 .v3d-stage canvas:active { cursor: grabbing; }
 .v3d-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
