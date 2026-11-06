@@ -23,7 +23,7 @@
   const itens = [...document.querySelectorAll(ALVOS)].filter((el) => !el.closest(".site-header, .access-dialog"));
   itens.forEach((el) => {
     const irmaos = [...el.parentElement.children].filter((c) => c.matches(ALVOS));
-    el.style.setProperty("--d", `${Math.min(irmaos.indexOf(el), 6) * 70}ms`);
+    el.style.setProperty("--d", `${Math.min(irmaos.indexOf(el), 6) * 50}ms`);
     el.classList.add("rv");
   });
 
@@ -35,10 +35,17 @@
     });
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
   // O que já aparece na tela ao abrir entra logo, sem esperar o observador.
-  itens.forEach((el) => {
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.92) el.classList.add("is-in");
+  // (lê todas as posições antes de mudar classes, para não forçar o navegador a recalcular a cada item)
+  const altura = window.innerHeight * 0.92;
+  const naTela = itens.map((el) => el.getBoundingClientRect().top < altura);
+  itens.forEach((el, i) => {
+    if (naTela[i]) el.classList.add("is-in");
     else revelar.observe(el);
   });
+  // Rede de segurança: nada fica escondido para sempre (impressão, print, aba em segundo plano).
+  const mostrarTudo = () => document.querySelectorAll(".rv:not(.is-in), .hbars:not(.is-in), .stackbar:not(.is-in), .gantt:not(.is-in)").forEach((el) => el.classList.add("is-in"));
+  window.addEventListener("beforeprint", mostrarTudo);
+  if (new URLSearchParams(location.search).has("captura")) mostrarTudo();
 
   // ---------- 2. Barras dos gráficos ----------
   const barras = document.querySelectorAll(".hbars, .stackbar, .gantt");

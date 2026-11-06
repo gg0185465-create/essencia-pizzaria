@@ -175,6 +175,7 @@ button {
 }
 
 .main-nav a {
+  white-space: nowrap;
   color: var(--green-900);
   font-size: 0.88rem;
   font-weight: 750;
@@ -1040,7 +1041,7 @@ footer {
   opacity: 0;
   pointer-events: none;
   transform: translateY(12px);
-  transition: 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .toast.visible {
@@ -1431,4 +1432,90 @@ body.high-contrast .phase p, body.high-contrast .sales-row span, body.high-contr
 }
 @media (prefers-reduced-motion: reduce) {
   .animate-bars .seg, .sales-track i { transition: none; }
+}
+
+/* Títulos equilibrados, parágrafos sem palavra sozinha, números que não "pulam" */
+h1, h2, h3 { text-wrap: balance; }
+p, li, figcaption, dd { text-wrap: pretty; }
+table, .stat strong, .key-numbers dd, .sales-row strong, .price-breakdown, .pizza-price, .cart-item-price, .cart-total, .builder-total, #custom-total, #builder-total, .stepper-value, .v3d-table, .line-legend { font-variant-numeric: tabular-nums; }
+
+/* Faixa de fato concreto no hero */
+.hero-fact {
+  margin: -14px 0 26px;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 700;
+}
+
+.hero-note small {
+  opacity: 0.85;
+}
+
+/* Perguntas das famílias */
+.faq-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: start;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.faq-list details {
+  border: 1px solid rgba(23, 48, 41, 0.14);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.faq-list summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  align-items: center;
+  padding: 14px 20px;
+  color: var(--green-900);
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  color: var(--green-700);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.faq-list details[open] summary::after {
+  content: "−";
+}
+
+.faq-list details p {
+  margin: 0;
+  padding: 0 20px 18px;
+  color: var(--muted);
+}
+
+body.high-contrast .faq-list details {
+  border-color: #ffffff;
+  background: #000000;
+}
+
+body.high-contrast .faq-list summary,
+body.high-contrast .faq-list details p {
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .faq-inner {
+    grid-template-columns: 1fr;
+  }
 }

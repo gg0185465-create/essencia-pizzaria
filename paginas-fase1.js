@@ -104,28 +104,4 @@
     scene.addEventListener("pointercancel", stopDrag);
   }
 
-  // Maquete do espaço (espaco-3d.html)
-  const planScene = document.getElementById("planScene");
-  if (planScene) {
-    const descriptions = {
-      1: "Maquete da cozinha da Fase 1, com as áreas numeradas de 1 a 8 em sentido único, do recebimento até a saída das entregas.",
-      2: "Maquete da Fase 2: a cozinha continua igual e ganha, ao lado, um salão com mesa livre para cadeira de rodas, mais três mesas, banheiro acessível, cantinho de descompressão sensorial e rampa com piso tátil. A área 8 vira balcão de retirada."
-    };
-
-    document.querySelectorAll(".seg-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        const phase = button.dataset.phase;
-        planScene.dataset.phase = phase;
-        planScene.setAttribute("aria-label", descriptions[phase]);
-        document.querySelectorAll(".seg-btn").forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
-      });
-    });
-
-    const viewButton = document.getElementById("toggleView");
-    viewButton.addEventListener("click", () => {
-      const flat = planScene.classList.toggle("flat");
-      viewButton.setAttribute("aria-pressed", String(!flat));
-      viewButton.textContent = flat ? "Ver em 3D" : "Ver como planta";
-    });
-  }
 })();

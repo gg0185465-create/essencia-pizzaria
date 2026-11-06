@@ -14,9 +14,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap">
 <style>
   :root{
-    --green-950:#10372a; --green-800:#174f37; --green-700:#1d6243; --green-100:#e3f0e7;
-    --cream:#fbf8ef; --ink:#19231d; --muted:#5f6962; --line:#d9d2c2; --white:#fff;
-    --yellow:#f2b632; --yellow-soft:#fff3bf; --red:#c84136; --red-soft:#fee8e3; --blue:#2d62a9;
+    --green-950:#10372a; --green-800:#174f37; --green-700:#1d7247; --green-100:#e3f0e7;
+    --cream:#fffaf0; --ink:#19231d; --muted:#5f6962; --line:#d9d2c2; --white:#fff;
+    --yellow:#f2b632; --yellow-soft:#fff3bf; --red:#c8402f; --red-soft:#fee8e3; --blue:#0b5fb0;
     --radius:16px;
   }
   *{box-sizing:border-box}
@@ -149,6 +149,7 @@
   .stk-count{font-weight:900}
 
   @media (min-width:720px){ .row3{grid-template-columns:1fr 130px 48px} }
+  @media (max-width:360px){header.top{flex-wrap:wrap}header.top .see{margin-left:0}}
   .gi-aler{margin:-2px 0 12px}
   .gi-aler summary{cursor:pointer;padding:6px 0;font-size:.84rem;font-weight:700;color:var(--green-700)}
 </style>

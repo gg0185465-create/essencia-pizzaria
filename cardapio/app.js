@@ -44,7 +44,10 @@ function loadMenu() {
 
 let menu = loadMenu();
 
+const AVISO_CRUZADO = 'Retirar um ingrediente não elimina o risco de contato cruzado. Se tiver alergia, escreva na observação e confirme com a equipe.';
+
 const state = {
+  semAlergenos: new Set(),
   cart: readSavedCart(),
   currentPizza: null,
   editingIndex: null,
@@ -128,7 +131,11 @@ function renderMenu() {
       </div>
     </article>`;
 
-  const cards = menu.pizzas.map((pizza, index) => {
+  const visiveis = menu.pizzas
+    .map((pizza, index) => ({ pizza, index }))
+    .filter(({ pizza }) => !(pizza.alergenos || []).some(key => state.semAlergenos.has(key)));
+
+  const cards = visiveis.map(({ pizza, index }) => {
     const fora = acabou(pizza);
     return `
     <article class="pizza-card${fora ? ' sold-out' : ''}" style="--card-accent:${corSegura(pizza.cor)}" data-number="${String(index + 1).padStart(2, '0')}">
@@ -152,7 +159,10 @@ function renderMenu() {
     </article>`;
   }).join('');
 
-  $('#menu-grid').innerHTML = criar + cards;
+  const vazio = visiveis.length ? '' : '<p class="empty-cart filter-empty"><strong>Nenhum sabor sem esses alérgenos.</strong><span>Desmarque um filtro ou monte a sua pizza com os ingredientes que pode comer.</span></p>';
+  // Os sabores vêm primeiro; o "Crie sua pizza" fica no fim, como opção extra.
+  $('#menu-grid').innerHTML = cards + vazio + criar;
+  renderFiltro();
 
   const fora = menu.pizzas.filter(acabou).length;
   const disponiveis = menu.pizzas.length - fora;
@@ -161,6 +171,17 @@ function renderMenu() {
     : `${menu.pizzas.length} sabores + montagem livre`;
   const heroLink = $('#hero-menu-link');
   if (heroLink) heroLink.textContent = fora ? `Ver os ${disponiveis} sabores de hoje` : `Ver os ${menu.pizzas.length} sabores`;
+}
+
+/** Botões "Esconder sabores que contêm" (o glúten fica de fora: toda massa leva trigo). */
+function renderFiltro() {
+  const alvo = $('#allergen-filter-options');
+  if (!alvo) return;
+  const usados = new Set(menu.pizzas.flatMap(p => p.alergenos || []));
+  alvo.innerHTML = Object.keys(ALERGENOS)
+    .filter(key => key !== 'gluten' && usados.has(key))
+    .map(key => `<button type="button" class="filter-chip" data-filtro="${key}" aria-pressed="${state.semAlergenos.has(key)}">${esc(ALERGENOS[key])}</button>`)
+    .join('');
 }
 
 function openDialog(id) {
@@ -315,6 +336,7 @@ function updateCustomizerSummary() {
     ${item.extras.length ? `<p><strong>Adicionais:</strong> ${esc(item.extras.map(extra => extra.name).join(', '))}</p>` : ''}
     ${item.notes ? `<p><strong>Observação:</strong> ${esc(item.notes)}</p>` : ''}
     ${alergenoChips(item.alergenos)}
+    <p class="cross-note">${AVISO_CRUZADO}</p>
   `;
   $('#custom-total').textContent = currency.format(item.price);
 }
@@ -512,6 +534,7 @@ function updateBuilderSummary() {
     ${blocos || '<p class="summary-empty">Nenhum ingrediente escolhido ainda. Use os botões + para montar.</p>'}
     ${item.notes ? `<p><strong>Observação:</strong> ${esc(item.notes)}</p>` : ''}
     ${alergenoChips(item.alergenos)}
+    <p class="cross-note">${AVISO_CRUZADO}</p>
   `;
   $('#builder-total').textContent = currency.format(item.price);
 
@@ -622,7 +645,7 @@ function renderCart() {
         </span>
       </div>
     </article>`;
-  }).join('');
+  }).join('') + `<p class="cross-note">${AVISO_CRUZADO}</p>`;
 
   $('strong', totalArea).textContent = currency.format(cartTotal());
   totalArea.hidden = checkout.hidden = confirm.hidden = speakBtn.hidden = false;
@@ -665,7 +688,7 @@ function confirmOrder() {
   const code = `ESS-${Math.floor(1000 + Math.random() * 9000)}`;
   state.orderText = `Pedido ${code} — ${name}\n${cartText()}\nRecebimento: ${service}. Pagamento: ${payment}.\nTotal: ${currency.format(cartTotal())}.`;
   $('#order-code').textContent = code;
-  $('#success-message').textContent = `${name}, seu pedido foi revisado. Este protótipo não realiza cobrança real.`;
+  $('#success-message').textContent = `${name}, seu pedido foi revisado. Se alguém tem alergia, confirme com a equipe ao receber a ligação ou a mensagem. Este protótipo não realiza cobrança real.`;
   closeDialog('cart-dialog');
   openDialog('success-dialog');
 }
@@ -766,6 +789,17 @@ function openVLibras() {
 document.addEventListener('click', (event) => {
   const customize = event.target.closest('[data-pizza]');
   if (customize) openCustomizer(customize.dataset.pizza);
+
+  const filtro = event.target.closest('[data-filtro]');
+  if (filtro) {
+    const key = filtro.dataset.filtro;
+    if (state.semAlergenos.has(key)) state.semAlergenos.delete(key);
+    else state.semAlergenos.add(key);
+    renderMenu();
+    const n = $$('#menu-grid .pizza-card:not(.build-card)').length;
+    showToast(state.semAlergenos.size ? `${n} sabores sem ${[...state.semAlergenos].map(k => ALERGENOS[k].toLowerCase()).join(', ')}.` : 'Filtro desligado: todos os sabores.');
+    $(`[data-filtro="${key}"]`)?.focus();
+  }
 
   const listen = event.target.closest('[data-listen-pizza]');
   if (listen) {

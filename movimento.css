@@ -5,23 +5,23 @@
 }
 
 /* Entradas ao rolar: só escondem quando o script está ativo */
-.mv .rv { opacity: 0; transform: translateY(18px); transition: opacity 600ms var(--ease-out) var(--d, 0ms), transform 700ms var(--ease-out) var(--d, 0ms); }
+.mv .rv { opacity: 0; transform: translateY(12px); transition: opacity 450ms var(--ease-out) var(--d, 0ms), transform 450ms var(--ease-out) var(--d, 0ms); }
 .mv .rv.is-in { opacity: 1; transform: none; }
 
 /* Barras horizontais do plano crescem da esquerda */
 .plano-page .hbars i { position: relative; overflow: hidden; background: #e8e2d2 !important; }
-.plano-page .hbars i::before { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--v) * 1%); border-radius: 4px; background: var(--bar, var(--c1)); transform-origin: left center; transition: transform 1000ms var(--ease-out); }
+.plano-page .hbars i::before { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--v) * 1%); border-radius: 4px; background: var(--bar, var(--c1)); transform-origin: left center; transition: transform 700ms var(--ease-out); }
 .plano-page .hbars.cap i::before { --bar: var(--c3); }
 .plano-page .hbars.cap li:first-child i::before { --bar: var(--c2); }
 .plano-page .hbars.cap li.max i::before { background: repeating-linear-gradient(135deg, #9aa8a2 0 4px, #c9d1cd 4px 8px); }
-.plano-page .hbars li:nth-child(2) i::before { transition-delay: 70ms; }
-.plano-page .hbars li:nth-child(3) i::before { transition-delay: 140ms; }
-.plano-page .hbars li:nth-child(4) i::before { transition-delay: 210ms; }
-.plano-page .hbars li:nth-child(5) i::before { transition-delay: 280ms; }
-.plano-page .hbars li:nth-child(6) i::before { transition-delay: 350ms; }
-.plano-page .hbars li:nth-child(7) i::before { transition-delay: 420ms; }
-.plano-page .hbars li:nth-child(8) i::before { transition-delay: 490ms; }
-.plano-page .hbars li:nth-child(9) i::before { transition-delay: 560ms; }
+.plano-page .hbars li:nth-child(2) i::before { transition-delay: 50ms; }
+.plano-page .hbars li:nth-child(3) i::before { transition-delay: 100ms; }
+.plano-page .hbars li:nth-child(4) i::before { transition-delay: 150ms; }
+.plano-page .hbars li:nth-child(5) i::before { transition-delay: 200ms; }
+.plano-page .hbars li:nth-child(6) i::before { transition-delay: 250ms; }
+.plano-page .hbars li:nth-child(7) i::before { transition-delay: 300ms; }
+.plano-page .hbars li:nth-child(8) i::before { transition-delay: 350ms; }
+.plano-page .hbars li:nth-child(9) i::before { transition-delay: 400ms; }
 .mv .hbars:not(.is-in) i::before { transform: scaleX(0); }
 
 /* Barra empilhada do preço */
@@ -32,7 +32,7 @@
 .mv .stackbar:not(.is-in) span { transform: scaleX(0.2); opacity: 0; }
 
 /* Cronograma */
-.g-row i { transform-origin: left center; transition: transform 900ms var(--ease-out); }
+.g-row i { transform-origin: left center; transition: transform 700ms var(--ease-out); }
 .g-row em { transition: transform 400ms var(--ease-out), opacity 300ms ease; }
 .g-row:nth-child(3) i { transition-delay: 80ms; }
 .g-row:nth-child(4) i { transition-delay: 160ms; }
@@ -56,7 +56,7 @@
     transition: transform 220ms var(--ease-out), box-shadow 220ms ease;
   }
   .mv .plano-page .card.rv.is-in, .mv .feature-card.rv.is-in, .mv .phase.rv.is-in, .mv .key-numbers > div.rv.is-in {
-    transition: opacity 600ms var(--ease-out) var(--d, 0ms), transform 220ms var(--ease-out), box-shadow 220ms ease;
+    transition: opacity 450ms var(--ease-out) var(--d, 0ms), transform 220ms var(--ease-out), box-shadow 220ms ease;
   }
   .plano-page .card:hover, .feature-card:hover, .phase:hover, .checklist a:hover {
     transform: translateY(-4px);
@@ -71,12 +71,12 @@
 .button, .menu-button, .checklist a, .seg-btn { -webkit-tap-highlight-color: transparent; }
 .button:active, .menu-button:active, .checklist a:active, .seg-btn:active { transform: scale(0.97); }
 
-/* Pizza girando devagar no topo do plano (decoração) */
+/* Pizza parada no topo do plano (decoração; não gira mais) */
 .plano-page .sub-hero { position: relative; overflow: hidden; }
 .plano-page .sub-hero::after {
   content: ""; position: absolute; z-index: 0; right: -90px; top: 50%; width: clamp(240px, 34vw, 440px); aspect-ratio: 1;
   background: url("assets/logo-essencia-marca.svg") center / contain no-repeat; opacity: 0.13;
-  transform: translateY(-50%); animation: girar 60s linear infinite; pointer-events: none;
+  transform: translateY(-50%); pointer-events: none;
 }
 .plano-page .sub-hero .container { position: relative; z-index: 1; }
 @keyframes girar { to { transform: translateY(-50%) rotate(360deg); } }
@@ -95,6 +95,12 @@
 .spy-progress { height: 3px; background: rgba(16, 55, 42, 0.08); }
 .spy-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--green-700), var(--yellow), var(--blue), var(--red)); transform: scaleX(0); transform-origin: left center; }
 
+/* Diálogos entram com um fade curto (a saída é imediata) */
+dialog[open] { animation: entrar-dialogo 200ms var(--ease-out); }
+dialog[open]::backdrop { animation: entrar-fundo 200ms ease; }
+@keyframes entrar-dialogo { from { opacity: 0; transform: translateY(8px) scale(0.97); } }
+@keyframes entrar-fundo { from { opacity: 0; } }
+
 /* Acessibilidade: modo foco e menos movimento */
 body.focus-mode .rv, body.focus-mode .stackbar span, body.focus-mode .g-row i, body.focus-mode .g-row em, body.focus-mode .hbars i::before { opacity: 1 !important; transform: none !important; }
 body.focus-mode.plano-page .sub-hero::after { display: none; }
@@ -104,6 +110,7 @@ body.high-contrast .plano-spy a[aria-current="true"] { color: #000000; backgroun
 @media (prefers-reduced-motion: reduce) {
   .mv .rv, .mv .stackbar span, .mv .g-row i, .mv .g-row em, .mv .hbars i::before { opacity: 1 !important; transform: none !important; transition: opacity 200ms ease !important; }
   .plano-page .sub-hero::after { animation: none; }
+  dialog[open], dialog[open]::backdrop { animation-name: entrar-fundo; animation-duration: 150ms; }
   .flow li.lit b { transform: none; }
 }
 @media (max-width: 560px) { .plano-spy a span { display: none; } .plano-spy a { padding: 6px 8px; } }

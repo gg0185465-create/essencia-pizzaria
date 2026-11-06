@@ -88,10 +88,16 @@
           <div>
             <p class="eyebrow" id="menu-count">Pizza grande · 8 fatias</p>
             <h2 id="menu-title">Escolha um sabor ou monte o seu</h2>
-            <p>Os ingredientes aparecem antes de você adicionar ao pedido.</p>
+            <p>Veja cada ingrediente e alérgeno antes de pedir.</p>
           </div>
           <button class="quiet-button speak-button" type="button" data-speak="menu">Ouvir sabores e preços</button>
         </div>
+
+        <fieldset class="allergen-filter" id="allergen-filter">
+          <legend>Esconder sabores que contêm:</legend>
+          <div class="allergen-filter-options" id="allergen-filter-options"></div>
+          <p class="allergen-filter-note">Toda massa leva trigo (glúten). Retirar um ingrediente não elimina o risco de contato cruzado.</p>
+        </fieldset>
 
         <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
       </section>

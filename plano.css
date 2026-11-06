@@ -1,5 +1,5 @@
 /* Página do plano de negócios (plano.html) */
-.plano-page { --c1: #1d7247; --c2: #b07a00; --c3: #0b5fb0; --c4: #c8402f; }
+.plano-page { --c1: var(--green-700); --c2: #b07a00; --c3: var(--blue); --c4: var(--red); }
 .plano-page .section { padding-block: clamp(40px, 6vw, 72px); }
 .plano-block.alt { background: var(--cream-deep); }
 .plano-page .card { padding: clamp(18px, 3vw, 28px); border-radius: var(--radius-md); background: var(--white); box-shadow: var(--shadow); }
@@ -204,4 +204,7 @@ body.high-contrast.plano-page .field { color: #ffffff; background: #000000; bord
   .score-row { grid-template-columns: 1fr; }
 }
 body.high-contrast .checklist b, body.high-contrast.plano-page .block-num, body.high-contrast.plano-page .flow b { color: #000000; background: #ffe600; }
-.s5 { background: #744a91; }
+.s5 { background: var(--purple); }
+.conclusion-card { border-left: 8px solid var(--green-700); }
+.conclusion-card h2 { margin: 0 0 14px; font-size: clamp(1.5rem, 3vw, 2.1rem); }
+body.high-contrast .conclusion-card { border-left-color: #ffe100; }
