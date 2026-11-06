@@ -856,3 +856,6 @@ table, .stat strong, .key-numbers dd, .sales-row strong, .price-breakdown, .pizz
 body.high-contrast .allergen-filter, body.high-contrast .filter-chip { color: #000000; background: #ffffff; border-color: #000000; }
 body.high-contrast .filter-chip[aria-pressed="true"] { color: #ffffff; background: #000000; }
 body.high-contrast .cross-note { color: #000000; background: #ffffff; border-left-color: #000000; }
+/* "incluído" no resumo escuro do montador (contraste 2,3:1 → claro) */
+#builder-summary .summary-list li span { color: #d7e4dc; }
+body.high-contrast #builder-summary .summary-list li span { color: inherit; }
