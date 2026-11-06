@@ -43,6 +43,11 @@ body.large-text {
   --base-size: 19px;
 }
 
+/* "Texto maior" também aumenta o que é medido em rem (títulos, cards, tabelas). */
+html:has(body.large-text) {
+  font-size: 118.75%;
+}
+
 body.focus-mode * {
   animation: none !important;
   transition: none !important;
@@ -1100,6 +1105,17 @@ body.high-contrast .belief blockquote {
 
 body.high-contrast .learning-note {
   background: #151515;
+}
+
+/* O botão de acessibilidade continuava branco com letra branca. */
+body.high-contrast .access-button {
+  color: #ffffff;
+  background: #000000;
+  border: 2px solid #ffffff;
+}
+
+body.high-contrast .access-button span {
+  color: #ffe100;
 }
 
 @media (max-width: 1060px) {

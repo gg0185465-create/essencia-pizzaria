@@ -21,11 +21,21 @@ const ALERGENOS = {
    1. Se o painel (admin.html) salvou uma versao neste aparelho, usa ela.
    2. Senao, usa o menu-dados.js publicado no GitHub.
    -------------------------------------------------------------------------- */
+/** Confere se um cardápio tem tudo o que as telas usam (evita página em branco). */
+function menuValido(m) {
+  const lista = (x) => Array.isArray(x);
+  return !!(m && lista(m.pizzas) && m.pizzas.length
+    && m.pizzas.every(p => p && typeof p.id === 'string' && typeof p.nome === 'string' && Number.isFinite(Number(p.preco)) && lista(p.ingredientes))
+    && lista(m.adicionais) && lista(m.bordas) && lista(m.massas) && lista(m.pontos)
+    && m.montagem && lista(m.montagem.grupos) && m.receitaBase && lista(m.receitaBase.massa) && lista(m.receitaBase.passos));
+}
+
 function loadMenu() {
   const padrao = window.MENU_ESSENCIA;
   try {
     const local = JSON.parse(localStorage.getItem('essencia-menu') || 'null');
-    if (local && Array.isArray(local.pizzas) && local.pizzas.length) return local;
+    if (menuValido(local)) return local;
+    if (local) console.warn('Cardápio salvo no aparelho está incompleto. Usando o publicado.');
   } catch (error) {
     console.warn('Cardápio salvo no aparelho está inválido. Usando o publicado.', error);
   }
@@ -55,7 +65,11 @@ function esc(value) {
 function readSavedCart() {
   try {
     const saved = JSON.parse(localStorage.getItem('essencia-cart') || '[]');
-    return Array.isArray(saved) ? saved : [];
+    if (!Array.isArray(saved)) return [];
+    // Só aceita itens completos (um pedido salvo por uma versão antiga não quebra a página).
+    return saved.filter(item => item && typeof item.name === 'string' && Number.isFinite(item.price)
+      && Number.isInteger(item.quantity) && item.quantity > 0
+      && Array.isArray(item.kept) && Array.isArray(item.removed) && Array.isArray(item.extras));
   } catch {
     return [];
   }
@@ -78,6 +92,11 @@ function showToast(message) {
   showToast.timer = setTimeout(() => toast.classList.remove('show'), 3200);
 }
 
+/** Cor do card: só aceita #rrggbb. */
+function corSegura(cor) {
+  return /^#[0-9a-f]{6}$/i.test(cor || '') ? cor : '#1d7247';
+}
+
 /** Item marcado como "acabou" no painel. */
 function acabou(item) {
   return !!(item && item.esgotado === true);
@@ -85,7 +104,7 @@ function acabou(item) {
 
 function alergenoChips(lista = []) {
   if (!lista.length) return '';
-  return `<p class="allergen-chips" aria-label="Contém: ${esc(lista.map(key => ALERGENOS[key] || key).join(', '))}">
+  return `<p class="allergen-chips" role="group" aria-label="Contém: ${esc(lista.map(key => ALERGENOS[key] || key).join(', '))}">
     <span class="allergen-label" aria-hidden="true">Contém</span>
     ${lista.map(key => `<span class="allergen-chip" aria-hidden="true">${esc(ALERGENOS[key] || key)}</span>`).join('')}
   </p>`;
@@ -112,7 +131,7 @@ function renderMenu() {
   const cards = menu.pizzas.map((pizza, index) => {
     const fora = acabou(pizza);
     return `
-    <article class="pizza-card${fora ? ' sold-out' : ''}" style="--card-accent:${esc(pizza.cor || '#1d7247')}" data-number="${String(index + 1).padStart(2, '0')}">
+    <article class="pizza-card${fora ? ' sold-out' : ''}" style="--card-accent:${corSegura(pizza.cor)}" data-number="${String(index + 1).padStart(2, '0')}">
       <div class="pizza-meta">
         <span class="pizza-tag">${fora ? 'Acabou hoje' : esc(pizza.tag || 'Sabor')}</span>
         <strong class="pizza-price">${currency.format(pizza.preco)}</strong>
@@ -126,7 +145,7 @@ function renderMenu() {
       ${fora ? '<p class="sold-out-flag"><span aria-hidden="true">✕</span> Hoje não temos esta pizza</p>' : alergenoChips(pizza.alergenos)}
       <div class="card-actions">
         <button class="button primary customize-card" type="button" data-pizza="${esc(pizza.id)}" ${fora ? 'disabled' : ''}>
-          ${fora ? 'Indisponível hoje' : 'Ver e personalizar'}
+          ${fora ? 'Indisponível hoje' : 'Ver e personalizar'}<span class="sr-only"> ${esc(pizza.nome)}</span>
         </button>
         <button class="button listen-card" type="button" data-listen-pizza="${esc(pizza.id)}" aria-label="Ouvir detalhes da pizza ${esc(pizza.nome)}">▶</button>
       </div>
@@ -403,7 +422,7 @@ function openBuilder(existingItem = null, index = null) {
 
   $('#builder-notes').value = existingItem?.notes || '';
   $('#builder-notes-count').textContent = `${$('#builder-notes').value.length}/240`;
-  $('#add-builder').textContent = existingItem ? 'Salvar alterações' : 'Adicionar ao pedido';
+  $('#add-builder').textContent = index !== null ? 'Salvar alterações' : 'Adicionar ao pedido';
   updateBuilderSummary();
   openDialog('builder-dialog');
 }
@@ -527,6 +546,35 @@ function addBuilderToCart() {
    PEDIDO
    ========================================================================== */
 
+/** Pizza do pedido que acabou hoje ou saiu do cardápio. */
+function itemIndisponivel(item) {
+  if (item.custom) return false;
+  const pizza = menu.pizzas.find(p => p.id === item.pizzaId);
+  return !pizza || acabou(pizza);
+}
+
+/** Recalcula o preço com o cardápio de agora (um pedido salvo pode ter preço antigo). */
+function atualizarPrecos() {
+  state.cart.forEach(item => {
+    if (item.custom) return;
+    const pizza = menu.pizzas.find(p => p.id === item.pizzaId);
+    if (!pizza) return;
+    const borda = menu.bordas.find(b => b.nome === item.crust);
+    const crustPrice = Number(borda ? borda.preco : item.crustPrice) || 0;
+    const extras = item.extras.reduce((soma, extra) => {
+      const dado = menu.adicionais.find(a => a.nome === extra.name);
+      return soma + (Number(dado ? dado.preco : extra.price) || 0);
+    }, 0);
+    item.basePrice = pizza.preco;
+    item.crustPrice = crustPrice;
+    item.price = pizza.preco + crustPrice + extras;
+  });
+}
+
+function cartTotal() {
+  return state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+}
+
 function renderCartCount() {
   const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
   $('#cart-count').textContent = count;
@@ -546,8 +594,9 @@ function renderCart() {
     return;
   }
 
+  atualizarPrecos();
   items.innerHTML = state.cart.map((item, index) => {
-    const pizzaFora = !item.custom && acabou(menu.pizzas.find(p => p.id === item.pizzaId));
+    const pizzaFora = itemIndisponivel(item);
     return `
     <article class="cart-item ${item.custom ? 'cart-item-custom' : ''}${pizzaFora ? ' cart-item-out' : ''}">
       <div class="cart-item-top">
@@ -557,7 +606,7 @@ function renderCart() {
         </div>
         <strong class="cart-item-price">${currency.format(item.price * item.quantity)}</strong>
       </div>
-      ${pizzaFora ? '<p class="sold-out-flag"><span aria-hidden="true">✕</span> Este sabor acabou. Remova para continuar.</p>' : ''}
+      ${pizzaFora ? '<p class="sold-out-flag"><span aria-hidden="true">✕</span> Este sabor não está disponível hoje. Remova para continuar.</p>' : ''}
       ${item.kept.length ? `<p><strong>${item.custom ? 'Ingredientes escolhidos:' : 'Mantidos:'}</strong> ${esc(item.kept.join(', '))}</p>` : ''}
       ${item.removed.length ? `<p><strong>Sem:</strong> ${esc(item.removed.join(', '))}</p>` : ''}
       ${item.extras.length ? `<p><strong>Adicionais:</strong> ${esc(item.extras.map(extra => extra.name).join(', '))}</p>` : ''}
@@ -575,19 +624,18 @@ function renderCart() {
     </article>`;
   }).join('');
 
-  const total = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  $('strong', totalArea).textContent = currency.format(total);
+  $('strong', totalArea).textContent = currency.format(cartTotal());
   totalArea.hidden = checkout.hidden = confirm.hidden = speakBtn.hidden = false;
 
   // Não deixa fechar pedido com sabor que acabou.
-  const temEsgotado = state.cart.some(item =>
-    !item.custom && acabou(menu.pizzas.find(p => p.id === item.pizzaId)));
+  const temEsgotado = state.cart.some(itemIndisponivel);
   confirm.disabled = temEsgotado;
   confirm.textContent = temEsgotado ? 'Remova o item esgotado para confirmar' : 'Confirmar pedido';
 }
 
 function cartText() {
   if (!state.cart.length) return 'Seu pedido está vazio.';
+  atualizarPrecos();
   const lines = state.cart.map((item, index) => {
     const changes = [
       item.custom
@@ -598,8 +646,7 @@ function cartText() {
     ].filter(Boolean).join('. ');
     return `${index + 1}. ${item.quantity} ${item.name}. Massa ${item.dough}, ${item.bake}, borda ${item.crust}. ${changes}. Total ${currency.format(item.price * item.quantity)}.`;
   });
-  const total = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  return `${lines.join(' ')} Total do pedido: ${currency.format(total)}.`;
+  return `${lines.join(' ')} Total do pedido: ${currency.format(cartTotal())}.`;
 }
 
 function confirmOrder() {
@@ -609,11 +656,14 @@ function confirmOrder() {
     showToast('Digite um nome para identificar o pedido.');
     return;
   }
-  const service = $('input[name="service"]:checked')?.value || 'Comer no local';
+  if (state.cart.some(itemIndisponivel)) {
+    showToast('Remova o item que não está disponível para confirmar.');
+    return;
+  }
+  const service = $('input[name="service"]:checked')?.value || 'Entrega';
   const payment = $('input[name="payment"]:checked')?.value || 'Pix';
   const code = `ESS-${Math.floor(1000 + Math.random() * 9000)}`;
-  const total = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  state.orderText = `Pedido ${code} — ${name}\n${cartText()}\nRecebimento: ${service}. Pagamento: ${payment}.\nTotal: ${currency.format(total)}.`;
+  state.orderText = `Pedido ${code} — ${name}\n${cartText()}\nRecebimento: ${service}. Pagamento: ${payment}.\nTotal: ${currency.format(cartTotal())}.`;
   $('#order-code').textContent = code;
   $('#success-message').textContent = `${name}, seu pedido foi revisado. Este protótipo não realiza cobrança real.`;
   closeDialog('cart-dialog');
@@ -744,6 +794,10 @@ document.addEventListener('click', (event) => {
   if (edit) {
     const index = Number(edit.dataset.editItem);
     const item = state.cart[index];
+    if (itemIndisponivel(item)) {
+      showToast('Este sabor não está disponível hoje. Remova do pedido ou escolha outro.');
+      return;
+    }
     closeDialog('cart-dialog');
     if (item.custom) openBuilder(item, index);
     else openCustomizer(item.pizzaId, item, index);
@@ -760,7 +814,7 @@ document.addEventListener('click', (event) => {
   const quantity = event.target.closest('[data-quantity]');
   if (quantity) {
     const index = Number(quantity.dataset.index);
-    state.cart[index].quantity = Math.max(1, state.cart[index].quantity + Number(quantity.dataset.quantity));
+    state.cart[index].quantity = Math.min(20, Math.max(1, state.cart[index].quantity + Number(quantity.dataset.quantity)));
     saveCart();
     renderCart();
   }
@@ -817,6 +871,11 @@ $('#toggle-font').addEventListener('click', () => setPreference('font', $('#togg
 $('#toggle-contrast').addEventListener('click', () => setPreference('contrast', $('#toggle-contrast').getAttribute('aria-pressed') !== 'true'));
 $('#toggle-focus').addEventListener('click', () => setPreference('focus', $('#toggle-focus').getAttribute('aria-pressed') !== 'true'));
 $('#confirm-order').addEventListener('click', confirmOrder);
+// Enter no campo do nome confirma o pedido (antes fechava a janela sem confirmar).
+$('#customer-name').form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (!$('#confirm-order').hidden && !$('#confirm-order').disabled) confirmOrder();
+});
 
 $('#copy-order').addEventListener('click', async () => {
   try {

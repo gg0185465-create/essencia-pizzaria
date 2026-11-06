@@ -596,12 +596,12 @@ if (new URLSearchParams(location.search).has("captura")) { document.body.classLi
 const botoes = { top: $("btnTop"), med: $("btnMeasures"), flow: $("btnFlow"), pes: $("btnPerson"), lid: $("btnLid"), slice: $("btnSlice"), spin: $("btnSpin"), reset: $("btnReset") };
 botoes.spin.setAttribute("aria-pressed", String(girar));
 let tweens = [];
-const tween = (dur, passo, fim) => { if (calmo() || dur === 0) { passo(1); fim && fim(); return; } tweens.push({ t0: performance.now(), dur, passo, fim }); };
+const tween = (dur, passo, fim, camera = false) => { if (calmo() || dur === 0) { passo(1); fim && fim(); return; } tweens.push({ t0: performance.now(), dur, passo, fim, camera }); };
 const suave = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 function moverCamera(pos, alvo, dur = 900) {
   const p0 = camera.position.clone(), a0 = controls.target.clone();
-  tween(dur, (k) => { const e = suave(k); camera.position.lerpVectors(p0, pos, e); controls.target.lerpVectors(a0, alvo, e); });
+  tween(dur, (k) => { const e = suave(k); camera.position.lerpVectors(p0, pos, e); controls.target.lerpVectors(a0, alvo, e); }, null, true);
 }
 function casa(dur = 900) {
   const v = VISTAS[atual];
@@ -753,7 +753,7 @@ botoes.slice.addEventListener("click", () => {
 });
 botoes.spin.addEventListener("click", () => { girar = !girar; botoes.spin.setAttribute("aria-pressed", String(girar)); });
 botoes.reset.addEventListener("click", () => { selecionar(-1); info.hidden = true; casa(); });
-if (controls) controls.addEventListener("start", () => { if (girar) { girar = false; botoes.spin.setAttribute("aria-pressed", "false"); } tweens = []; });
+if (controls) controls.addEventListener("start", () => { if (girar) { girar = false; botoes.spin.setAttribute("aria-pressed", "false"); } tweens = tweens.filter((tw) => !tw.camera); });
 
 // ---------- Tamanho e laço de desenho ----------
 function tamanho() {

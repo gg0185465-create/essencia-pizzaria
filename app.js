@@ -16,7 +16,7 @@
     intro: "Essência Pizzaria. Uma pizzaria onde todos podem participar da escolha. O Essência nasceu para unir famílias à mesa com mais previsibilidade, autonomia e acolhimento. Feita com cuidado, servida com propósito.",
     origem: "A Essência nasceu de uma ausência. Percebemos que sair para comer ainda pode ser uma experiência difícil para pessoas com deficiência, autismo, TDAH, seletividade alimentar, disfagia e outras necessidades sensoriais. A nossa ideia nasceu da vontade de mudar essa experiência desde o primeiro contato com o cardápio.",
     jornada: "A ideia cresceu quando começamos a escutar. Primeiro, fizemos pesquisa e escuta. Depois construímos a proposta e criamos o primeiro protótipo do cardápio. O feedback mostrou o que precisava ser explicado melhor. Agora reunimos a história, o propósito e a demonstração completa da experiência.",
-    cta: "Acesse nossa demonstração de cardápio aqui. Conheça os sete sabores, altere ingredientes e complementos, escolha o ponto da pizza, escreva observações e teste os recursos de acessibilidade."
+    cta: "Acesse nossa demonstração de cardápio aqui. Conheça todos os sabores, altere ingredientes e complementos, escolha o ponto da pizza, escreva observações e teste os recursos de acessibilidade."
   };
 
   let toastTimer;
@@ -83,10 +83,10 @@
   $("#openAccessibility").addEventListener("click", () => dialog.showModal());
   $("#closeAccessibility").addEventListener("click", () => dialog.close());
 
+  // Fecha só no clique do fundo escuro. (Antes usava as coordenadas do clique, e um
+  // botão acionado pelo teclado chega com 0,0 e fechava a janela a cada opção.)
   dialog.addEventListener("click", (event) => {
-    const bounds = dialog.getBoundingClientRect();
-    const inside = event.clientX >= bounds.left && event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom;
-    if (!inside) dialog.close();
+    if (event.target === dialog) dialog.close();
   });
 
   $$(".speech-trigger").forEach((button) => {

@@ -2,7 +2,8 @@
   "use strict";
 
   const brl = (n, dec = 2) => "R$ " + n.toLocaleString("pt-BR", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-  const ALERGENOS = { leite: "leite", gluten: "glúten", ovo: "ovo", peixe: "peixe", crustaceo: "crustáceo", soja: "soja" };
+  const ALERGENOS = { leite: "leite", gluten: "glúten", ovo: "ovo", peixe: "peixe", crustaceo: "crustáceo", soja: "soja", amendoim: "amendoim", castanhas: "castanhas" };
+  const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   // ---------- Preços e ficha técnica (lidos do cardápio) ----------
   const menu = window.MENU_ESSENCIA;
@@ -24,10 +25,10 @@
 
     const render = () => {
       const p = pizzas.find((x) => x.id === select.value) || pizzas[0];
-      const linhas = (p.ingredientes || []).map(([nome, qtd]) => `<tr><th scope="row">${nome}</th><td>${qtd}</td></tr>`).join("");
-      const alerg = (p.alergenos || []).map((a) => ALERGENOS[a] || a).join(", ") || "nenhum informado";
+      const linhas = (p.ingredientes || []).map(([nome, qtd]) => `<tr><th scope="row">${esc(nome)}</th><td>${esc(qtd)}</td></tr>`).join("");
+      const alerg = esc((p.alergenos || []).map((a) => ALERGENOS[a] || a).join(", ") || "nenhum informado");
       out.innerHTML = `
-        <div class="ficha-head"><strong>${p.nome}</strong><span>${brl(p.preco)}</span></div>
+        <div class="ficha-head"><strong>${esc(p.nome)}</strong><span>${brl(p.preco)}</span></div>
         <div class="table-wrap"><table class="compact"><thead><tr><th scope="col">Ingrediente</th><th scope="col">Quantidade</th></tr></thead><tbody>${linhas}</tbody></table></div>
         <p class="alerg"><strong>Contém:</strong> ${alerg}. Pode haver contato cruzado na cozinha.</p>`;
     };

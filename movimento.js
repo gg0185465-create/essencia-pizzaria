@@ -127,18 +127,23 @@
     const links = [...spy.querySelectorAll("a")];
     const secoes = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
     const barra = spy.querySelector(".spy-progress i");
+    const lista = spy.querySelector("ol");
+    let ultimo = -1;
     const marcar = () => {
       const meio = window.innerHeight * 0.35;
       let atual = 0;
       secoes.forEach((s, i) => { if (s.getBoundingClientRect().top < meio) atual = i; });
-      links.forEach((a, i) => {
-        if (i === atual) a.setAttribute("aria-current", "true");
-        else a.removeAttribute("aria-current");
-      });
-      const ativo = links[atual];
-      if (ativo && spy.scrollWidth > spy.clientWidth) {
-        const lista = spy.querySelector("ol");
-        lista.scrollTo({ left: ativo.offsetLeft - 16, behavior: calmo() ? "auto" : "smooth" });
+      if (atual !== ultimo) {
+        ultimo = atual;
+        links.forEach((a, i) => {
+          if (i === atual) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
+        const ativo = links[atual];
+        // Quem rola é a lista (<ol>), não a barra inteira.
+        if (ativo && lista && lista.scrollWidth > lista.clientWidth) {
+          lista.scrollTo({ left: ativo.offsetLeft - 16, behavior: calmo() ? "auto" : "smooth" });
+        }
       }
       const ini = secoes[0].getBoundingClientRect().top + window.scrollY - meio;
       const fim = secoes[secoes.length - 1].getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
