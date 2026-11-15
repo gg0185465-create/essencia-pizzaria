@@ -1617,3 +1617,6 @@ body.high-contrast .seguranca-links .button {
     grid-template-columns: 1fr;
   }
 }
+
+/* Âncoras do menu não ficam escondidas atrás do cabeçalho fixo */
+main [id] { scroll-margin-top: 96px; }

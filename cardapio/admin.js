@@ -122,7 +122,7 @@
             '<label class="f"><span>Preço (R$)</span><input type="number" min="0" step="0.1" inputmode="decimal" data-f="preco" value="' + Number(p.preco) + '" /></label>' +
           '</div>' +
           '<div class="row">' +
-            '<label class="f"><span>Etiqueta</span><input type="text" data-f="tag" value="' + esc(p.tag || '') + '" placeholder="Clássica, Cremosa..." /></label>' +
+            '<label class="f"><span>Etiqueta</span><input type="text" data-f="tag" value="' + esc(p.tag || '') + '" placeholder="Clássica, Cremosa…" /></label>' +
             '<label class="f"><span>Cor</span><select data-f="cor">' +
               CORES.map(function (c) {
                 return '<option value="' + c[0] + '"' + ((p.cor || '') === c[0] ? ' selected' : '') + '>' + c[1] + '</option>';

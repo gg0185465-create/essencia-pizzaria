@@ -2,13 +2,49 @@ ESSENCIA PIZZARIA — PROJETO COMPLETO
 ====================================================================
 
 
+ATUALIZACAO DE 15/11/2026: SITE DO CLIENTE SEPARADO DO PLANO
+--------------------------------------------------------------------
+
+Pedido da professora (audio de 06/11): "O cliente nao precisa saber
+sobre layout, nao precisa saber sobre custos, ele so precisa saber o
+que e a empresa e qual e o cardapio."
+
+1. SITE DO CLIENTE (index.html, cardapio/, embalagem-3d.html)
+   Sairam da pagina inicial as secoes "Nossa jornada" e "Viabilidade"
+   (custos, investimento, fases, retirada dos socios), o link "Plano
+   de negocios" do menu e a pergunta "Por que a pizza custa o que
+   custa?". O menu agora tem: Nossa origem, Como funciona, Seguranca
+   alimentar e Perguntas. Os textos falam com o cliente, sem "Fase 1".
+
+2. AREA DO TCC (plano.html, espaco-3d.html)
+   Continuam no ar para a apresentacao, com uma faixa amarela avisando
+   que nao fazem parte do site do cliente, e com "noindex" para nao
+   aparecer no Google. Sairam do sitemap. O site do cliente nao tem
+   mais link para elas. Endereco direto: <site>/plano.html
+
+3. DADOS ATUALIZADOS
+   Pesquisa com 20 respostas (antes 14) na pagina inicial e no plano.
+   Funcoes: Gabriela Chagas no caixa, Victor atendente/garcom.
+
+4. ACESSIBILIDADE (revisao Web Interface Guidelines)
+   Foco visivel nos campos do painel, rotulo do logo igual ao texto da
+   tela, ancoras abaixo do cabecalho fixo, medidas nas imagens do logo
+   e reticencias corretas (…).
+
+ARQUIVOS: index.html, plano.html, espaco-3d.html, embalagem-3d.html,
+cardapio/index.html, cardapio/admin.html, cardapio/admin.js,
+styles.css, sitemap.xml, LEIA-ME.txt. Precos do cardapio NAO mudaram.
+A URL e o QR Code continuam os mesmos.
+
+
 ATUALIZACAO DE 05/11/2026 (TARDE): 6 SOCIOS, PLANILHA E PLANTA DO GRUPO
 --------------------------------------------------------------------
 
 1. SEIS SOCIOS
    Ana Luiza (gerente), Gabriela Souza (chef pizzaiola), Debora
-   (auxiliar de cozinha), Victor Brunno (caixa e marketing), Gabriela
-   Chagas (atendente) e Mateus (entregador).
+   (auxiliar de cozinha), Gabriela Chagas (caixa), Victor Brunno
+   (atendente/garcom, site e redes) e Mateus (entregador).
+   [Corrigido em 15/11/2026 conforme o TCC.]
 
 2. PLANILHA "GASTOS MENSAIS DO ESSENCIA" NO PLANO (plano.html)
    A tabela de gastos do grupo, com as fontes, e a retirada de cada
